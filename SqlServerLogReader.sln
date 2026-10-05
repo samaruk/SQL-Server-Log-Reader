@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F6656018-930A-4EA3-92B2-6F06121356FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlLogReader.Core", "src\SqlLogReader.Core\SqlLogReader.Core.csproj", "{E0A0EF17-1C5C-43CC-A3B1-FE5487FE5175}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlLogReader.Cli", "src\SqlLogReader.Cli\SqlLogReader.Cli.csproj", "{E067ED38-C074-4D98-98CB-41A3B15D48BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8FC3FE0E-FE39-4AC9-9A48-3C62610FCA2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlLogReader.Tests", "tests\SqlLogReader.Tests\SqlLogReader.Tests.csproj", "{82C0C652-EDBE-49E0-A123-63418AFF1CE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlLogReader.WinForms", "src\SqlLogReader.WinForms\SqlLogReader.WinForms.csproj", "{1AD516FD-1601-4E6C-85B1-4AE5112FF322}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0A0EF17-1C5C-43CC-A3B1-FE5487FE5175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0A0EF17-1C5C-43CC-A3B1-FE5487FE5175}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0A0EF17-1C5C-43CC-A3B1-FE5487FE5175}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0A0EF17-1C5C-43CC-A3B1-FE5487FE5175}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E067ED38-C074-4D98-98CB-41A3B15D48BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E067ED38-C074-4D98-98CB-41A3B15D48BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E067ED38-C074-4D98-98CB-41A3B15D48BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E067ED38-C074-4D98-98CB-41A3B15D48BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82C0C652-EDBE-49E0-A123-63418AFF1CE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C0C652-EDBE-49E0-A123-63418AFF1CE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C0C652-EDBE-49E0-A123-63418AFF1CE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C0C652-EDBE-49E0-A123-63418AFF1CE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AD516FD-1601-4E6C-85B1-4AE5112FF322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AD516FD-1601-4E6C-85B1-4AE5112FF322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AD516FD-1601-4E6C-85B1-4AE5112FF322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AD516FD-1601-4E6C-85B1-4AE5112FF322}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E0A0EF17-1C5C-43CC-A3B1-FE5487FE5175} = {F6656018-930A-4EA3-92B2-6F06121356FC}
+		{E067ED38-C074-4D98-98CB-41A3B15D48BE} = {F6656018-930A-4EA3-92B2-6F06121356FC}
+		{82C0C652-EDBE-49E0-A123-63418AFF1CE3} = {8FC3FE0E-FE39-4AC9-9A48-3C62610FCA2D}
+		{1AD516FD-1601-4E6C-85B1-4AE5112FF322} = {F6656018-930A-4EA3-92B2-6F06121356FC}
+	EndGlobalSection
+EndGlobal
