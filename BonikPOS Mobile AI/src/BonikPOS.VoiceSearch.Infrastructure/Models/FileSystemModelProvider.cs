@@ -123,10 +123,12 @@ public sealed class FileSystemModelProvider : IModelProvider
         var paths = new Dictionary<string, string>(StringComparer.Ordinal);
         var state = ModelState.Ready;
         var messages = new List<string>();
+        // With a trailing separator, so that a sibling such as "models-evil" does not count as inside "models".
+        string rootPrefix = Path.TrimEndingDirectorySeparator(Path.GetFullPath(root)) + Path.DirectorySeparatorChar;
         foreach (var (logical, relative) in d.Files)
         {
             string full = Path.GetFullPath(Path.Combine(root, relative));
-            if (!full.StartsWith(Path.GetFullPath(root), StringComparison.Ordinal))
+            if (!full.StartsWith(rootPrefix, StringComparison.Ordinal))
             {
                 state = ModelState.InvalidManifest;
                 messages.Add($"'{relative}' points outside the model directory.");
