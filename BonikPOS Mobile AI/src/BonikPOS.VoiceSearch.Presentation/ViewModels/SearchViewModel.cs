@@ -179,6 +179,19 @@ public sealed partial class SearchViewModel : ViewModelBase, IDisposable
         StatusText = "Loading on-device models...";
         var settings = await _settings.LoadAsync(CancellationToken.None);
         await _runtime.InitializeAsync(settings, CancellationToken.None);
+        if (settings.Pipeline.WarmUpModels)
+        {
+            // One-time ONNX Runtime costs are paid here, before the owner speaks, not on the first query.
+            try
+            {
+                await _runtime.WarmUpAsync(CancellationToken.None);
+            }
+            catch (Exception ex) when (ex is not OperationCanceledException)
+            {
+                // Optional: the first query simply pays the one-time costs instead.
+            }
+        }
+
         if (!_catalog.Info.IsLoaded)
         {
             try

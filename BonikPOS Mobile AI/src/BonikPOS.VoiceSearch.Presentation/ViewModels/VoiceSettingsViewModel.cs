@@ -39,6 +39,10 @@ public sealed partial class VoiceSettingsViewModel(
     [ObservableProperty]
     public partial bool ExtractionEnabled { get; set; } = true;
 
+    /// <summary>Opt-in: transcribe while the speaker check runs (faster, but other voices are partly transcribed, then discarded).</summary>
+    [ObservableProperty]
+    public partial bool TranscribeDuringCheck { get; set; }
+
     [ObservableProperty]
     public partial string ExtractionStatus { get; set; } = string.Empty;
 
@@ -63,6 +67,7 @@ public sealed partial class VoiceSettingsViewModel(
         UseCustomThreshold = s.Verification.AcceptThresholdOverride is not null;
         Threshold = s.Verification.AcceptThresholdOverride ?? (SuggestedThreshold > 0 ? SuggestedThreshold : 0.75);
         ExtractionEnabled = s.TargetSpeakerExtractionEnabled;
+        TranscribeDuringCheck = s.Pipeline.ParallelVerification;
         ExtractionStatus = runtime.Status.TargetSpeakerExtraction.Available
             ? "A target-speaker extraction model is installed."
             : "No target-speaker extraction model is installed. Other voices are rejected only after the fact (speaker verification); overlapping speech is not removed.";
@@ -79,6 +84,7 @@ public sealed partial class VoiceSettingsViewModel(
                 AcceptThresholdOverride = UseCustomThreshold ? Math.Round(Threshold, 2) : null,
             },
             TargetSpeakerExtractionEnabled = ExtractionEnabled,
+            Pipeline = s.Pipeline with { ParallelVerification = TranscribeDuringCheck },
         }, CancellationToken.None);
         await dialogs.AlertAsync("Saved", "Owner voice settings saved.");
     }, "Could not save");

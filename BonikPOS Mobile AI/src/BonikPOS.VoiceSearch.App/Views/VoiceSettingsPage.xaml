@@ -28,6 +28,12 @@
                     <Label Style="{StaticResource Muted}"
                            Text="When on, utterances that clearly do not match the enrolled voice are ignored. Uncertain matches are still searched but always need your confirmation." />
                     <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Faster results: transcribe while the voice is checked" Style="{StaticResource Body}" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding TranscribeDuringCheck}" />
+                    </Grid>
+                    <Label Style="{StaticResource Muted}"
+                           Text="Off by default. When on, transcription starts before the voice check finishes, so another person's words are briefly transcribed on this phone and then discarded (never searched, shown or saved). When off, other voices are never transcribed." />
+                    <Grid ColumnDefinitions="*,Auto">
                         <Label Text="Use a custom match threshold" Style="{StaticResource Body}" VerticalOptions="Center" />
                         <Switch Grid.Column="1" IsToggled="{Binding UseCustomThreshold}" />
                     </Grid>

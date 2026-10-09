@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using BonikPOS.VoiceSearch.Core.Audio;
+using BonikPOS.VoiceSearch.Core.Benchmark;
 using BonikPOS.VoiceSearch.Core.Medicine;
 using BonikPOS.VoiceSearch.Core.Models;
 using BonikPOS.VoiceSearch.Core.Pipeline;
@@ -27,9 +28,30 @@ public sealed partial class DiagnosticsViewModel(
     SettingsService settings,
     IDeviceStatusService device,
     IAppInfoService appInfo,
-    IClipboardService clipboard) : ViewModelBase
+    IClipboardService clipboard,
+    IPipelineBenchmark benchmark,
+    IBenchmarkClipSource benchmarkClips) : ViewModelBase
 {
+    private PipelineBenchmarkReport? _benchmarkReport;
+    private CancellationTokenSource? _benchmarkCts;
+
     public ObservableCollection<DiagnosticRow> ModelRows { get; } = [];
+
+    /// <summary>Summary of the last full-pipeline benchmark (measured on this phone).</summary>
+    public ObservableCollection<DiagnosticRow> BenchmarkRows { get; } = [];
+
+    [ObservableProperty]
+    public partial bool IsBenchmarkRunning { get; set; }
+
+    [ObservableProperty]
+    public partial string? BenchmarkStatus { get; set; }
+
+    [ObservableProperty]
+    public partial bool HasBenchmarkReport { get; set; }
+
+    /// <summary>Run once on the CPU and once with the platform accelerator (XNNPACK / CoreML) where available.</summary>
+    [ObservableProperty]
+    public partial bool CompareAccelerators { get; set; } = true;
 
     public ObservableCollection<DiagnosticRow> PerformanceRows { get; } = [];
 
@@ -112,6 +134,114 @@ public sealed partial class DiagnosticsViewModel(
     {
         await clipboard.SetTextAsync(BuildReport());
     }, "Could not copy the report");
+
+    /// <summary>
+    /// Replays the benchmark clips through the complete pipeline (VAD, extraction, verification, recognition, search) in
+    /// real time, on the CPU and with the platform accelerator, and measures latency, dropped frames, CPU, memory,
+    /// battery and thermal state. Takes a few minutes; the screen is kept on.
+    /// </summary>
+    [RelayCommand]
+    private async Task RunPipelineBenchmarkAsync()
+    {
+        if (IsBenchmarkRunning)
+        {
+            return;
+        }
+
+        ErrorMessage = null;
+        IsBenchmarkRunning = true;
+        _benchmarkCts = new CancellationTokenSource();
+        device.KeepScreenOn(true);
+        try
+        {
+            var clips = await benchmarkClips.LoadAsync(_benchmarkCts.Token);
+            if (!clips.Any(c => !c.UseForEnrollment))
+            {
+                BenchmarkStatus = "No benchmark clips found. Debug builds include synthetic clips; otherwise copy clips.json and 16 kHz WAV " +
+                                  "files into the benchmark folder (see docs/BENCHMARKS.md).";
+                return;
+            }
+
+            var s = await settings.LoadAsync(_benchmarkCts.Token);
+            var progress = new Progress<string>(message => BenchmarkStatus = message);
+            var report = await benchmark.RunAsync(clips, new PipelineBenchmarkOptions
+            {
+                Repetitions = 3,
+                RealTime = true,
+                CompareAccelerators = CompareAccelerators,
+                WarmUp = s.Pipeline.WarmUpModels,
+                ParallelVerification = s.Pipeline.ParallelVerification,
+                Label = $"{appInfo.DeviceModel} ({appInfo.Platform}), app {appInfo.Version}",
+            }, progress, _benchmarkCts.Token);
+            _benchmarkReport = report;
+            HasBenchmarkReport = true;
+            FillBenchmark(report);
+            BenchmarkStatus = $"Finished: {clips.Count} clips x {report.Options.Repetitions} on this phone. Copy the report to keep it.";
+        }
+        catch (OperationCanceledException)
+        {
+            BenchmarkStatus = "Benchmark cancelled.";
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Benchmark failed: {ex.Message}";
+        }
+        finally
+        {
+            device.KeepScreenOn(false);
+            _benchmarkCts.Dispose();
+            _benchmarkCts = null;
+            IsBenchmarkRunning = false;
+            await FillModelsAsync(); // the benchmark restores the configured accelerator when it ends
+        }
+    }
+
+    [RelayCommand]
+    private void CancelBenchmark() => _benchmarkCts?.Cancel();
+
+    [RelayCommand]
+    private Task CopyBenchmarkMarkdownAsync() => RunAsync(async () =>
+    {
+        if (_benchmarkReport is not null)
+        {
+            await clipboard.SetTextAsync(BenchmarkMarkdown.Render(_benchmarkReport));
+        }
+    }, "Could not copy the benchmark");
+
+    [RelayCommand]
+    private Task CopyBenchmarkJsonAsync() => RunAsync(async () =>
+    {
+        if (_benchmarkReport is not null)
+        {
+            await clipboard.SetTextAsync(BenchmarkJson.Serialize(_benchmarkReport));
+        }
+    }, "Could not copy the benchmark");
+
+    private void FillBenchmark(PipelineBenchmarkReport report)
+    {
+        BenchmarkRows.Clear();
+        foreach (var run in report.Runs)
+        {
+            string providers = string.Join(", ", run.Models.Where(m => m.Available).Select(m => $"{m.Role} {m.ExecutionProvider}"));
+            var outcome = run.Metrics.FirstOrDefault(m => m.Name == TelemetryMetrics.EndOfSpeechToOutcomeMs);
+            var frame = run.Metrics.FirstOrDefault(m => m.Name == TelemetryMetrics.FrameProcessingMs);
+            BenchmarkRows.Add(new DiagnosticRow($"{run.Accelerator}: end of speech -> result",
+                outcome is null ? "no utterance completed" : $"p50 {outcome.P50:0} ms · p95 {outcome.P95:0} ms · max {outcome.Max:0} ms",
+                providers));
+            BenchmarkRows.Add(new DiagnosticRow($"{run.Accelerator}: audio frames",
+                $"{run.FramesCaptured} captured · {run.FramesDropped} dropped" + (frame is null ? string.Empty : $" · processing p95 {frame.P95:0.0} ms per 20 ms frame"),
+                null, run.FramesDropped > 0));
+            BenchmarkRows.Add(new DiagnosticRow($"{run.Accelerator}: resources",
+                $"CPU {run.ProcessCpuPercentOfDevice:0} % of all cores · peak memory {run.PeakWorkingSetMb:0} MB",
+                $"battery {run.Before.BatteryLevel:P0} -> {run.After.BatteryLevel:P0}, thermal {run.Before.ThermalState} -> {run.After.ThermalState}" +
+                (run.MeanBatteryPowerMilliwatts is double mw ? $", whole-device battery power {mw:0} mW" : string.Empty)));
+        }
+
+        foreach (var note in report.Notes.Where(n => n.StartsWith("No accelerator", StringComparison.Ordinal) || n.StartsWith("Runtime", StringComparison.Ordinal)))
+        {
+            BenchmarkRows.Add(new DiagnosticRow("Note", note, null, true));
+        }
+    }
 
     private async Task FillModelsAsync()
     {

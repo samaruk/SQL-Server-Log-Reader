@@ -31,7 +31,11 @@ public enum ListeningMode
 
 public sealed record OwnerVerificationSettings
 {
-    /// <summary>When true, utterances not attributed to the owner are never recognised or searched.</summary>
+    /// <summary>
+    /// When true, utterances not attributed to the owner are never searched or shown, and never transcribed unless
+    /// <see cref="PipelineSettings.ParallelVerification"/> is turned on (then a transcription that has already started is
+    /// cancelled and discarded).
+    /// </summary>
     public bool RequireOwnerMatch { get; init; } = true;
 
     /// <summary>Overrides the threshold suggested at enrollment. Null = use the enrollment calibration.</summary>
@@ -65,8 +69,13 @@ public sealed record PipelineSettings
 
     public int QueueCapacityFrames { get; init; } = 150;
 
-    /// <summary>Verify the owner's voice while speech recognition runs (cancelling recognition for other voices).</summary>
-    public bool ParallelVerification { get; init; } = true;
+    /// <summary>
+    /// Opt-in: start speech recognition while the owner's voice is still being verified, and cancel it when the voice is
+    /// not the owner's. Saves the verification time from the result latency, but another person's utterance is then
+    /// partly transcribed in memory before being discarded. Off by default, so with <see cref="OwnerVerificationSettings.RequireOwnerMatch"/>
+    /// other voices are never transcribed.
+    /// </summary>
+    public bool ParallelVerification { get; init; }
 
     /// <summary>Run one small inference per model after loading so the first utterance does not pay one-time costs.</summary>
     public bool WarmUpModels { get; init; } = true;

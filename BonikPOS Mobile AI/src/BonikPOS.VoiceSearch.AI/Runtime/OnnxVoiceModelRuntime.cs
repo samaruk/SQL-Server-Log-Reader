@@ -30,6 +30,7 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
     private readonly bool _allowTestFixtures;
     private OnnxSessionPreferences? _loadedWith;
     private SileroVadModel? _vad;
+    private volatile bool _warm; // the currently loaded sessions have run once
     private ISpeakerEmbeddingService? _encoder;
     private ITseModel? _tse;
     private ISpeechRecognitionService _recognizer = new UnavailableSpeechRecognizer("Models have not been loaded yet.");
@@ -96,6 +97,11 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
     /// <inheritdoc />
     public async Task<double> WarmUpAsync(CancellationToken cancellationToken)
     {
+        if (_warm)
+        {
+            return 0;
+        }
+
         var sw = System.Diagnostics.Stopwatch.StartNew();
         await Task.Run(async () =>
         {
@@ -129,6 +135,7 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
             }
         }, cancellationToken).ConfigureAwait(false);
         double ms = sw.Elapsed.TotalMilliseconds;
+        _warm = true;
         _telemetry.Record("model.warm_up_ms", ms);
         return ms;
     }
@@ -278,6 +285,7 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
 
     private void Unload()
     {
+        _warm = false;
         _vad?.Dispose();
         _vad = null;
         _encoder?.Dispose();

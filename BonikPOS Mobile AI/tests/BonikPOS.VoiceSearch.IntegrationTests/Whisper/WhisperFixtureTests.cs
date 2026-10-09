@@ -199,4 +199,55 @@ public sealed class WhisperFixtureTests(WhisperFixtureInstall whisper, ITestOutp
         var longAudio = await whisper.Runtime.Recognizer.RecognizeAsync(new float[16000 * 4], new SpeechRecognitionOptions(), CancellationToken.None);
         Assert.True(longAudio.Truncated); // longer than the model's 3 s window
     }
+
+    [Fact]
+    public async Task Cancellation_AtAnyMoment_EndsAsCancelledOrCompleted_AndNeverBreaksTheNextRecognition()
+    {
+        var recognizer = whisper.Runtime.Recognizer;
+        var baseline = await recognizer.RecognizeAsync(Wav, new SpeechRecognitionOptions(), CancellationToken.None);
+        int cancelled = 0, completed = 0;
+        foreach (int delayMs in new[] { 0, 1, 2, 3, 5, 8, 13 })
+        {
+            using var cts = new CancellationTokenSource();
+            var task = recognizer.RecognizeAsync(Wav, new SpeechRecognitionOptions(), cts.Token);
+            if (delayMs == 0)
+            {
+                await cts.CancelAsync();
+            }
+            else
+            {
+                cts.CancelAfter(delayMs); // lands inside an ONNX Runtime Run (terminate flag) or between decoder steps
+            }
+
+            try
+            {
+                await task;
+                completed++;
+            }
+            catch (OperationCanceledException)
+            {
+                cancelled++; // never an OnnxRuntimeException: a terminated Run is reported as cancellation
+            }
+
+            // The terminate flag is reset: the next recognition runs normally and gives the same result.
+            var after = await recognizer.RecognizeAsync(Wav, new SpeechRecognitionOptions(), CancellationToken.None);
+            Assert.Equal(baseline.Text, after.Text);
+            Assert.Equal(baseline.TokenCount, after.TokenCount);
+        }
+
+        output.WriteLine($"Cancellation at 0-13 ms: {cancelled} cancelled, {completed} completed before the cancellation landed");
+        Assert.True(cancelled >= 1);
+    }
+
+    [Fact]
+    public void MeasureCompute_TimesEveryStage_ForTheRequestedNumberOfTokens()
+    {
+        var timing = whisper.Recognizer.MeasureCompute(Wav, tokenSteps: 5);
+
+        Assert.Equal(5, timing.TokenStepMs.Count);
+        Assert.All(timing.TokenStepMs, ms => Assert.True(ms > 0));
+        Assert.True(timing.EncoderMs > 0 && timing.FeatureMs > 0 && timing.StartStepMs > 0 && timing.PromptStepMs > 0);
+        Assert.Equal(timing.FeatureMs + timing.EncoderMs + timing.StartStepMs + timing.PromptStepMs + timing.TokenStepMs.Sum(), timing.TotalMs, 1e-9);
+        output.WriteLine($"Random tiny fixture: encoder {timing.EncoderMs:0.0} ms, per token {timing.TokenStepMs.Average():0.00} ms");
+    }
 }

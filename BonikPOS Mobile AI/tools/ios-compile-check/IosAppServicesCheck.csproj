@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Compile-only check of the App's platform services (src/BonikPOS.VoiceSearch.App/Services, #if IOS branches) against
+    Microsoft.iOS and the MAUI iOS assemblies from the NuGet cache. Not a runnable iOS build. Run through ios-compile-check.sh.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);IOS</DefineConstants>
+    <NoWarn>$(NoWarn);CA1416;CA1422</NoWarn>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IsPackable>false</IsPackable>
+    <MauiLib>lib/net10.0-ios26.0</MauiLib>
+    <Bin>bin/Release/net10.0</Bin>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="Microsoft.Maui" />
+    <Using Include="Microsoft.Maui.Controls" />
+    <Using Include="Microsoft.Maui.ApplicationModel" />
+    <Using Include="Microsoft.Maui.ApplicationModel.DataTransfer" />
+    <Using Include="Microsoft.Maui.Devices" />
+    <Using Include="Microsoft.Maui.Storage" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="$(IosRefDir)/Microsoft.iOS.dll" />
+    <Reference Include="$(NuGetPackageRoot)microsoft.maui.core/$(MauiVersion)/$(MauiLib)/Microsoft.Maui.dll" />
+    <Reference Include="$(NuGetPackageRoot)microsoft.maui.controls.core/$(MauiVersion)/$(MauiLib)/Microsoft.Maui.Controls.dll" />
+    <Reference Include="$(NuGetPackageRoot)microsoft.maui.essentials/$(MauiVersion)/$(MauiLib)/Microsoft.Maui.Essentials.dll" />
+    <Reference Include="$(NuGetPackageRoot)microsoft.maui.graphics/$(MauiVersion)/$(MauiLib)/Microsoft.Maui.Graphics.dll" />
+    <Reference Include="$(BonikSolutionRoot)src/BonikPOS.VoiceSearch.Presentation/$(Bin)/BonikPOS.VoiceSearch.Presentation.dll" />
+    <Reference Include="$(BonikSolutionRoot)src/BonikPOS.VoiceSearch.Presentation/$(Bin)/BonikPOS.VoiceSearch.Core.dll" />
+    <Reference Include="$(BonikSolutionRoot)src/BonikPOS.VoiceSearch.Presentation/$(Bin)/BonikPOS.VoiceSearch.MedicineSearch.dll" />
+    <Reference Include="$(BonikSolutionRoot)src/BonikPOS.VoiceSearch.Infrastructure/$(Bin)/BonikPOS.VoiceSearch.Infrastructure.dll" />
+    <Reference Include="$(BonikSolutionRoot)src/BonikPOS.VoiceSearch.Audio/$(Bin)/BonikPOS.VoiceSearch.Audio.dll" />
+    <Reference Include="$(NuGetPackageRoot)microsoft.extensions.logging.abstractions/10.0.12/lib/net10.0/Microsoft.Extensions.Logging.Abstractions.dll" />
+    <Reference Include="$(NuGetPackageRoot)microsoft.extensions.dependencyinjection.abstractions/10.0.12/lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Compile Include="$(BonikSolutionRoot)src/BonikPOS.VoiceSearch.App/Services/*.cs" />
+  </ItemGroup>
+</Project>

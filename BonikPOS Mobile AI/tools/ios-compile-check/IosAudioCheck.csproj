@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Compile-only check of src/BonikPOS.VoiceSearch.Audio including Platforms/iOS, against the Microsoft.iOS reference
+    assembly. It does NOT produce a runnable iOS build (that needs macOS + Xcode); it catches API and C# errors in the
+    iOS-only code on machines without the iOS workload. Run through ios-compile-check.sh.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);IOS</DefineConstants>
+    <!-- Platform-compatibility analyzers need the real net10.0-ios target framework; they run in the real iOS build. -->
+    <NoWarn>$(NoWarn);CA1416;CA1422</NoWarn>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IsPackable>false</IsPackable>
+    <AudioDir>$(BonikSolutionRoot)src/BonikPOS.VoiceSearch.Audio/</AudioDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(IosRefDir)/Microsoft.iOS.dll" />
+    <Reference Include="$(BonikSolutionRoot)src/BonikPOS.VoiceSearch.Core/bin/Release/net10.0/BonikPOS.VoiceSearch.Core.dll" />
+    <Reference Include="$(NuGetPackageRoot)microsoft.extensions.logging.abstractions/10.0.12/lib/net10.0/Microsoft.Extensions.Logging.Abstractions.dll" />
+    <Reference Include="$(NuGetPackageRoot)microsoft.extensions.dependencyinjection.abstractions/10.0.12/lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Compile Include="$(AudioDir)**/*.cs" Exclude="$(AudioDir)obj/**;$(AudioDir)bin/**;$(AudioDir)Platforms/Android/**" />
+  </ItemGroup>
+</Project>

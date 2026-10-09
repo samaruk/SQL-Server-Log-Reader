@@ -96,6 +96,7 @@ public interface IVoiceSearchPipeline : IAsyncDisposable
 public sealed class VoiceSearchPipeline : IVoiceSearchPipeline
 {
     private const int LevelEventEveryFrames = 3;
+    private const int InputLatencyEveryFrames = 50; // one platform input-latency reading per second
     private readonly IMicrophoneCapture _capture;
     private readonly IVoiceModelRuntime _runtime;
     private readonly IMedicineSearchService _search;
@@ -385,6 +386,11 @@ public sealed class VoiceSearchPipeline : IVoiceSearchPipeline
                 {
                     wasInSpeech = segmenter.InSpeech;
                     SetState(wasInSpeech ? PipelineState.HearingSpeech : PipelineState.Listening, null);
+                }
+
+                if (frameCount % InputLatencyEveryFrames == 0 && _capture.InputLatencyMilliseconds is double inputLatency)
+                {
+                    _telemetry.Record(TelemetryMetrics.InputLatencyMs, inputLatency);
                 }
 
                 if (frameCount % LevelEventEveryFrames == 0)

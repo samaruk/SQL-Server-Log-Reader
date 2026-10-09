@@ -154,6 +154,8 @@ public sealed class MauiDeviceStatusService : IDeviceStatusService
             GC.GetTotalMemory(false) / 1048576.0, process.WorkingSet64 > 0 ? process.WorkingSet64 / 1048576.0 : null, cpu);
     }
 
+    public void KeepScreenOn(bool keepOn) => MainThread.BeginInvokeOnMainThread(() => DeviceDisplay.Current.KeepScreenOn = keepOn);
+
     private static string ThermalState()
     {
 #if ANDROID

@@ -21,7 +21,7 @@ if (args.Length == 0 || args[0] is "-h" or "--help")
           tse-bench     --models a.onnx,b.onnx [--seconds 10] [--threads 1,2] [--out r.json] [--md r.md]
           asr-bench     --configs a-config.json,b-config.json [--threads 1,2,4] [--repetitions 5] [--tokens 12] [--seconds 3]
                         [--out r.json] [--md r.md]
-          pipeline-bench --asr-config <prefix-config.json> [--tse model.onnx] [--repetitions 3] [--no-warmup] [--sequential] [--fast]
+          pipeline-bench --asr-config <prefix-config.json> [--tse model.onnx] [--repetitions 3] [--no-warmup] [--parallel] [--fast]
                         [--threads 0] [--streaming-threads 1] [--spinning] [--solution-root .] [--label text] [--out r.json] [--md r.md]
 
         Reports contain only numbers measured in the run. Datasets authored by developers or generated synthetically are
@@ -62,7 +62,7 @@ switch (args[0])
             opts.Get("tse"),
             opts.Int("repetitions", 3),
             warmUp: opts.Get("no-warmup") is null,
-            parallel: opts.Get("sequential") is null,
+            parallel: opts.Get("parallel") is not null,
             realTime: opts.Get("fast") is null,
             threads: opts.Int("threads", 0),
             streamingThreads: opts.Int("streaming-threads", 1),

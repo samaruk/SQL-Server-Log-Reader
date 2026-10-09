@@ -1,7 +1,9 @@
 using BonikPOS.VoiceSearch.AI.Runtime;
 using BonikPOS.VoiceSearch.App.Services;
 using BonikPOS.VoiceSearch.App.Views;
+using BonikPOS.VoiceSearch.Audio.Benchmark;
 using BonikPOS.VoiceSearch.Core.Audio;
+using BonikPOS.VoiceSearch.Core.Benchmark;
 using BonikPOS.VoiceSearch.Core.History;
 using BonikPOS.VoiceSearch.Core.Medicine;
 using BonikPOS.VoiceSearch.Core.Models;
@@ -80,6 +82,17 @@ public static class MauiProgram
             sp.GetRequiredService<IMedicineSearchService>(), sp.GetRequiredService<SettingsService>(), sp.GetRequiredService<ISecretStore>(),
             () => sp.GetRequiredService<HttpClient>(), sp.GetRequiredService<ICatalogCache>(), sp.GetRequiredService<ILoggerFactory>()));
         services.AddSingleton<IPrivacyService, PrivacyService>();
+
+        // Diagnostics: full-pipeline benchmark (replays clips; never uses the microphone, stores no audio).
+        services.AddSingleton<IResourceSampler, MauiResourceSampler>();
+        services.AddSingleton<IBenchmarkClipSource, MauiBenchmarkClipSource>();
+        services.AddSingleton<IPipelineBenchmark>(sp => new PipelineBenchmark(
+            sp.GetRequiredService<IVoiceModelRuntime>(), sp.GetRequiredService<IMedicineSearchService>(), sp.GetRequiredService<IResourceSampler>(),
+            ct => sp.GetRequiredService<SettingsService>().LoadAsync(ct), sp.GetRequiredService<ILogger<PipelineBenchmark>>())
+        {
+            DeviceDescription = () => $"{DeviceInfo.Current.Manufacturer} {DeviceInfo.Current.Model} ({DeviceInfo.Current.Platform} {DeviceInfo.Current.VersionString}); " +
+                                      PipelineBenchmarkReport.DescribeRuntime(),
+        });
 
         // UI services.
         services.AddSingleton<SessionState>();

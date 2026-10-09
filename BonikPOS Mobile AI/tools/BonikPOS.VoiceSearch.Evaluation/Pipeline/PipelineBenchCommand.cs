@@ -40,7 +40,7 @@ public static class PipelineBenchCommand
                 InferenceThreadSpinning = spinning,
             };
             var bench = new PipelineBenchmark(runtime, search, new ProcessResourceSampler(), _ => Task.FromResult(settings));
-            var clips = LoadClips(Path.Combine(solutionRoot, "tests", "fixtures", "audio"));
+            var clips = await LoadClipsAsync(Path.Combine(solutionRoot, "tests", "fixtures", "audio"));
             var progress = new Progress<string>(m => Console.Error.WriteLine(m));
             string loadAtStart = BonikPOS.VoiceSearch.Evaluation.Asr.AsrBenchmark.LoadAverage();
             var report = await bench.RunAsync(clips, new PipelineBenchmarkOptions
@@ -81,21 +81,9 @@ public static class PipelineBenchCommand
         }
     }
 
-    /// <summary>Synthetic TTS clips from tests/fixtures/audio (plumbing/timing only; see their README.json).</summary>
-    public static IReadOnlyList<BenchmarkClip> LoadClips(string dir)
-    {
-        BenchmarkClip Clip(string file, bool owner, bool enrol) => new(file, WavFile.Read(Path.Combine(dir, file)).Samples, owner, enrol);
-        return
-        [
-            Clip("synthetic-voiceA-1.wav", true, true),
-            Clip("synthetic-voiceA-3.wav", true, true),
-            Clip("synthetic-voiceA-2.wav", true, false),
-            Clip("synthetic-en-napa.wav", true, false),
-            Clip("synthetic-en-seclo.wav", true, false),
-            Clip("synthetic-voiceB-2.wav", false, false),
-            Clip("synthetic-overlap-A2-B2.wav", true, false),
-        ];
-    }
+    /// <summary>Synthetic TTS clips listed in tests/fixtures/audio/benchmark-clips.json (the set the app packages in Debug builds).</summary>
+    public static Task<IReadOnlyList<BenchmarkClip>> LoadClipsAsync(string dir) =>
+        BenchmarkClipManifest.ReadDirectoryAsync(dir, "benchmark-clips.json", CancellationToken.None);
 
     private static void WriteManifest(string root, string solutionRoot, string asrConfig, string? tseModel)
     {

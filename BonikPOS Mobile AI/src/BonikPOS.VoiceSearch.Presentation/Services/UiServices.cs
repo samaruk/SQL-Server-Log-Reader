@@ -88,6 +88,11 @@ public sealed record DeviceStatus(
 public interface IDeviceStatusService
 {
     DeviceStatus GetStatus();
+
+    /// <summary>Keeps the display on (for long measurements, so the phone does not sleep and suspend the app).</summary>
+    void KeepScreenOn(bool keepOn)
+    {
+    }
 }
 
 /// <summary>Synchronous dispatcher for tests and for code already on the UI thread.</summary>

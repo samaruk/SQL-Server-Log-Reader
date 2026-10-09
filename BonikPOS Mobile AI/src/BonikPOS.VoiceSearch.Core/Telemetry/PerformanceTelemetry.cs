@@ -4,6 +4,9 @@ namespace BonikPOS.VoiceSearch.Core.Telemetry;
 public static class TelemetryMetrics
 {
     public const string CaptureToProcessedMs = "audio.capture_to_processed_ms";
+
+    /// <summary>Platform input latency (microphone converter to app), as estimated by the capture implementation.</summary>
+    public const string InputLatencyMs = "audio.input_latency_ms";
     public const string FrameProcessingMs = "pipeline.frame_processing_ms";
     public const string TseChunkMs = "tse.chunk_ms";
     public const string VadChunkMs = "vad.chunk_ms";

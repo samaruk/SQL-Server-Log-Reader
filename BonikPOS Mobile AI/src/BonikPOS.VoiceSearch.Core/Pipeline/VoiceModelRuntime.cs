@@ -67,7 +67,8 @@ public interface IVoiceModelRuntime : IDisposable
 
     /// <summary>
     /// Runs one small inference on every loaded model (on a worker thread) so that ONNX Runtime's one-time
-    /// allocations and kernel selection do not land on the first utterance. Returns the time it took in milliseconds.
+    /// allocations and kernel selection do not land on the first utterance. Returns the time it took in milliseconds,
+    /// or 0 when the models loaded now have already been warmed up.
     /// </summary>
     Task<double> WarmUpAsync(CancellationToken cancellationToken) => Task.FromResult(0d);
 }

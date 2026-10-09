@@ -255,8 +255,10 @@ public sealed class StftStreamingTargetSpeakerExtractor : ITargetSpeakerExtracto
         if (_alignmentDelay is null)
         {
             // Output is produced in hop-sized blocks; a constant delay keeps every call's output length equal to its input.
-            // (The n_fft - hop overlap-add latency is already part of the emitted blocks.)
-            _alignmentDelay = input.Length % _model.Hop == 0 ? 0 : _model.Hop - 1;
+            // For a fixed block size b the smallest such delay is hop - gcd(b, hop): 0 when b is a multiple of the hop,
+            // 192 samples for 320-sample (20 ms) blocks and a 256 hop. (The n_fft - hop overlap-add latency is already
+            // part of the emitted blocks.)
+            _alignmentDelay = _model.Hop - Gcd(input.Length, _model.Hop);
             _pending.EnqueueZeros(_alignmentDelay.Value);
         }
 
@@ -285,7 +287,27 @@ public sealed class StftStreamingTargetSpeakerExtractor : ITargetSpeakerExtracto
             return;
         }
 
+        int deficit = input.Length - _pending.Count;
+        if (deficit > 0)
+        {
+            // A block size other than the first one: grow the constant delay (silence first) instead of leaving a gap.
+            output[..deficit].Clear();
+            _alignmentDelay += deficit;
+            _pending.Dequeue(output[deficit..input.Length]);
+            return;
+        }
+
         _pending.Dequeue(output[..input.Length]);
+    }
+
+    private static int Gcd(int a, int b)
+    {
+        while (b != 0)
+        {
+            (a, b) = (b, a % b);
+        }
+
+        return a;
     }
 
     public void Reset()
@@ -386,6 +408,8 @@ public sealed class StftStreamingTargetSpeakerExtractor : ITargetSpeakerExtracto
         private int _head;
         private int _count;
 
+        public int Count => _count;
+
         public void Enqueue(float v)
         {
             EnsureCapacity(_count + 1);
@@ -407,7 +431,7 @@ public sealed class StftStreamingTargetSpeakerExtractor : ITargetSpeakerExtracto
             {
                 if (_count == 0)
                 {
-                    destination[i] = 0f; // cannot happen with the alignment delay; defensive
+                    destination[i] = 0f; // callers dequeue at most Count samples; defensive
                     continue;
                 }
 

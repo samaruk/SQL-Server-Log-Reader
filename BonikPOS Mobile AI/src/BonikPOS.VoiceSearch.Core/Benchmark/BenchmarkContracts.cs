@@ -21,8 +21,8 @@ public sealed record PipelineBenchmarkOptions
     /// <summary>Run the model warm-up before the first clip (the app does this after loading models).</summary>
     public bool WarmUp { get; init; } = true;
 
-    /// <summary>Overlap owner verification with speech recognition (the default pipeline behaviour).</summary>
-    public bool ParallelVerification { get; init; } = true;
+    /// <summary>Overlap owner verification with speech recognition (the opt-in <c>PipelineSettings.ParallelVerification</c>).</summary>
+    public bool ParallelVerification { get; init; }
 
     public string Label { get; init; } = string.Empty;
 }

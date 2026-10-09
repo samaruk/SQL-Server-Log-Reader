@@ -4,6 +4,7 @@ using BonikPOS.VoiceSearch.Core.Audio;
 using BonikPOS.VoiceSearch.Core.Extraction;
 using BonikPOS.VoiceSearch.Core.Medicine;
 using BonikPOS.VoiceSearch.Core.Pipeline;
+using BonikPOS.VoiceSearch.Core.Recognition;
 using BonikPOS.VoiceSearch.Core.Settings;
 using BonikPOS.VoiceSearch.Core.Speakers;
 using BonikPOS.VoiceSearch.Core.Telemetry;
@@ -172,6 +173,51 @@ public sealed class VoiceSearchPipelineTests
 
         Assert.Equal(OwnerVoiceDecision.InsufficientSpeech, Assert.Single(h.Probe.Events.OfType<UtteranceIgnoredEvent>()).Verification.Decision);
         Assert.Empty(recognizer.AudioLengths);
+    }
+
+    [Fact]
+    public async Task ParallelVerification_NotOwner_CancelsTheStartedRecognition_AndIgnoresTheUtterance()
+    {
+        var h = await CreateAsync(Speechlike(1.0), new ScriptedVerifier(OwnerVoiceDecision.NotOwner, 0.3));
+        var recognizer = new WaitUntilCancelledRecognizer();
+        h.Runtime.Recognizer = recognizer;
+        var settings = Settings() with { Pipeline = Settings().Pipeline with { ParallelVerification = true } };
+
+        await h.Pipeline.StartAsync(new PipelineSessionOptions { Settings = settings, Owner = Owner }, TestContext.Current.CancellationToken);
+        await h.Probe.SessionEndedAsync();
+
+        var ignored = Assert.Single(h.Probe.Events.OfType<UtteranceIgnoredEvent>());
+        Assert.Equal(OwnerVoiceDecision.NotOwner, ignored.Verification.Decision);
+        Assert.NotNull(ignored.EndOfSpeechToOutcomeMs);
+        Assert.Equal(1, recognizer.Calls);
+        Assert.True(recognizer.Cancelled); // the opt-in starts recognition early, and stops it for another voice
+        Assert.Empty(h.Probe.Events.OfType<SearchCompletedEvent>());
+        Assert.Empty(h.Probe.Events.OfType<PipelineErrorEvent>());
+        Assert.Equal(PipelineState.Idle, h.Pipeline.State);
+    }
+
+    [Fact]
+    public async Task ParallelVerification_Owner_IsRecognisedAndSearched()
+    {
+        var recognizer = new StubSpeechRecognizer("napa extra 500", confidence: 0.9);
+        var h = await CreateAsync(Speechlike(1.0), new ScriptedVerifier(OwnerVoiceDecision.Owner), recognizer);
+        var settings = Settings() with { Pipeline = Settings().Pipeline with { ParallelVerification = true } };
+
+        await h.Pipeline.StartAsync(new PipelineSessionOptions { Settings = settings, Owner = Owner }, TestContext.Current.CancellationToken);
+        await h.Probe.SessionEndedAsync();
+
+        var done = Assert.Single(h.Probe.Events.OfType<SearchCompletedEvent>());
+        Assert.Equal(OwnerVoiceDecision.Owner, done.Verification.Decision);
+        Assert.Equal("T-NAPA-EXTRA", done.Search.Candidates[0].Product.ProductId);
+        Assert.Single(recognizer.AudioLengths);
+    }
+
+    [Fact]
+    public void ParallelVerification_IsOffByDefault()
+    {
+        // With the default settings another speaker's utterance is never transcribed (RequireOwnerMatch contract).
+        Assert.False(new VoiceSearchSettings().Pipeline.ParallelVerification);
+        Assert.True(new VoiceSearchSettings().Verification.RequireOwnerMatch);
     }
 
     [Fact]
@@ -401,6 +447,39 @@ public sealed class VoiceSearchPipelineTests
             await pipeline.StartAsync(new PipelineSessionOptions { Settings = Settings() }, ct); // must not throw
             await pipeline.DisposeAsync();
             Assert.Equal(PipelineState.Idle, pipeline.State);
+        }
+    }
+
+    /// <summary>STUB recogniser that never finishes on its own: it returns only by being cancelled.</summary>
+    private sealed class WaitUntilCancelledRecognizer : ISpeechRecognitionService
+    {
+        private int _calls;
+
+        public int Calls => Volatile.Read(ref _calls);
+
+        public bool Cancelled { get; private set; }
+
+        public SpeechRecognizerInfo Info { get; } = new(true, "wait-recognizer", "STUB recogniser that waits until cancelled", 16000 * 30, "Stub");
+
+        public async Task<SpeechRecognitionResult> RecognizeAsync(
+            ReadOnlyMemory<float> audio16k, SpeechRecognitionOptions options, CancellationToken cancellationToken)
+        {
+            Interlocked.Increment(ref _calls);
+            try
+            {
+                await Task.Delay(Timeout.Infinite, cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                Cancelled = true;
+                throw;
+            }
+
+            throw new InvalidOperationException("Unreachable: an infinite delay only ends by cancellation.");
+        }
+
+        public void Dispose()
+        {
         }
     }
 

@@ -31,6 +31,13 @@
 		<MauiAsset Include="$(BonikSolutionRoot)models\**\*.onnx;$(BonikSolutionRoot)models\**\*.json;$(BonikSolutionRoot)models\**\*.txt" LogicalName="models/%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<!-- Debug only: SYNTHETIC TTS clips for the Diagnostics pipeline benchmark (docs/BENCHMARKS.md). Release builds carry
+		     no audio; developers side-load clips into the benchmark folder instead. -->
+		<MauiAsset Include="$(BonikSolutionRoot)tests\fixtures\audio\benchmark-clips.json" LogicalName="benchmark/clips.json" />
+		<MauiAsset Include="$(BonikSolutionRoot)tests\fixtures\audio\synthetic-*.wav" LogicalName="benchmark/%(Filename)%(Extension)" />
+	</ItemGroup>
+
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' And '$(Configuration)' == 'Debug'">
 		<!-- Debug only: exposes Documents/ in the Files app so developers can side-load models. -->
 		<PartialAppManifest Include="Platforms\iOS\DebugFileSharing.plist" />
