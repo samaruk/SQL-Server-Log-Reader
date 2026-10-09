@@ -1,0 +1,16 @@
+bin/
+obj/
+.vs/
+*.user
+TestResults/
+BenchmarkDotNet.Artifacts/
+# Large ASR models are downloaded/exported locally (see docs/MODELS.md) and not committed.
+models/asr/
+models/tse/
+models/speaker-extra/
+# Python virtual environments used by tools/models
+.venv/
+__pycache__/
+
+# Generated evaluation data (deterministic; regenerate with tools/BonikPOS.VoiceSearch.Evaluation make-catalog)
+eval/data/

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.NoMatchPage"
+             x:DataType="vm:NoMatchViewModel"
+             Title="No match">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14" MaximumWidthRequest="760">
+            <Label Text="No matching product found" Style="{StaticResource Title}" />
+            <Label Text="{Binding Query, StringFormat='You said: “{0}”'}" Style="{StaticResource BanglaBody}" />
+            <Label Text="{Binding Understood, StringFormat='Understood as: {0}'}" Style="{StaticResource Muted}" />
+            <Border Style="{StaticResource WarningBanner}">
+                <Label Text="{Binding Explanation}" Style="{StaticResource WarningText}" />
+            </Border>
+            <Label Text="No product was substituted. Nothing has been selected." Style="{StaticResource Body}" />
+
+            <Border Style="{StaticResource Card}" IsVisible="{Binding HasSuggestions}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Similar names in the catalog (not matches)" Style="{StaticResource SectionTitle}" />
+                    <Label Text="Tap one only if it is what you meant; it will be searched again and you will still need to confirm the product."
+                           Style="{StaticResource Muted}" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Suggestions}" Spacing="6">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Button Text="{Binding .}" Style="{StaticResource SecondaryButton}"
+                                        Command="{Binding SearchSuggestionCommand, Source={RelativeSource AncestorType={x:Type vm:NoMatchViewModel}}, x:DataType=vm:NoMatchViewModel}"
+                                        CommandParameter="{Binding .}" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Tips}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Label Text="{Binding ., StringFormat='• {0}'}" Style="{StaticResource Body}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Border>
+            <Button Text="Edit the text" Command="{Binding EditTextCommand}" />
+            <Button Text="Say it again" Style="{StaticResource SecondaryButton}" Command="{Binding TryAgainCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

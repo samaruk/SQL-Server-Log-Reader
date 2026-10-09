@@ -1,0 +1,84 @@
+{
+  "notice": "SYNTHETIC TTS AUDIO FOR PLUMBING TESTS ONLY - not evaluation data",
+  "clips": [
+    {
+      "file": "synthetic-en-napa.wav",
+      "engine": "flite",
+      "voice": "slt",
+      "text": "Napa extra five hundred milligram tablet",
+      "seconds": 2.845
+    },
+    {
+      "file": "synthetic-en-seclo.wav",
+      "engine": "flite",
+      "voice": "slt",
+      "text": "Seclo twenty milligram capsule",
+      "seconds": 2.425
+    },
+    {
+      "file": "synthetic-voiceA-1.wav",
+      "engine": "flite",
+      "voice": "slt",
+      "text": "Please give me two strips of paracetamol",
+      "seconds": 2.83
+    },
+    {
+      "file": "synthetic-voiceA-2.wav",
+      "engine": "flite",
+      "voice": "slt",
+      "text": "I need omeprazole capsules for my father",
+      "seconds": 2.87
+    },
+    {
+      "file": "synthetic-voiceA-3.wav",
+      "engine": "flite",
+      "voice": "slt",
+      "text": "Do you have cough syrup for children",
+      "seconds": 2.3
+    },
+    {
+      "file": "synthetic-voiceB-1.wav",
+      "engine": "flite",
+      "voice": "rms",
+      "text": "Please give me two strips of paracetamol",
+      "seconds": 2.775
+    },
+    {
+      "file": "synthetic-voiceB-2.wav",
+      "engine": "flite",
+      "voice": "rms",
+      "text": "How much does this antibiotic cost today",
+      "seconds": 2.975
+    },
+    {
+      "file": "synthetic-voiceC-1.wav",
+      "engine": "flite",
+      "voice": "awb",
+      "text": "Is the pharmacy open tomorrow morning",
+      "seconds": 2.495
+    },
+    {
+      "file": "synthetic-bn-napa.wav",
+      "engine": "espeak-ng",
+      "voice": "bn",
+      "text": "নাপা এক্সট্রা পাঁচশো মিলিগ্রাম ট্যাবলেট",
+      "seconds": 2.813
+    },
+    {
+      "file": "synthetic-overlap-A2-B2.wav",
+      "engine": "mix",
+      "text": "voiceA-2 + 0.7 * voiceB-2 (simultaneous speech)",
+      "seconds": 2.975
+    },
+    {
+      "file": "noise-2s.wav",
+      "engine": "numpy",
+      "text": "brown-ish noise"
+    },
+    {
+      "file": "silence-1s.wav",
+      "engine": "numpy",
+      "text": "digital silence"
+    }
+  ]
+}

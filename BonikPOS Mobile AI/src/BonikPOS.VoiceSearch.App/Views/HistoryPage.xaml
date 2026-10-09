@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.HistoryPage"
+             x:DataType="vm:HistoryViewModel"
+             Title="History">
+    <CollectionView ItemsSource="{Binding Items}" SelectionMode="None" MaximumWidthRequest="900">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.Header>
+            <VerticalStackLayout Padding="16,16,16,8" Spacing="10">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Keep search history on this phone" Style="{StaticResource Body}" VerticalOptions="Center" />
+                    <Switch Grid.Column="1" IsToggled="{Binding HistoryEnabled}"
+                            SemanticProperties.Description="Keep search history" />
+                </Grid>
+                <Label Style="{StaticResource Muted}"
+                       Text="History stores the text that was searched and the product you selected, encrypted on this phone. Audio is never stored. Confirmed choices help rank the same product higher next time." />
+                <Label Text="No searches yet." Style="{StaticResource Muted}" IsVisible="{Binding IsEmpty}" />
+            </VerticalStackLayout>
+        </CollectionView.Header>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="vm:HistoryItem">
+                <Border Style="{StaticResource Card}" Margin="16,0">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="{Binding Query}" Style="{StaticResource BanglaBody}" FontAttributes="Bold" />
+                        <Label Text="{Binding Outcome}" Style="{StaticResource Body}" />
+                        <Label Text="{Binding Product}" Style="{StaticResource Body}" IsVisible="{Binding Product, Converter={StaticResource HasText}}" />
+                        <Label Text="{Binding When}" Style="{StaticResource Muted}" />
+                        <Label Text="{Binding Details}" Style="{StaticResource Muted}" />
+                    </VerticalStackLayout>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+        <CollectionView.Footer>
+            <VerticalStackLayout Padding="16,12,16,24" Spacing="8">
+                <Button Text="Clear history" Style="{StaticResource DangerButton}" Command="{Binding ClearCommand}"
+                        IsVisible="{Binding IsEmpty, Converter={StaticResource Not}}" />
+                <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}"
+                       IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+            </VerticalStackLayout>
+        </CollectionView.Footer>
+    </CollectionView>
+</ContentPage>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             xmlns:controls="clr-namespace:BonikPOS.VoiceSearch.App.Controls"
+             x:Class="BonikPOS.VoiceSearch.App.Views.SearchPage"
+             x:DataType="vm:SearchViewModel"
+             Title="Medicine voice search">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Diagnostics" Order="Secondary" Command="{Binding OpenDiagnosticsCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <CollectionView x:Name="ResultsView" ItemsSource="{Binding Results}" SelectionMode="None"
+                    MaximumWidthRequest="1100">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+        </CollectionView.ItemsLayout>
+
+        <CollectionView.Header>
+            <VerticalStackLayout Padding="16,12,16,8" Spacing="12">
+                <Border Style="{StaticResource WarningBanner}" IsVisible="{Binding CatalogIsDemo}">
+                    <Label Text="{Binding CatalogText}" Style="{StaticResource WarningText}" />
+                </Border>
+                <Border Style="{StaticResource InfoBanner}" IsVisible="{Binding Notice, Converter={StaticResource HasText}}">
+                    <Label Text="{Binding Notice}" Style="{StaticResource InfoText}" />
+                </Border>
+
+                <!-- Microphone, listening indicator and state -->
+                <Grid HeightRequest="200" HorizontalOptions="Center" WidthRequest="220">
+                    <controls:ListeningIndicator Level="{Binding Level}" IsActive="{Binding IsListening}"
+                                                 RingColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                                 HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Button Style="{StaticResource MicButton}" Text="{Binding MicButtonText}"
+                            ImageSource="mic.png" ContentLayout="Top,2"
+                            Command="{Binding ToggleListeningCommand}"
+                            HorizontalOptions="Center" VerticalOptions="Center"
+                            SemanticProperties.Description="{Binding MicButtonText}"
+                            SemanticProperties.Hint="Starts or stops listening for a medicine name" />
+                </Grid>
+                <Label Text="{Binding StatusText}" Style="{StaticResource SectionTitle}" HorizontalTextAlignment="Center"
+                       SemanticProperties.HeadingLevel="Level2" />
+                <ActivityIndicator IsRunning="{Binding IsProcessing}" IsVisible="{Binding IsProcessing}"
+                                   Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                   SemanticProperties.Description="Processing speech" />
+                <Label Text="Speech detected" Style="{StaticResource SuccessText}" HorizontalTextAlignment="Center"
+                       IsVisible="{Binding SpeechActive}" />
+
+                <!-- What is active: extraction and owner verification are reported separately and honestly -->
+                <FlexLayout Wrap="Wrap" JustifyContent="Center" AlignItems="Center">
+                    <Border Style="{StaticResource Chip}" Margin="4">
+                        <Label Text="{Binding ExtractionText}" Style="{StaticResource Muted}"
+                               SemanticProperties.Description="{Binding ExtractionText}" />
+                    </Border>
+                    <Border Style="{StaticResource Chip}" Margin="4">
+                        <Label Text="{Binding OwnerText}" Style="{StaticResource Muted}" />
+                    </Border>
+                </FlexLayout>
+                <Label Text="{Binding VoiceUnavailableReason}" Style="{StaticResource WarningText}"
+                       IsVisible="{Binding VoiceUnavailableReason, Converter={StaticResource HasText}}" />
+
+                <!-- Recognised text with correction -->
+                <Border Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Recognised text - edit it if it is wrong" Style="{StaticResource Muted}" />
+                        <Entry Text="{Binding RecognizedText}" Placeholder="Say or type a medicine name"
+                               FontSize="20" ClearButtonVisibility="WhileEditing" ReturnType="Search"
+                               ReturnCommand="{Binding SearchTextCommand}"
+                               SemanticProperties.Description="Recognised medicine name" />
+                        <Label Text="{Binding RecognitionDetails}" Style="{StaticResource Muted}"
+                               IsVisible="{Binding RecognitionDetails, Converter={StaticResource HasText}}" />
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <Button Text="Search this text" Command="{Binding SearchTextCommand}" />
+                            <Button Grid.Column="1" Text="Say it again" Style="{StaticResource SecondaryButton}"
+                                    Command="{Binding RepeatCommand}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Style="{StaticResource WarningBanner}" IsVisible="{Binding ShowLowConfidence}">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Low confidence - check before selecting" Style="{StaticResource WarningText}" FontAttributes="Bold" />
+                        <Label Text="{Binding LowConfidenceText}" Style="{StaticResource WarningText}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <VerticalStackLayout Spacing="2" IsVisible="{Binding HasResults}">
+                    <Label Text="{Binding DecisionText}" Style="{StaticResource SectionTitle}" />
+                    <Label Text="{Binding Explanation}" Style="{StaticResource Muted}" />
+                </VerticalStackLayout>
+                <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}"
+                       IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+            </VerticalStackLayout>
+        </CollectionView.Header>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="vm:ResultItemViewModel">
+                <Border Style="{StaticResource Card}" Margin="16,0"
+                        SemanticProperties.Description="{Binding AccessibleDescription}">
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="2" ColumnSpacing="10">
+                        <Label Text="{Binding BrandName}" Style="{StaticResource BrandName}" />
+                        <Label Grid.Column="1" Text="{Binding Rank, StringFormat='#{0}'}" Style="{StaticResource Muted}" />
+                        <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding GenericName}" Style="{StaticResource Body}" />
+                        <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Details}" Style="{StaticResource Body}" FontAttributes="Bold" />
+                        <Label Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding ProductId, StringFormat='Product ID: {0}'}" Style="{StaticResource Muted}" />
+                        <Label Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding MatchText}" Style="{StaticResource Muted}" />
+                        <Label Grid.Row="5" Text="{Binding Notes}" Style="{StaticResource WarningText}" IsVisible="{Binding HasNotes}" />
+                        <Button Grid.Row="5" Grid.Column="1" Text="Select" Padding="18,6"
+                                Command="{Binding ConfirmCommand, Source={RelativeSource AncestorType={x:Type vm:SearchViewModel}}, x:DataType=vm:SearchViewModel}"
+                                CommandParameter="{Binding .}"
+                                SemanticProperties.Hint="Confirms this product" />
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+
+        <CollectionView.Footer>
+            <VerticalStackLayout Padding="16,12,16,24" Spacing="10">
+                <Button Text="None of these" Style="{StaticResource SecondaryButton}" Command="{Binding DismissCommand}"
+                        IsVisible="{Binding HasResults}" />
+                <Label Style="{StaticResource Muted}"
+                       Text="Results are catalog search suggestions, not medical advice. Always check the product before selling." />
+            </VerticalStackLayout>
+        </CollectionView.Footer>
+    </CollectionView>
+</ContentPage>

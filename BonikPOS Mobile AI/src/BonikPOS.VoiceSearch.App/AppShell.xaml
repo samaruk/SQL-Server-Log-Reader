@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="BonikPOS.VoiceSearch.App.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BonikPOS.VoiceSearch.App.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="BonikPOS Voice Search">
+
+    <TabBar>
+        <ShellContent Title="Search" Icon="tab_search.png" Route="search"
+                      ContentTemplate="{DataTemplate views:SearchPage}" />
+        <ShellContent Title="History" Icon="tab_history.png" Route="history"
+                      ContentTemplate="{DataTemplate views:HistoryPage}" />
+        <ShellContent Title="Settings" Icon="tab_settings.png" Route="settings"
+                      ContentTemplate="{DataTemplate views:SettingsPage}" />
+    </TabBar>
+
+</Shell>

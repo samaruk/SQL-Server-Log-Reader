@@ -1,0 +1,321 @@
+using BonikPOS.VoiceSearch.AI.Extraction;
+using BonikPOS.VoiceSearch.AI.Onnx;
+using BonikPOS.VoiceSearch.AI.Recognition;
+using BonikPOS.VoiceSearch.AI.Recognition.Whisper;
+using BonikPOS.VoiceSearch.AI.Speakers;
+using BonikPOS.VoiceSearch.AI.Vad;
+using BonikPOS.VoiceSearch.Core.Extraction;
+using BonikPOS.VoiceSearch.Core.Models;
+using BonikPOS.VoiceSearch.Core.Pipeline;
+using BonikPOS.VoiceSearch.Core.Recognition;
+using BonikPOS.VoiceSearch.Core.Settings;
+using BonikPOS.VoiceSearch.Core.Speakers;
+using BonikPOS.VoiceSearch.Core.Telemetry;
+using BonikPOS.VoiceSearch.Core.Vad;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+
+namespace BonikPOS.VoiceSearch.AI.Runtime;
+
+/// <summary>
+/// Loads every installed model once (persistent ONNX Runtime sessions) and exposes the components. Missing models
+/// are reported as unavailable; nothing is replaced by a fake.
+/// </summary>
+public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
+{
+    private readonly IModelProvider _models;
+    private readonly IPerformanceTelemetry _telemetry;
+    private readonly ILogger _logger;
+    private readonly SemaphoreSlim _initGate = new(1, 1);
+    private readonly bool _allowTestFixtures;
+    private OnnxSessionPreferences? _loadedWith;
+    private SileroVadModel? _vad;
+    private volatile bool _warm; // the currently loaded sessions have run once
+    private ISpeakerEmbeddingService? _encoder;
+    private ITseModel? _tse;
+    private ISpeechRecognitionService _recognizer = new UnavailableSpeechRecognizer("Models have not been loaded yet.");
+    private string _tseUnavailableMessage = "No target-speaker extraction model is installed.";
+    private TargetSpeakerExtractionAvailability _tseUnavailable = TargetSpeakerExtractionAvailability.NotInstalled;
+
+    /// <param name="allowTestFixtures">Only tests set this: lets manifests marked as test fixtures load.</param>
+    public OnnxVoiceModelRuntime(
+        IModelProvider models, IPerformanceTelemetry telemetry, ILogger<OnnxVoiceModelRuntime>? logger = null, bool allowTestFixtures = false)
+    {
+        _models = models;
+        _telemetry = telemetry;
+        _logger = logger ?? NullLogger<OnnxVoiceModelRuntime>.Instance;
+        _allowTestFixtures = allowTestFixtures;
+    }
+
+    public VoiceModelRuntimeStatus Status { get; private set; } = VoiceModelRuntimeStatus.NotInitialized;
+
+    public ISpeakerEmbeddingService? SpeakerEncoder => _encoder;
+
+    public IOwnerVoiceVerifier? OwnerVerifier { get; private set; }
+
+    public ISpeechRecognitionService Recognizer => _recognizer;
+
+    public string? ExtractionRequiredEncoderId => _tse?.RequiredEncoderId;
+
+    public async Task InitializeAsync(VoiceSearchSettings settings, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        var preferences = new OnnxSessionPreferences(
+            settings.Accelerator, settings.InferenceThreads, settings.InferenceThreadSpinning, settings.StreamingModelThreads);
+        await _initGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            if (_loadedWith == preferences)
+            {
+                return;
+            }
+
+            await Task.Run(() => LoadAll(preferences, cancellationToken), cancellationToken).ConfigureAwait(false);
+            _loadedWith = preferences;
+        }
+        finally
+        {
+            _initGate.Release();
+        }
+    }
+
+    public async Task ReloadAsync(VoiceSearchSettings settings, CancellationToken cancellationToken)
+    {
+        await _initGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            _loadedWith = null;
+        }
+        finally
+        {
+            _initGate.Release();
+        }
+
+        await InitializeAsync(settings, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<double> WarmUpAsync(CancellationToken cancellationToken)
+    {
+        if (_warm)
+        {
+            return 0;
+        }
+
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+        await Task.Run(async () =>
+        {
+            var rng = new Random(3);
+            var audio = new float[16000];
+            for (int i = 0; i < audio.Length; i++)
+            {
+                // A quiet voiced-like tone with noise: valid input for every model, never real speech.
+                audio[i] = (float)(0.05 * Math.Sin(2 * Math.PI * 150 * i / 16000.0) + 0.005 * (rng.NextDouble() - 0.5));
+            }
+
+            if (_vad is not null)
+            {
+                using var vad = _vad.CreateDetector();
+                vad.Process(audio.AsSpan(0, vad.ChunkSamples));
+            }
+
+            _encoder?.EmbedUtterance(audio, cancellationToken);
+            if (_tse is not null)
+            {
+                using var extractor = _tse.CreateExtractor(null);
+                extractor.SetTarget(new SpeakerEmbedding(_tse.RequiredEncoderId, "warm-up", Enumerable.Repeat(1f, _tse.EmbeddingDim).ToArray()));
+                var output = new float[_tse.ChunkSamples * 2];
+                extractor.Process(audio.AsSpan(0, output.Length), output);
+            }
+
+            if (_recognizer.Info.IsAvailable)
+            {
+                await _recognizer.RecognizeAsync(audio, new SpeechRecognitionOptions { MaxTokens = 2, AlternativeLanguageBelow = 0 }, cancellationToken)
+                    .ConfigureAwait(false);
+            }
+        }, cancellationToken).ConfigureAwait(false);
+        double ms = sw.Elapsed.TotalMilliseconds;
+        _warm = true;
+        _telemetry.Record("model.warm_up_ms", ms);
+        return ms;
+    }
+
+    public IVoiceActivityDetector CreateVoiceActivityDetector() =>
+        _vad?.CreateDetector() ?? throw new InvalidOperationException("The voice activity model is not installed.");
+
+    public ITargetSpeakerExtractor CreateTargetSpeakerExtractor() =>
+        _tse is not null
+            ? _tse.CreateExtractor(_logger)
+            : new UnavailableTargetSpeakerExtractor(_tseUnavailable, _tseUnavailableMessage);
+
+    public TargetSpeakerExtractorStatus CreateTargetSpeakerExtractorStatusPreview() =>
+        _tse is not null
+            ? new TargetSpeakerExtractorStatus(TargetSpeakerExtractionAvailability.NeedsReEnrollment, _tse.Descriptor.Id, _tse.RequiredEncoderId,
+                _tse.ChunkSamples, _tse.LatencySamples, "Installed; activates when listening starts with a compatible owner profile.")
+            : new TargetSpeakerExtractorStatus(_tseUnavailable, null, null, 0, 0, _tseUnavailableMessage);
+
+    public void Dispose()
+    {
+        Unload();
+        _initGate.Dispose();
+    }
+
+    private void LoadAll(OnnxSessionPreferences preferences, CancellationToken token)
+    {
+        Unload();
+        var messages = new List<string>();
+        var vadStatus = Load(ModelRole.VoiceActivity, model =>
+        {
+            _vad = SileroVadModel.Load(model, preferences, _logger);
+            return new ComponentStatus(true, _vad.ModelId, "Silero VAD (streaming, 32 ms chunks)", _vad.Loaded.ExecutionProvider, _vad.Loaded.InitMilliseconds);
+        }, messages, token);
+
+        var encoderStatus = Load(ModelRole.SpeakerEncoder, model =>
+        {
+            var encoder = model.Descriptor.Format switch
+            {
+                "ge2e-onnx" => (ISpeakerEmbeddingService)Ge2eSpeakerEncoder.Load(model, preferences, _logger),
+                "fbank-speaker-onnx" => FbankSpeakerEncoder.Load(model, preferences, _logger),
+                _ => throw new ModelContractException($"Unknown speaker-encoder format '{model.Descriptor.Format}'."),
+            };
+            _encoder = encoder;
+            OwnerVerifier = new OwnerVoiceVerifier(encoder);
+            var (ep, ms) = encoder switch
+            {
+                Ge2eSpeakerEncoder g => (g.ExecutionProvider, g.InitMilliseconds),
+                FbankSpeakerEncoder f => (f.ExecutionProvider, f.InitMilliseconds),
+                _ => ("CPU", 0d),
+            };
+            return new ComponentStatus(true, encoder.Info.ModelId,
+                $"Speaker encoder {encoder.Info.ModelId} ({encoder.Info.EmbeddingDimension}-dim) - owner verification", ep, ms);
+        }, messages, token);
+
+        var tseStatus = Load(ModelRole.TargetSpeakerExtraction, model =>
+        {
+            ITseModel tse = model.Descriptor.Format switch
+            {
+                StreamingTseModel.FormatId => StreamingTseModel.Load(model, preferences, _logger),
+                StftStreamingTseModel.FormatId => StftStreamingTseModel.Load(model, preferences, _logger),
+                _ => throw new ModelContractException(
+                    $"Unknown target-speaker extraction format '{model.Descriptor.Format}' (supported: {StreamingTseModel.FormatId}, {StftStreamingTseModel.FormatId})."),
+            };
+            if (_encoder is not null && tse.RequiredEncoderId != _encoder.Info.ModelId)
+            {
+                string msg = $"TSE model {model.Descriptor.Id} is conditioned on {tse.RequiredEncoderId}, but the installed speaker encoder is {_encoder.Info.ModelId}.";
+                tse.Dispose();
+                throw new ModelContractException(msg);
+            }
+
+            if (!_allowTestFixtures && UntrainedWeights(tse.Loaded.Session) is { } weights)
+            {
+                // Exports from tools/models/tse record how their weights were made; random or smoke-test graphs must
+                // never be presented as working extraction, whatever the manifest says.
+                tse.Dispose();
+                throw new ModelContractException($"TSE model {model.Descriptor.Id} declares untrained weights ({weights}); it is a test model and is not used.");
+            }
+
+            _tse = tse;
+            return new ComponentStatus(true, model.Descriptor.Id, tse.Description, tse.Loaded.ExecutionProvider, tse.Loaded.InitMilliseconds);
+        }, messages, token);
+        if (!tseStatus.Available)
+        {
+            _tseUnavailableMessage = tseStatus.Description;
+            _tseUnavailable = tseStatus.Description.Contains("not installed", StringComparison.OrdinalIgnoreCase)
+                ? TargetSpeakerExtractionAvailability.NotInstalled
+                : TargetSpeakerExtractionAvailability.IncompatibleModel;
+        }
+
+        var asrStatus = Load(ModelRole.SpeechRecognition, model =>
+        {
+            if (model.Descriptor.Format != WhisperModelConfig.FormatId)
+            {
+                throw new ModelContractException($"Unknown speech-recognition format '{model.Descriptor.Format}'.");
+            }
+
+            var whisper = WhisperOnnxRecognizer.Load(model, preferences, _telemetry, _logger);
+            if (!_allowTestFixtures && whisper.IsRandomTestModel)
+            {
+                whisper.Dispose();
+                throw new ModelContractException($"Speech-recognition model {model.Descriptor.Id} is a random-weight test export (config source); it is not used.");
+            }
+
+            _recognizer = whisper;
+            return new ComponentStatus(true, whisper.Info.ModelId, whisper.Info.Description, whisper.EncoderExecutionProvider, whisper.InitMilliseconds);
+        }, messages, token);
+        if (!asrStatus.Available)
+        {
+            _recognizer = new UnavailableSpeechRecognizer(asrStatus.Description);
+        }
+
+        Status = new VoiceModelRuntimeStatus(true, vadStatus, encoderStatus, tseStatus, asrStatus, messages);
+    }
+
+    /// <summary>The "bonik.weights" metadata of exports from tools/models/tse when it is anything but "trained:…"; otherwise null.</summary>
+    internal static string? UntrainedWeights(Microsoft.ML.OnnxRuntime.InferenceSession session) =>
+        session.ModelMetadata.CustomMetadataMap.TryGetValue("bonik.weights", out var weights)
+        && !weights.StartsWith("trained:", StringComparison.Ordinal)
+            ? weights
+            : null;
+
+    private ComponentStatus Load(ModelRole role, Func<ResolvedModel, ComponentStatus> load, List<string> messages, CancellationToken token)
+    {
+        token.ThrowIfCancellationRequested();
+        ResolvedModel? model;
+        try
+        {
+            model = _models.ResolveAsync(role, token).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            messages.Add($"{role}: {ex.Message}");
+            return ComponentStatus.Missing($"{role} model could not be resolved: {ex.Message}");
+        }
+
+        if (model is null)
+        {
+            return ComponentStatus.Missing($"{role} model not installed.");
+        }
+
+        if (model.Descriptor.IsTestFixture && !_allowTestFixtures)
+        {
+            messages.Add($"{role}: '{model.Descriptor.Id}' is a test fixture and is never loaded by the app.");
+            return ComponentStatus.Missing($"{role} model not installed (only a test fixture is present).");
+        }
+
+        try
+        {
+            var status = load(model);
+            if (status.InitMilliseconds is double ms)
+            {
+                _telemetry.Record(TelemetryMetrics.ModelInitPrefix + role, ms);
+            }
+
+            return status;
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            // A broken model package (bad config JSON, a manifest without an expected file entry, an unsupported tensor
+            // layout, unreadable files, ...) leaves only this component unavailable; it must not fail the other models.
+            var state = ex is ModelContractException ? ModelState.IncompatibleContract : ModelState.LoadFailed;
+            _models.ReportFailure(role, state, ex.Message);
+            _logger.LogError(ex, "Loading {Role} model {Id} failed", role, model.Descriptor.Id);
+            messages.Add($"{role}: {ex.Message}");
+            return ComponentStatus.Missing($"{role} model '{model.Descriptor.Id}' failed to load: {ex.Message}");
+        }
+    }
+
+    private void Unload()
+    {
+        _warm = false;
+        _vad?.Dispose();
+        _vad = null;
+        _encoder?.Dispose();
+        _encoder = null;
+        OwnerVerifier = null;
+        _tse?.Dispose();
+        _tse = null;
+        _recognizer.Dispose();
+        _recognizer = new UnavailableSpeechRecognizer("Models have not been loaded yet.");
+        _loadedWith = null;
+    }
+}

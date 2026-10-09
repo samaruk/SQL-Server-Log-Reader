@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.EnrollmentInstructionsPage"
+             x:DataType="vm:EnrollmentInstructionsViewModel"
+             Title="Voice enrollment">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14" MaximumWidthRequest="720">
+            <Label Text="How enrollment works" Style="{StaticResource Title}" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Steps}" Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Border Style="{StaticResource Card}" Padding="12">
+                            <Label Text="{Binding .}" Style="{StaticResource Body}" />
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+            <Label Text="{Binding BanglaHint}" Style="{StaticResource BanglaBody}" FontSize="17" />
+            <Button Text="Start recording samples" Command="{Binding ContinueCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

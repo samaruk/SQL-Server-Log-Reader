@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.WelcomePage"
+             x:DataType="vm:WelcomeViewModel"
+             Title="Welcome">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16" MaximumWidthRequest="720">
+            <Label Text="BonikPOS Voice Search" Style="{StaticResource Title}" />
+            <Label Text="কণ্ঠ দিয়ে ঔষধ খুঁজুন" Style="{StaticResource BanglaBody}" />
+            <Label Style="{StaticResource Body}"
+                   Text="Search the medicine catalog by saying the medicine name. The app prefers your voice (the enrolled shop owner) and ignores speech it cannot attribute to you." />
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Why enroll your voice?" Style="{StaticResource SectionTitle}" />
+                    <Label Text="{Binding ConsentSummary}" Style="{StaticResource Body}" />
+                    <HorizontalStackLayout Spacing="8">
+                        <CheckBox IsChecked="{Binding ConsentAccepted}" VerticalOptions="Center"
+                                  SemanticProperties.Description="I am the shop owner and I agree to voice enrollment" />
+                        <Label Text="I am the shop owner and I agree to record my voice for this purpose."
+                               Style="{StaticResource Body}" VerticalOptions="Center" MaximumWidthRequest="560" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Start voice enrollment" Command="{Binding StartEnrollmentCommand}"
+                    SemanticProperties.Hint="Opens the microphone test and voice enrollment" />
+            <Button Text="Continue to search" Style="{StaticResource SecondaryButton}"
+                    Command="{Binding ContinueToSearchCommand}" />
+            <Label Text="{Binding ProfileMessage}" Style="{StaticResource Muted}" />
+            <Label Style="{StaticResource Muted}"
+                   Text="Results are search suggestions only. This app does not give medical advice, recommend doses or change prescriptions." />
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}" IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

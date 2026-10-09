@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+	<!-- Backups are disabled: the voice profile is encrypted with a device-bound key and must not leave the phone. -->
+	<application android:allowBackup="false" android:dataExtractionRules="@xml/data_extraction_rules"
+	             android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true">
+		<!-- ONNX Runtime's AAR starts Microsoft usage telemetry from this provider at app launch. Removed: no data leaves
+		     the phone without explicit configuration (docs/PRIVACY.md). OnnxRuntimeTelemetry also disables it natively. -->
+		<provider android:name="ai.onnxruntime.TelemetryInitializer"
+		          android:authorities="${applicationId}.onnxruntime_telemetry_initializer"
+		          tools:node="remove" />
+	</application>
+	<!-- Requested at runtime, only when the owner starts the microphone test or voice search. -->
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<!-- Only used for the optional BonikPOS product API; audio is never uploaded. -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-feature android:name="android.hardware.microphone" android:required="true" />
+</manifest>

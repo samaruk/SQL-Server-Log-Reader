@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="456" height="456" viewBox="0 0 456 456" xmlns="http://www.w3.org/2000/svg">
+  <!-- microphone -->
+  <rect x="183" y="110" width="90" height="150" rx="45" ry="45" fill="#FFFFFF"/>
+  <path d="M153 225 a75 75 0 0 0 150 0" fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round"/>
+  <line x1="228" y1="300" x2="228" y2="338" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round"/>
+  <line x1="190" y1="342" x2="266" y2="342" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round"/>
+  <!-- capsule -->
+  <g transform="rotate(-40 318 132)">
+    <rect x="288" y="114" width="60" height="36" rx="18" ry="18" fill="#FFFFFF"/>
+    <rect x="318" y="114" width="30" height="36" rx="0" ry="0" fill="#5CC7B2"/>
+    <path d="M330 114 h0 a18 18 0 0 1 0 36 h-12 v-36 z" fill="#5CC7B2"/>
+  </g>
+</svg>

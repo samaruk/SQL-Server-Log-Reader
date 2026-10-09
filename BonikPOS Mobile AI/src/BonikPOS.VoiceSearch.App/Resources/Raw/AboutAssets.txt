@@ -1,0 +1,3 @@
+Files in this folder are packaged as raw app assets.
+On-device models are not stored here: the project packages the solution's models/ folder as
+"models/..." assets (see BonikPOS.VoiceSearch.App.csproj and docs/MODELS.md).

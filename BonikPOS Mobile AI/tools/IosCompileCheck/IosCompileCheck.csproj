@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Compile-only verification of the iOS-specific sources against the real iOS API surface
+    (Microsoft.iOS reference assembly, the same version the .NET 10 iOS workload uses). This lets the iOS code be
+    type-checked on Linux/Windows CI where the iOS workload cannot be installed. It does NOT produce an iOS app:
+    build src/BonikPOS.VoiceSearch.App for net10.0-ios on macOS for that (see docs/DEPLOYMENT_IOS.md).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);IOS;__IOS__;__MOBILE__;__UNIFIED__</DefineConstants>
+    <IosRefPackage>Microsoft.iOS.Ref.net10.0_27.0</IosRefPackage>
+    <IosRefVersion>27.0.10722</IosRefVersion>
+    <IsPackable>false</IsPackable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageDownload Include="$(IosRefPackage)" Version="[$(IosRefVersion)]" />
+    <Reference Include="Microsoft.iOS">
+      <HintPath>$(NuGetPackageRoot)$(IosRefPackage.ToLowerInvariant())/$(IosRefVersion)/ref/net10.0/Microsoft.iOS.dll</HintPath>
+    </Reference>
+    <Compile Include="IosPlatformAttribute.cs" />
+    <Compile Include="../../src/BonikPOS.VoiceSearch.Audio/Platforms/iOS/**/*.cs" LinkBase="Audio" />
+    <ProjectReference Include="../../src/BonikPOS.VoiceSearch.Audio/BonikPOS.VoiceSearch.Audio.csproj" SetTargetFramework="TargetFramework=net10.0" />
+  </ItemGroup>
+</Project>

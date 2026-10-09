@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.AmbiguityPage"
+             x:DataType="vm:AmbiguityViewModel"
+             Title="Which one?">
+    <CollectionView ItemsSource="{Binding Options}" SelectionMode="None" MaximumWidthRequest="900">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.Header>
+            <VerticalStackLayout Padding="16,16,16,8" Spacing="8">
+                <Label Text="Several products fit. Which one did you mean?" Style="{StaticResource Title}" />
+                <Label Text="{Binding Query, StringFormat='You said: “{0}”'}" Style="{StaticResource BanglaBody}" />
+                <Label Text="{Binding Understood, StringFormat='Understood as: {0}'}" Style="{StaticResource Muted}" />
+                <Border Style="{StaticResource InfoBanner}">
+                    <Label Text="{Binding Explanation}" Style="{StaticResource InfoText}" />
+                </Border>
+                <Label Text="Nothing is selected until you choose one." Style="{StaticResource Muted}" />
+            </VerticalStackLayout>
+        </CollectionView.Header>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="vm:ResultItemViewModel">
+                <Border Style="{StaticResource Card}" Margin="16,0" SemanticProperties.Description="{Binding AccessibleDescription}">
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="2" ColumnSpacing="10">
+                        <Label Text="{Binding BrandName}" Style="{StaticResource BrandName}" />
+                        <Label Grid.Row="1" Text="{Binding GenericName}" Style="{StaticResource Body}" />
+                        <Label Grid.Row="2" Text="{Binding Details}" Style="{StaticResource Body}" FontAttributes="Bold" />
+                        <Label Grid.Row="3" Text="{Binding ProductId, StringFormat='Product ID: {0}'}" Style="{StaticResource Muted}" />
+                        <Label Grid.Row="4" Text="{Binding Notes}" Style="{StaticResource WarningText}" IsVisible="{Binding HasNotes}" />
+                        <Button Grid.Column="1" Grid.RowSpan="5" VerticalOptions="Center" Text="Choose"
+                                Command="{Binding ChooseCommand, Source={RelativeSource AncestorType={x:Type vm:AmbiguityViewModel}}, x:DataType=vm:AmbiguityViewModel}"
+                                CommandParameter="{Binding .}" />
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+        <CollectionView.Footer>
+            <VerticalStackLayout Padding="16,12,16,24" Spacing="10">
+                <Button Text="None of these - edit the text" Style="{StaticResource SecondaryButton}" Command="{Binding NoneOfTheseCommand}" />
+                <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}"
+                       IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+            </VerticalStackLayout>
+        </CollectionView.Footer>
+    </CollectionView>
+</ContentPage>

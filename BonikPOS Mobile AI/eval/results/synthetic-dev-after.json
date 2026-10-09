@@ -1,0 +1,1690 @@
+{
+  "format": "bonikpos-search-eval-report/1",
+  "run": {
+    "Label": "After changes, synthetic-20k DEV (thresholds tuned on this split)",
+    "DatasetPath": "eval/search/synthetic-20k-dev.cases.jsonl",
+    "DatasetSha256": "008167bd913491cfdeec59387442fd29f3a04513fab2394f9a690597338f1823",
+    "CatalogDescription": "Local product index (synthetic-catalog-20k.json)",
+    "CatalogProducts": 20000,
+    "CatalogSha256": "539870d42230de346e65767a4088c581a1d815216bc63179aa9cba02dc0703d4",
+    "CatalogIsDemo": false,
+    "IndexBuildMs": 1461.2976,
+    "StartedUtc": "2026-10-09T07:53:12.6711701+00:00",
+    "Thresholds": {
+      "MinCandidateScore": 0.55,
+      "ConfidentScore": 0.9,
+      "AmbiguityMargin": 0.06,
+      "MinRecognitionConfidence": 0.45,
+      "MinConfirmScore": 0.75,
+      "MinFuzzyConfirmNameScore": 0.84,
+      "SuggestionMinNameScore": 0.45,
+      "MaxCandidates": 10
+    },
+    "Machine": "Ubuntu 24.04.5 LTS; X64; 4 logical CPUs; .NET 10.0.12"
+  },
+  "metrics": {
+    "Cases": 2600,
+    "Positives": 2000,
+    "Negatives": 600,
+    "Top1": {
+      "Count": 1989,
+      "Total": 2000,
+      "Rate": 0.9945
+    },
+    "Top5": {
+      "Count": 1994,
+      "Total": 2000,
+      "Rate": 0.997
+    },
+    "FalseMatchAll": {
+      "Count": 8,
+      "Total": 2600,
+      "Rate": 0.003076923076923077
+    },
+    "FalseMatchPositives": {
+      "Count": 2,
+      "Total": 2000,
+      "Rate": 0.001
+    },
+    "FalseMatchNegatives": {
+      "Count": 6,
+      "Total": 600,
+      "Rate": 0.01
+    },
+    "FalseConfident": {
+      "Count": 0,
+      "Total": 2600,
+      "Rate": 0
+    },
+    "WrongOfferedAll": {
+      "Count": 17,
+      "Total": 2600,
+      "Rate": 0.006538461538461538
+    },
+    "WrongOfferedNegatives": {
+      "Count": 14,
+      "Total": 600,
+      "Rate": 0.023333333333333334
+    },
+    "CorrectButLowConfidence": {
+      "Count": 46,
+      "Total": 2000,
+      "Rate": 0.023
+    },
+    "MissedPositives": {
+      "Count": 2,
+      "Total": 2000,
+      "Rate": 0.001
+    },
+    "NegativesRejected": {
+      "Count": 28,
+      "Total": 600,
+      "Rate": 0.04666666666666667
+    },
+    "NegativesSafe": {
+      "Count": 586,
+      "Total": 600,
+      "Rate": 0.9766666666666667
+    },
+    "DecisionAgreement": {
+      "Count": 98,
+      "Total": 98,
+      "Rate": 1
+    },
+    "DecisionCounts": {
+      "Confident": 1157,
+      "NeedsConfirmation": 430,
+      "Ambiguous": 374,
+      "LowConfidence": 609,
+      "NoMatch": 30
+    },
+    "MatcherP50Ms": 2.3110999999999997,
+    "MatcherP95Ms": 5.411559999999992,
+    "MatcherMaxMs": 81.8884
+  },
+  "by_kind": {
+    "asr-split": {
+      "Cases": 222,
+      "Positives": 222,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 220,
+        "Total": 222,
+        "Rate": 0.990990990990991
+      },
+      "Top5": {
+        "Count": 220,
+        "Total": 222,
+        "Rate": 0.990990990990991
+      },
+      "FalseMatchAll": {
+        "Count": 1,
+        "Total": 222,
+        "Rate": 0.0045045045045045045
+      },
+      "FalseMatchPositives": {
+        "Count": 1,
+        "Total": 222,
+        "Rate": 0.0045045045045045045
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 222,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 2,
+        "Total": 222,
+        "Rate": 0.009009009009009009
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 6,
+        "Total": 222,
+        "Rate": 0.02702702702702703
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 222,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 193,
+        "NeedsConfirmation": 1,
+        "Ambiguous": 22,
+        "LowConfidence": 6,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.7729,
+      "MatcherP95Ms": 5.829644999999998,
+      "MatcherMaxMs": 81.8884
+    },
+    "brand-form": {
+      "Cases": 213,
+      "Positives": 213,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 213,
+        "Total": 213,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 213,
+        "Total": 213,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 142,
+        "NeedsConfirmation": 7,
+        "Ambiguous": 64,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.7615,
+      "MatcherP95Ms": 5.590639999999999,
+      "MatcherMaxMs": 8.597
+    },
+    "brand-strength": {
+      "Cases": 466,
+      "Positives": 466,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 466,
+        "Total": 466,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 466,
+        "Total": 466,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 1,
+        "Total": 466,
+        "Rate": 0.002145922746781116
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 440,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 25,
+        "LowConfidence": 1,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.189,
+      "MatcherP95Ms": 4.4824,
+      "MatcherMaxMs": 11.1763
+    },
+    "typo": {
+      "Cases": 231,
+      "Positives": 231,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 230,
+        "Total": 231,
+        "Rate": 0.9956709956709957
+      },
+      "Top5": {
+        "Count": 231,
+        "Total": 231,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 9,
+        "Total": 231,
+        "Rate": 0.03896103896103896
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 8,
+        "NeedsConfirmation": 200,
+        "Ambiguous": 13,
+        "LowConfidence": 10,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.0844,
+      "MatcherP95Ms": 5.1078,
+      "MatcherMaxMs": 42.5041
+    },
+    "brand-only": {
+      "Cases": 174,
+      "Positives": 174,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 174,
+        "Total": 174,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 174,
+        "Total": 174,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 98,
+        "Total": 98,
+        "Rate": 1
+      },
+      "DecisionCounts": {
+        "Confident": 76,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 98,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 1.246,
+      "MatcherP95Ms": 2.727124999999999,
+      "MatcherMaxMs": 3.8321
+    },
+    "banglish-respelling": {
+      "Cases": 265,
+      "Positives": 265,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 261,
+        "Total": 265,
+        "Rate": 0.9849056603773585
+      },
+      "Top5": {
+        "Count": 262,
+        "Total": 265,
+        "Rate": 0.9886792452830189
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 265,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 265,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 265,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 265,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 20,
+        "Total": 265,
+        "Rate": 0.07547169811320754
+      },
+      "MissedPositives": {
+        "Count": 1,
+        "Total": 265,
+        "Rate": 0.0037735849056603774
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 113,
+        "NeedsConfirmation": 112,
+        "Ambiguous": 16,
+        "LowConfidence": 23,
+        "NoMatch": 1
+      },
+      "MatcherP50Ms": 2.1355,
+      "MatcherP95Ms": 4.804179999999999,
+      "MatcherMaxMs": 12.0427
+    },
+    "bangla-script": {
+      "Cases": 318,
+      "Positives": 318,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 314,
+        "Total": 318,
+        "Rate": 0.9874213836477987
+      },
+      "Top5": {
+        "Count": 317,
+        "Total": 318,
+        "Rate": 0.9968553459119497
+      },
+      "FalseMatchAll": {
+        "Count": 1,
+        "Total": 318,
+        "Rate": 0.0031446540880503146
+      },
+      "FalseMatchPositives": {
+        "Count": 1,
+        "Total": 318,
+        "Rate": 0.0031446540880503146
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 318,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 1,
+        "Total": 318,
+        "Rate": 0.0031446540880503146
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 10,
+        "Total": 318,
+        "Rate": 0.031446540880503145
+      },
+      "MissedPositives": {
+        "Count": 1,
+        "Total": 318,
+        "Rate": 0.0031446540880503146
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 185,
+        "NeedsConfirmation": 104,
+        "Ambiguous": 17,
+        "LowConfidence": 11,
+        "NoMatch": 1
+      },
+      "MatcherP50Ms": 3.11,
+      "MatcherP95Ms": 6.656294999999999,
+      "MatcherMaxMs": 23.5749
+    },
+    "generic-strength": {
+      "Cases": 111,
+      "Positives": 111,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 111,
+        "Total": 111,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 111,
+        "Total": 111,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 111,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 3.5115,
+      "MatcherP95Ms": 8.48595,
+      "MatcherMaxMs": 19.697
+    },
+    "neg-strength-mismatch": {
+      "Cases": 246,
+      "Positives": 0,
+      "Negatives": 246,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 246,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 246,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 246,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 246,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 246,
+        "Rate": 0
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 246,
+        "Rate": 0
+      },
+      "NegativesSafe": {
+        "Count": 246,
+        "Total": 246,
+        "Rate": 1
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 246,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.23595,
+      "MatcherP95Ms": 4.447075,
+      "MatcherMaxMs": 6.4358
+    },
+    "neg-form-mismatch": {
+      "Cases": 150,
+      "Positives": 0,
+      "Negatives": 150,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 150,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 150,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 150,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 150,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 150,
+        "Rate": 0
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 150,
+        "Rate": 0
+      },
+      "NegativesSafe": {
+        "Count": 150,
+        "Total": 150,
+        "Rate": 1
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 150,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.33475,
+      "MatcherP95Ms": 4.143124999999994,
+      "MatcherMaxMs": 7.4738
+    },
+    "neg-unknown-brand": {
+      "Cases": 174,
+      "Positives": 0,
+      "Negatives": 174,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 6,
+        "Total": 174,
+        "Rate": 0.034482758620689655
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 6,
+        "Total": 174,
+        "Rate": 0.034482758620689655
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 13,
+        "Total": 174,
+        "Rate": 0.07471264367816093
+      },
+      "WrongOfferedNegatives": {
+        "Count": 13,
+        "Total": 174,
+        "Rate": 0.07471264367816093
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 4,
+        "Total": 174,
+        "Rate": 0.022988505747126436
+      },
+      "NegativesSafe": {
+        "Count": 161,
+        "Total": 174,
+        "Rate": 0.9252873563218391
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 6,
+        "Ambiguous": 7,
+        "LowConfidence": 157,
+        "NoMatch": 4
+      },
+      "MatcherP50Ms": 1.77625,
+      "MatcherP95Ms": 2.963735,
+      "MatcherMaxMs": 4.7983
+    },
+    "neg-not-medicine": {
+      "Cases": 30,
+      "Positives": 0,
+      "Negatives": 30,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 30,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 30,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 30,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 1,
+        "Total": 30,
+        "Rate": 0.03333333333333333
+      },
+      "WrongOfferedNegatives": {
+        "Count": 1,
+        "Total": 30,
+        "Rate": 0.03333333333333333
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 24,
+        "Total": 30,
+        "Rate": 0.8
+      },
+      "NegativesSafe": {
+        "Count": 29,
+        "Total": 30,
+        "Rate": 0.9666666666666667
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 1,
+        "LowConfidence": 5,
+        "NoMatch": 24
+      },
+      "MatcherP50Ms": 0.5088999999999999,
+      "MatcherP95Ms": 2.017655,
+      "MatcherMaxMs": 2.7228
+    }
+  },
+  "definitions": [
+    "- Positive case: at least one catalog product satisfies the request; any listed product id counts as correct.",
+    "- Negative case: nothing in the catalog satisfies the request (unknown brand, non-existent strength/form, not a medicine).",
+    "- Top-1 / Top-5 accuracy: share of positive cases whose first / any of the first five ranked products is correct.",
+    "- False match: the system presented a wrong product as the match (decision Confident or NeedsConfirmation with a wrong first result); counted on all cases, so every Confident/NeedsConfirmation answer to a negative case is a false match.",
+    "- False confident: the subset of false matches with decision Confident.",
+    "- Wrong product offered: a false match, or an Ambiguous choice in which none of the offered options is correct.",
+    "- Correct but low confidence: positive cases whose first result is correct but which were answered LowConfidence/NoMatch (shown only as a weak suggestion).",
+    "- Negatives safely handled: decision NoMatch or LowConfidence (candidates shown only with a warning).",
+    "- Missed positives: decision NoMatch although a correct product exists.",
+    "- Decision agreement: share of cases with an expected decision whose decision was one of the expected ones.",
+    "- Matcher latency: time inside the matcher per query on the machine named in the report (not a phone)."
+  ],
+  "cases_listed": "failures only (wrong or missing top-1, false match, wrong product offered, unexpected decision)",
+  "cases": [
+    {
+      "id": "syn-00178",
+      "query": "khohine 0.1",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-007496"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011797 Cosine 300 mg Tablet [0.65]",
+        "SYN-011798 Cosine 75 mg Tablet [0.65]",
+        "SYN-004727 Kihan 20 mg Tablet [0.63]",
+        "SYN-000770 Hosine 400 mg Tablet [0.60]",
+        "SYN-000771 Hosine 200 mg/5 ml Suspension [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.165
+    },
+    {
+      "id": "syn-00619",
+      "query": "do guk five",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-002237"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 6,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016975 Gukane 125 mg/5 ml Powder for Suspension [0.85]",
+        "SYN-010481 Gukephu 200 mg/5 ml Suspension [0.84]",
+        "SYN-007075 Gukax 20 mg Tablet [0.73]",
+        "SYN-016974 Gukane 500 mg Capsule [0.72]",
+        "SYN-016976 Gukane 250 mg Capsule [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.697
+    },
+    {
+      "id": "syn-00837",
+      "query": "জিরো চার",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-011356"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 0.745
+    },
+    {
+      "id": "syn-00951",
+      "query": "mosuol 100 mcg",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-012178"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 3,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008184 Moseeol 600 mg + 400 IU Tablet [0.69]",
+        "SYN-008185 Moseeol 500 mg + 200 IU Tablet [0.69]",
+        "SYN-012178 Mosouol 100 mg + 200 mg + 200 mcg Tablet [0.68]",
+        "SYN-006666 Mosol 150 mg Capsule [0.68]",
+        "SYN-000199 Mobuol 3.35 g/5 ml Syrup [0.61]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.99
+    },
+    {
+      "id": "syn-01030",
+      "query": "স্পোসী বিশ",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-004068"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 3,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001689 Speshi 20 mg Capsule [0.91]",
+        "SYN-001690 Speshi 20 mg Tablet [0.91]",
+        "SYN-004068 Sposee 20 mg Tablet [0.91]",
+        "SYN-008024 Spuci 20 mg Tablet [0.91]",
+        "SYN-001688 Speshi 40 mg Tablet [0.77]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.722
+    },
+    {
+      "id": "syn-01094",
+      "query": "do hir five hundred",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-019721"
+      ],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": 6,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007052 Hiraiin 500 mg Tablet [0.84]",
+        "SYN-011041 Hirara 200 mg + 0.2 mg Capsule [0.72]",
+        "SYN-017483 Hiroun 600 mg + 400 IU Tablet [0.72]",
+        "SYN-007051 Hiraiin 750 mg Tablet [0.71]",
+        "SYN-006214 Hirasis 2 mg Tablet [0.71]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.218
+    },
+    {
+      "id": "syn-01175",
+      "query": "phahpak 500",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-005882"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 3,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009355 Foheepaac 200 mg + 0.2 mg Capsule [0.73]",
+        "SYN-007327 Phahad 500 mg Capsule [0.70]",
+        "SYN-005882 Phaphak 500 mg Tablet [0.70]",
+        "SYN-004732 Phaiphak 10 mg Tablet [0.62]",
+        "SYN-004733 Phaiphak 5 mg/5 ml Syrup [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.179
+    },
+    {
+      "id": "syn-01177",
+      "query": "ফাজে ১০০",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-004010"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000427 Baje 100 mg + 200 mg + 200 mcg Tablet [0.82]",
+        "SYN-004010 Fage 100 mcg/puff Inhaler [0.82]",
+        "SYN-012963 Fazo 0.4 mg Modified Release Capsule [0.74]",
+        "SYN-004011 Fage 4 mg Tablet [0.70]",
+        "SYN-004012 Fage 2 mg/5 ml Syrup [0.70]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.344
+    },
+    {
+      "id": "syn-01287",
+      "query": "ডৌজীড একশো সিরাপ",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-010473"
+      ],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": 2,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014047 Dojiid 100 mg/5 ml Powder for Suspension [0.88]",
+        "SYN-010473 Dougeed 100 mg/5 ml Suspension [0.77]",
+        "SYN-019647 Diziid 5 mg Chewable Tablet [0.56]",
+        "SYN-019648 Diziid 4 mg Chewable Tablet [0.56]",
+        "SYN-019649 Diziid 10 mg Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 7.278
+    },
+    {
+      "id": "syn-01617",
+      "query": "khile 80 milligram",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-008602"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 3,
+      "matcher_ms": 5.788
+    },
+    {
+      "id": "syn-01639",
+      "query": "khetaik 30 mg",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-010429"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014676 Cutiac 500 mg Tablet [0.58]",
+        "SYN-014677 Cutiac 0.3% Eye Drops [0.58]",
+        "SYN-015296 Keeshutaic 2 mg Tablet [0.56]",
+        "SYN-015297 Keeshutaic 1 mg Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.319
+    },
+    {
+      "id": "syn-02027",
+      "query": "Stepreeta 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017501 Steeprut 500 mg Capsule [0.88]",
+        "SYN-006710 Stiprota 0.9% Infusion [0.75]",
+        "SYN-017500 Steeprut 125 mg/5 ml Powder for Suspension [0.75]",
+        "SYN-017502 Steeprut 250 mg Capsule [0.75]",
+        "SYN-013260 Steprohee 500 mg + 65 mg Tablet [0.73]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.334
+    },
+    {
+      "id": "syn-02043",
+      "query": "Rogaiax",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014497 Rugaiix 1% Cream [0.87]",
+        "SYN-010814 Rijiax 100 mg Capsule [0.78]",
+        "SYN-001191 Rokoax 20 mg Tablet [0.78]",
+        "SYN-001192 Rokoax 40 mg Tablet [0.78]",
+        "SYN-019473 Rapaiax 10 mg Tablet [0.76]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.087
+    },
+    {
+      "id": "syn-02048",
+      "query": "close the door",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016694 Clocee 250 mg Tablet [0.89]",
+        "SYN-013401 Dhor 10 mg Tablet [0.89]",
+        "SYN-013402 Dhor 20 mg/ml Injection [0.89]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.658
+    },
+    {
+      "id": "syn-02058",
+      "query": "Phocloix",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001976 Phiclouix 250 mg Chewable Tablet [0.89]",
+        "SYN-015648 Phogloax 400 mg Chewable Tablet [0.86]",
+        "SYN-002733 Phaclaiex 500 mg Capsule [0.83]",
+        "SYN-002734 Phaclaiex 250 mg Capsule [0.83]",
+        "SYN-001274 Docloux 180 mg Tablet [0.78]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.325
+    },
+    {
+      "id": "syn-02077",
+      "query": "Pleeleax",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008606 Plouleeax 0.3% Eye Drops [0.89]",
+        "SYN-003552 Pleraex 100 mg Capsule [0.82]",
+        "SYN-017726 Pliruax 100 mg Tablet [0.81]",
+        "SYN-008888 Plilouix 0.9% Infusion [0.78]",
+        "SYN-000090 Plelais 200 mg/5 ml Suspension [0.77]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.079
+    },
+    {
+      "id": "syn-02148",
+      "query": "Prodad",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006862 Predeed 50 mg Capsule [0.85]",
+        "SYN-006863 Predeed 150 mg Capsule [0.85]",
+        "SYN-003728 Pledad 500 mg Tablet [0.82]",
+        "SYN-003729 Pledad 750 mg Tablet [0.82]",
+        "SYN-002313 Protud 10 mg Tablet [0.82]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.925
+    },
+    {
+      "id": "syn-02247",
+      "query": "Foslocoon",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010174 Foslucoin 40 mg Injection [0.89]",
+        "SYN-006564 Phosikon 40 mg Tablet [0.78]",
+        "SYN-006565 Phosikon 20 mg Tablet [0.78]",
+        "SYN-004196 Slokoon 20 mg Tablet [0.77]",
+        "SYN-009394 Phasloc 100 mg Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.087
+    },
+    {
+      "id": "syn-02278",
+      "query": "Fluzuix",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016743 Flizoix 50 mcg Tablet [0.89]",
+        "SYN-016744 Flizoix 100 mcg Tablet [0.89]",
+        "SYN-011937 Fliziix 10 mg Tablet [0.88]",
+        "SYN-011938 Fliziix 4 mg Chewable Tablet [0.88]",
+        "SYN-018553 Fleejiax 50 mg Tablet [0.83]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.138
+    },
+    {
+      "id": "syn-02281",
+      "query": "Nijaid",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013682 Nichaid 500 mg + 125 mg Tablet [0.88]",
+        "SYN-013683 Nichaid 875 mg + 125 mg Tablet [0.88]",
+        "SYN-002858 Mozaid 500 mg + 200 IU Tablet [0.80]",
+        "SYN-005948 Nicheid 20 mg Capsule [0.80]",
+        "SYN-014067 Nihaiid 20 mg Tablet [0.76]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.884
+    },
+    {
+      "id": "syn-02291",
+      "query": "Prebroax 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006790 Probreeax 20 mg/2 ml Injection [0.90]",
+        "SYN-009893 Priproax 200 mg Tablet [0.75]",
+        "SYN-016157 Plivoax 20 mg Tablet [0.74]",
+        "SYN-008389 Plibrouax 3.35 g/5 ml Syrup [0.71]",
+        "SYN-001595 Briproax 50 mcg Tablet [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.532
+    },
+    {
+      "id": "syn-02365",
+      "query": "Trecliex",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012919 Traclaix 150 mg Tablet [0.85]",
+        "SYN-000969 Troglex 665 mg Extended Release Tablet [0.83]",
+        "SYN-014021 Treepleex 300 mg Tablet [0.81]",
+        "SYN-014022 Treepleex 75 mg Tablet [0.81]",
+        "SYN-016413 Traiclaax 0.9% Infusion [0.79]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.034
+    },
+    {
+      "id": "syn-02376",
+      "query": "Flagaon 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000104 Fligaiin 500 mg Tablet [0.87]",
+        "SYN-013353 Flaigaion 10.25 g Powder (Sachet) [0.74]",
+        "SYN-000103 Fligaiin 250 mg Tablet [0.74]",
+        "SYN-014723 Flajan 400 mg Chewable Tablet [0.70]",
+        "SYN-015932 Flanein 500 mg Tablet [0.67]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.477
+    },
+    {
+      "id": "syn-02531",
+      "query": "Nispoen",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012097 Nispouna 250 mg Tablet [0.87]",
+        "SYN-012098 Nispouna 500 mg Tablet [0.87]",
+        "SYN-005659 Nespaan 500 mg + 65 mg Tablet [0.79]",
+        "SYN-005002 Bispoan 50 mg Capsule [0.74]",
+        "SYN-018819 Nispoid 120 mg/5 ml Suspension [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.02
+    },
+    {
+      "id": "syn-02583",
+      "query": "Laclat",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004491 Liclit 20 mg Tablet [0.85]",
+        "SYN-000287 Luclot 40 mg Tablet [0.85]",
+        "SYN-000288 Luclot 10 mg Tablet [0.85]",
+        "SYN-000289 Luclot 20 mg Tablet [0.85]",
+        "SYN-011014 Glaclata 10.25 g Powder (Sachet) [0.77]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.484
+    }
+  ]
+}

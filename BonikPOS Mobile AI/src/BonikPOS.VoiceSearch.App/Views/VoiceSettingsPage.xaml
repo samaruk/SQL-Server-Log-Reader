@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.VoiceSettingsPage"
+             x:DataType="vm:VoiceSettingsViewModel"
+             Title="Owner voice">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14" MaximumWidthRequest="760">
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Voice profile" Style="{StaticResource SectionTitle}" />
+                    <Label Text="{Binding ProfileStatus}" Style="{StaticResource Body}" />
+                    <Label Text="{Binding ProfileDetails}" Style="{StaticResource Muted}"
+                           IsVisible="{Binding ProfileDetails, Converter={StaticResource HasText}}" />
+                    <Label Style="{StaticResource Muted}"
+                           Text="The profile is a speaker embedding (numbers), encrypted on this phone. It is not a password and cannot authorise anything." />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Owner voice check" Style="{StaticResource SectionTitle}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Ignore speech that does not match the owner's voice" Style="{StaticResource Body}" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding RequireOwnerMatch}" />
+                    </Grid>
+                    <Label Style="{StaticResource Muted}"
+                           Text="When on, utterances that clearly do not match the enrolled voice are ignored. Uncertain matches are still searched but always need your confirmation." />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Faster results: transcribe while the voice is checked" Style="{StaticResource Body}" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding TranscribeDuringCheck}" />
+                    </Grid>
+                    <Label Style="{StaticResource Muted}"
+                           Text="Off by default. When on, transcription starts before the voice check finishes, so another person's words are briefly transcribed on this phone and then discarded (never searched, shown or saved). When off, other voices are never transcribed." />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Use a custom match threshold" Style="{StaticResource Body}" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding UseCustomThreshold}" />
+                    </Grid>
+                    <VerticalStackLayout IsVisible="{Binding UseCustomThreshold}" Spacing="4">
+                        <Label Text="{Binding Threshold, StringFormat='Threshold: {0:0.00}'}" Style="{StaticResource Body}" />
+                        <Slider Minimum="0.5" Maximum="0.95" Value="{Binding Threshold}"
+                                SemanticProperties.Description="Owner voice match threshold" />
+                        <Label Text="{Binding SuggestedThreshold, StringFormat='Suggested from your enrollment: {0:0.00}. Higher rejects more of other people and also more of your own speech.'}"
+                               Style="{StaticResource Muted}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Target-speaker extraction" Style="{StaticResource SectionTitle}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Use extraction when a compatible model is installed" Style="{StaticResource Body}" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding ExtractionEnabled}" />
+                    </Grid>
+                    <Label Text="{Binding ExtractionStatus}" Style="{StaticResource Muted}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Save" Command="{Binding SaveCommand}" />
+            <Button Text="Re-enroll my voice" Style="{StaticResource SecondaryButton}" Command="{Binding ReEnrollCommand}" />
+            <Button Text="Delete voice profile" Style="{StaticResource DangerButton}" Command="{Binding DeleteCommand}"
+                    IsVisible="{Binding HasProfile}" />
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}"
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

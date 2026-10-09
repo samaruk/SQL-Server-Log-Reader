@@ -1,0 +1,2070 @@
+{
+  "format": "bonikpos-search-eval-report/1",
+  "run": {
+    "Label": "Baseline (before search changes), demo-authored",
+    "DatasetPath": "eval/search/demo-authored.cases.jsonl",
+    "DatasetSha256": "03df8859a73ca12049151d26e28d622ed8bd370c9a4a592fde30efa9cc0e8ca5",
+    "CatalogDescription": "DEMO catalog (illustrative test data - connect the BonikPOS catalog for real use)",
+    "CatalogProducts": 55,
+    "CatalogSha256": null,
+    "CatalogIsDemo": true,
+    "IndexBuildMs": 42.6147,
+    "StartedUtc": "2026-10-09T07:52:54.3947309+00:00",
+    "Thresholds": {
+      "MinCandidateScore": 0.55,
+      "ConfidentScore": 0.9,
+      "AmbiguityMargin": 0.06,
+      "MinRecognitionConfidence": 0.45,
+      "MaxCandidates": 10
+    },
+    "Machine": "Ubuntu 24.04.5 LTS; X64; 4 logical CPUs; .NET 10.0.12"
+  },
+  "metrics": {
+    "Cases": 246,
+    "Positives": 213,
+    "Negatives": 33,
+    "Top1": {
+      "Count": 206,
+      "Total": 213,
+      "Rate": 0.9671361502347418
+    },
+    "Top5": {
+      "Count": 208,
+      "Total": 213,
+      "Rate": 0.9765258215962441
+    },
+    "FalseMatchAll": {
+      "Count": 1,
+      "Total": 246,
+      "Rate": 0.0040650406504065045
+    },
+    "FalseMatchPositives": {
+      "Count": 0,
+      "Total": 213,
+      "Rate": 0
+    },
+    "FalseMatchNegatives": {
+      "Count": 1,
+      "Total": 33,
+      "Rate": 0.030303030303030304
+    },
+    "FalseConfident": {
+      "Count": 0,
+      "Total": 246,
+      "Rate": 0
+    },
+    "WrongOfferedAll": {
+      "Count": 2,
+      "Total": 246,
+      "Rate": 0.008130081300813009
+    },
+    "WrongOfferedNegatives": {
+      "Count": 2,
+      "Total": 33,
+      "Rate": 0.06060606060606061
+    },
+    "CorrectButLowConfidence": {
+      "Count": 6,
+      "Total": 213,
+      "Rate": 0.028169014084507043
+    },
+    "MissedPositives": {
+      "Count": 5,
+      "Total": 213,
+      "Rate": 0.023474178403755867
+    },
+    "NegativesRejected": {
+      "Count": 20,
+      "Total": 33,
+      "Rate": 0.6060606060606061
+    },
+    "NegativesSafe": {
+      "Count": 31,
+      "Total": 33,
+      "Rate": 0.9393939393939394
+    },
+    "DecisionAgreement": {
+      "Count": 8,
+      "Total": 8,
+      "Rate": 1
+    },
+    "DecisionCounts": {
+      "Confident": 150,
+      "NeedsConfirmation": 32,
+      "Ambiguous": 21,
+      "LowConfidence": 18,
+      "NoMatch": 25
+    },
+    "MatcherP50Ms": 0.41915,
+    "MatcherP95Ms": 1.0857,
+    "MatcherMaxMs": 35.7443
+  },
+  "by_kind": {
+    "ambiguous": {
+      "Cases": 5,
+      "Positives": 5,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 5,
+        "Total": 5,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 5,
+        "Total": 5,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 5,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 5,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 5,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 5,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 5,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 5,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 5,
+        "Total": 5,
+        "Rate": 1
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 5,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.3218,
+      "MatcherP95Ms": 28.664779999999997,
+      "MatcherMaxMs": 35.7443
+    },
+    "en-strength": {
+      "Cases": 21,
+      "Positives": 21,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 21,
+        "Total": 21,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 21,
+        "Total": 21,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 21,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.4876,
+      "MatcherP95Ms": 0.8568,
+      "MatcherMaxMs": 9.8557
+    },
+    "en-form": {
+      "Cases": 11,
+      "Positives": 11,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 10,
+        "Total": 11,
+        "Rate": 0.9090909090909091
+      },
+      "Top5": {
+        "Count": 11,
+        "Total": 11,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 11,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 11,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 11,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 11,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 11,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 11,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 10,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 1,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.3524,
+      "MatcherP95Ms": 1.5757500000000002,
+      "MatcherMaxMs": 2.6821
+    },
+    "en-exact": {
+      "Cases": 17,
+      "Positives": 17,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 17,
+        "Total": 17,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 17,
+        "Total": 17,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 16,
+        "NeedsConfirmation": 1,
+        "Ambiguous": 0,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.2833,
+      "MatcherP95Ms": 0.5926599999999999,
+      "MatcherMaxMs": 0.6965
+    },
+    "en-strength-form": {
+      "Cases": 3,
+      "Positives": 3,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 3,
+        "Total": 3,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 3,
+        "Total": 3,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 3,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 3,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 3,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 3,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 3,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 3,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 3,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.3827,
+      "MatcherP95Ms": 0.42923,
+      "MatcherMaxMs": 0.4344
+    },
+    "en-number-words": {
+      "Cases": 10,
+      "Positives": 10,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 10,
+        "Total": 10,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 10,
+        "Total": 10,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 10,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 10,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 10,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 10,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 10,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 10,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 10,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.53435,
+      "MatcherP95Ms": 3.7584499999999945,
+      "MatcherMaxMs": 5.9531
+    },
+    "bn-script": {
+      "Cases": 31,
+      "Positives": 31,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 31,
+        "Total": 31,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 31,
+        "Total": 31,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 31,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 31,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 31,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 31,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 31,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 31,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 31,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.387,
+      "MatcherP95Ms": 0.80305,
+      "MatcherMaxMs": 0.9164
+    },
+    "bn-number-words": {
+      "Cases": 15,
+      "Positives": 15,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 15,
+        "Total": 15,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 15,
+        "Total": 15,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 15,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 15,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 15,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 15,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 15,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 15,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 14,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 1,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.3979,
+      "MatcherP95Ms": 0.8318399999999998,
+      "MatcherMaxMs": 0.9164
+    },
+    "bn-transliteration": {
+      "Cases": 17,
+      "Positives": 17,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 16,
+        "Total": 17,
+        "Rate": 0.9411764705882353
+      },
+      "Top5": {
+        "Count": 16,
+        "Total": 17,
+        "Rate": 0.9411764705882353
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 17,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 1,
+        "Total": 17,
+        "Rate": 0.058823529411764705
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 7,
+        "NeedsConfirmation": 5,
+        "Ambiguous": 4,
+        "LowConfidence": 0,
+        "NoMatch": 1
+      },
+      "MatcherP50Ms": 0.5138,
+      "MatcherP95Ms": 1.0085,
+      "MatcherMaxMs": 1.1161
+    },
+    "banglish": {
+      "Cases": 14,
+      "Positives": 14,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 14,
+        "Total": 14,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 14,
+        "Total": 14,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 14,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 14,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 14,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 14,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 14,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 14,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 12,
+        "NeedsConfirmation": 1,
+        "Ambiguous": 1,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.41705000000000003,
+      "MatcherP95Ms": 0.67344,
+      "MatcherMaxMs": 0.7153
+    },
+    "typo": {
+      "Cases": 27,
+      "Positives": 27,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 27,
+        "Total": 27,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 27,
+        "Total": 27,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 27,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 27,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 27,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 27,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 27,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 27,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 15,
+        "NeedsConfirmation": 11,
+        "Ambiguous": 1,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.4257,
+      "MatcherP95Ms": 0.7030099999999999,
+      "MatcherMaxMs": 1.0349
+    },
+    "asr-split": {
+      "Cases": 21,
+      "Positives": 21,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 19,
+        "Total": 21,
+        "Rate": 0.9047619047619048
+      },
+      "Top5": {
+        "Count": 19,
+        "Total": 21,
+        "Rate": 0.9047619047619048
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 21,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 1,
+        "Total": 21,
+        "Rate": 0.047619047619047616
+      },
+      "MissedPositives": {
+        "Count": 2,
+        "Total": 21,
+        "Rate": 0.09523809523809523
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 11,
+        "NeedsConfirmation": 7,
+        "Ambiguous": 0,
+        "LowConfidence": 1,
+        "NoMatch": 2
+      },
+      "MatcherP50Ms": 0.3391,
+      "MatcherP95Ms": 0.8491,
+      "MatcherMaxMs": 1.1274
+    },
+    "asr-nbest": {
+      "Cases": 6,
+      "Positives": 6,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 4,
+        "Total": 6,
+        "Rate": 0.6666666666666666
+      },
+      "Top5": {
+        "Count": 5,
+        "Total": 6,
+        "Rate": 0.8333333333333334
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 4,
+        "Total": 6,
+        "Rate": 0.6666666666666666
+      },
+      "MissedPositives": {
+        "Count": 1,
+        "Total": 6,
+        "Rate": 0.16666666666666666
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 1,
+        "LowConfidence": 4,
+        "NoMatch": 1
+      },
+      "MatcherP50Ms": 0.3909,
+      "MatcherP95Ms": 0.847125,
+      "MatcherMaxMs": 0.8871
+    },
+    "generic": {
+      "Cases": 26,
+      "Positives": 26,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 25,
+        "Total": 26,
+        "Rate": 0.9615384615384616
+      },
+      "Top5": {
+        "Count": 25,
+        "Total": 26,
+        "Rate": 0.9615384615384616
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 26,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 26,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 26,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 26,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 26,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 1,
+        "Total": 26,
+        "Rate": 0.038461538461538464
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 8,
+        "NeedsConfirmation": 5,
+        "Ambiguous": 12,
+        "LowConfidence": 0,
+        "NoMatch": 1
+      },
+      "MatcherP50Ms": 0.8185,
+      "MatcherP95Ms": 1.485475,
+      "MatcherMaxMs": 1.5462
+    },
+    "quantity": {
+      "Cases": 6,
+      "Positives": 6,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 6,
+        "Total": 6,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 6,
+        "Total": 6,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 6,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 6,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.1834,
+      "MatcherP95Ms": 0.39005,
+      "MatcherMaxMs": 0.3949
+    },
+    "cap-low-asr-confidence": {
+      "Cases": 1,
+      "Positives": 1,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 1,
+        "Total": 1,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 1,
+        "Total": 1,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 1,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 1,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 1,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 1,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 1,
+        "Total": 1,
+        "Rate": 1
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 1,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 1,
+        "Total": 1,
+        "Rate": 1
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 1,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.9825,
+      "MatcherP95Ms": 0.9825,
+      "MatcherMaxMs": 0.9825
+    },
+    "cap-speaker-uncertain": {
+      "Cases": 2,
+      "Positives": 2,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 2,
+        "Total": 2,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 2,
+        "Total": 2,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 2,
+        "Total": 2,
+        "Rate": 1
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 2,
+        "Ambiguous": 0,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.48735000000000006,
+      "MatcherP95Ms": 0.6434550000000001,
+      "MatcherMaxMs": 0.6608
+    },
+    "neg-strength-mismatch": {
+      "Cases": 7,
+      "Positives": 0,
+      "Negatives": 7,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 7,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 7,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 7,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 7,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 7,
+        "Rate": 0
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 7,
+        "Rate": 0
+      },
+      "NegativesSafe": {
+        "Count": 7,
+        "Total": 7,
+        "Rate": 1
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 7,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.5535,
+      "MatcherP95Ms": 0.7527899999999998,
+      "MatcherMaxMs": 0.7845
+    },
+    "neg-form-mismatch": {
+      "Cases": 4,
+      "Positives": 0,
+      "Negatives": 4,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 4,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 4,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 4,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 4,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 4,
+        "Rate": 0
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 4,
+        "Rate": 0
+      },
+      "NegativesSafe": {
+        "Count": 4,
+        "Total": 4,
+        "Rate": 1
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 4,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 0.3829,
+      "MatcherP95Ms": 0.48181499999999994,
+      "MatcherMaxMs": 0.4947
+    },
+    "neg-unknown-brand": {
+      "Cases": 12,
+      "Positives": 0,
+      "Negatives": 12,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 1,
+        "Total": 12,
+        "Rate": 0.08333333333333333
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 1,
+        "Total": 12,
+        "Rate": 0.08333333333333333
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 12,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 1,
+        "Total": 12,
+        "Rate": 0.08333333333333333
+      },
+      "WrongOfferedNegatives": {
+        "Count": 1,
+        "Total": 12,
+        "Rate": 0.08333333333333333
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 11,
+        "Total": 12,
+        "Rate": 0.9166666666666666
+      },
+      "NegativesSafe": {
+        "Count": 11,
+        "Total": 12,
+        "Rate": 0.9166666666666666
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 1,
+        "Ambiguous": 0,
+        "LowConfidence": 0,
+        "NoMatch": 11
+      },
+      "MatcherP50Ms": 0.4952,
+      "MatcherP95Ms": 0.855815,
+      "MatcherMaxMs": 0.8738
+    },
+    "neg-not-medicine": {
+      "Cases": 8,
+      "Positives": 0,
+      "Negatives": 8,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 8,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 8,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 8,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 1,
+        "Total": 8,
+        "Rate": 0.125
+      },
+      "WrongOfferedNegatives": {
+        "Count": 1,
+        "Total": 8,
+        "Rate": 0.125
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 7,
+        "Total": 8,
+        "Rate": 0.875
+      },
+      "NegativesSafe": {
+        "Count": 7,
+        "Total": 8,
+        "Rate": 0.875
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 1,
+        "LowConfidence": 0,
+        "NoMatch": 7
+      },
+      "MatcherP50Ms": 0.27765,
+      "MatcherP95Ms": 0.5660649999999999,
+      "MatcherMaxMs": 0.6046
+    },
+    "neg-gibberish": {
+      "Cases": 2,
+      "Positives": 0,
+      "Negatives": 2,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 2,
+        "Rate": 0
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 2,
+        "Total": 2,
+        "Rate": 1
+      },
+      "NegativesSafe": {
+        "Count": 2,
+        "Total": 2,
+        "Rate": 1
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 0,
+        "NoMatch": 2
+      },
+      "MatcherP50Ms": 0.4138,
+      "MatcherP95Ms": 0.52117,
+      "MatcherMaxMs": 0.5331
+    }
+  },
+  "definitions": [
+    "- Positive case: at least one catalog product satisfies the request; any listed product id counts as correct.",
+    "- Negative case: nothing in the catalog satisfies the request (unknown brand, non-existent strength/form, not a medicine).",
+    "- Top-1 / Top-5 accuracy: share of positive cases whose first / any of the first five ranked products is correct.",
+    "- False match: the system presented a wrong product as the match (decision Confident or NeedsConfirmation with a wrong first result); counted on all cases, so every Confident/NeedsConfirmation answer to a negative case is a false match.",
+    "- False confident: the subset of false matches with decision Confident.",
+    "- Wrong product offered: a false match, or an Ambiguous choice in which none of the offered options is correct.",
+    "- Correct but low confidence: positive cases whose first result is correct but which were answered LowConfidence/NoMatch (shown only as a weak suggestion).",
+    "- Negatives safely handled: decision NoMatch or LowConfidence (candidates shown only with a warning).",
+    "- Missed positives: decision NoMatch although a correct product exists.",
+    "- Decision agreement: share of cases with an expected decision whose decision was one of the expected ones.",
+    "- Matcher latency: time inside the matcher per query on the machine named in the report (not a phone)."
+  ],
+  "cases_listed": "failures only (wrong or missing top-1, false match, wrong product offered, unexpected decision)",
+  "cases": [
+    {
+      "id": "demo-033",
+      "query": "Zimax powder",
+      "kind": [
+        "en-form"
+      ],
+      "expected": [
+        "DEMO-0029"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "DEMO-0028 Zimax 500 mg Tablet [0.80]",
+        "DEMO-0029 Zimax 200 mg/5 ml Powder for Suspension [0.80]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.283
+    },
+    {
+      "id": "demo-100",
+      "query": "মন্টেয়ার ১০",
+      "kind": [
+        "bn-transliteration"
+      ],
+      "expected": [
+        "DEMO-0027"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 0.716
+    },
+    {
+      "id": "demo-166",
+      "query": "sir gel twenty",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "DEMO-0013"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 0.125
+    },
+    {
+      "id": "demo-172",
+      "query": "fax oh one eighty",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "DEMO-0021"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 0.849
+    },
+    {
+      "id": "demo-176",
+      "query": "নাপা এক্সটা",
+      "kind": [
+        "asr-nbest"
+      ],
+      "expected": [
+        "DEMO-0004"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 4,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "DEMO-0001 Napa 500 mg Tablet [0.93]",
+        "DEMO-0002 Napa 120 mg/5 ml Suspension [0.93]",
+        "DEMO-0003 Napa 80 mg/ml Pediatric Drops [0.93]",
+        "DEMO-0004 Napa Extra 500 mg + 65 mg Tablet [0.87]",
+        "DEMO-0005 Napa Extend 665 mg Extended Release Tablet [0.76]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.5
+    },
+    {
+      "id": "demo-178",
+      "query": "fix oh one twenty",
+      "kind": [
+        "asr-nbest"
+      ],
+      "expected": [
+        "DEMO-0020"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 0.282
+    },
+    {
+      "id": "demo-199",
+      "query": "ascorbic acid",
+      "kind": [
+        "generic"
+      ],
+      "expected": [
+        "DEMO-0048"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 0.767
+    },
+    {
+      "id": "demo-229",
+      "query": "nexium 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "DEMO-0017 Nexum 20 mg Tablet [0.92]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.841
+    },
+    {
+      "id": "demo-237",
+      "query": "hello",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "DEMO-0010 Seclo 20 mg Capsule [0.59]",
+        "DEMO-0011 Seclo 40 mg Capsule [0.59]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.262
+    }
+  ]
+}

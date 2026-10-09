@@ -1,0 +1,13 @@
+{
+  "format": "bonikpos-benchmark-clips/1",
+  "notice": "SYNTHETIC TTS clips (see README.json): exercise the pipeline and measure timing only; they say nothing about recognition or verification accuracy.",
+  "clips": [
+    { "file": "synthetic-voiceA-1.wav", "owner": true, "enroll": true },
+    { "file": "synthetic-voiceA-3.wav", "owner": true, "enroll": true },
+    { "file": "synthetic-voiceA-2.wav", "owner": true },
+    { "file": "synthetic-en-napa.wav", "owner": true },
+    { "file": "synthetic-en-seclo.wav", "owner": true },
+    { "file": "synthetic-voiceB-2.wav", "owner": false },
+    { "file": "synthetic-overlap-A2-B2.wav", "owner": true }
+  ]
+}

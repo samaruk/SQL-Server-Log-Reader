@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.EnrollmentResultPage"
+             x:DataType="vm:EnrollmentResultViewModel"
+             Title="Enrollment complete">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14" MaximumWidthRequest="720">
+            <Label Text="Your voice profile is ready" Style="{StaticResource Title}" />
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding Summary}" Style="{StaticResource Body}" />
+                    <Label Text="{Binding ConsistencyText}" Style="{StaticResource Body}" />
+                    <Label Text="{Binding ModelText}" Style="{StaticResource Muted}" />
+                </VerticalStackLayout>
+            </Border>
+            <Border Style="{StaticResource InfoBanner}">
+                <Label Style="{StaticResource InfoText}"
+                       Text="The profile is not a password and does not prove who is speaking. It only helps the app prefer your voice. Recordings were discarded." />
+            </Border>
+            <Button Text="Save voice profile" Command="{Binding SaveCommand}" IsEnabled="{Binding HasDraft}" />
+            <Button Text="Discard" Style="{StaticResource SecondaryButton}" Command="{Binding DiscardCommand}" />
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}" IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
