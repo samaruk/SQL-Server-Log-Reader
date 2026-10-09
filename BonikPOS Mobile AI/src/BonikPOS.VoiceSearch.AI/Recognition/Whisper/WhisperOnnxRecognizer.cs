@@ -120,6 +120,26 @@ public sealed class WhisperOnnxRecognizer : ISpeechRecognitionService
 
     private SpeechRecognitionResult Recognize(ReadOnlyMemory<float> audio, SpeechRecognitionOptions options, CancellationToken token)
     {
+        // Cancellation also stops an ONNX Runtime Run in progress (the flag is checked between operators), so a
+        // recognition the pipeline no longer needs - another speaker's utterance - stops instead of running to the end.
+        var stop = token.Register(static o => ((RunOptions)o!).Terminate = true, _runOptions);
+        try
+        {
+            return RecognizeCore(audio, options, token);
+        }
+        catch (OnnxRuntimeException) when (token.IsCancellationRequested)
+        {
+            throw new OperationCanceledException(token);
+        }
+        finally
+        {
+            stop.Dispose(); // waits for a callback in progress, so the reset below is final
+            _runOptions.Terminate = false;
+        }
+    }
+
+    private SpeechRecognitionResult RecognizeCore(ReadOnlyMemory<float> audio, SpeechRecognitionOptions options, CancellationToken token)
+    {
         var d = Decode(audio.Span, options.LanguageMode, options.MaxTokens, repetitionGuard: true, token, options.AlternativeLanguageBelow);
         string text = _vocabulary.Decode(d.Tokens, _config.Eot).Trim();
         bool silence = d.NoSpeechProbability > NoSpeechThreshold && d.AverageLogProbability < LogProbThreshold;
@@ -290,6 +310,67 @@ public sealed class WhisperOnnxRecognizer : ISpeechRecognitionService
         return result;
     }
 
+    /// <summary>
+    /// Times the work of one recognition independently of what the model outputs: log-mel, encoder, the
+    /// start-of-transcript step, the language/task prompt step and <paramref name="tokenSteps"/> single-token steps fed a
+    /// fixed text token (teacher forcing) with the same logit handling as greedy decoding. Random-weight compute-shape
+    /// exports and trained checkpoints of the same dimensions therefore do identical work. Used by the asr-bench tool.
+    /// </summary>
+    public WhisperComputeTiming MeasureCompute(ReadOnlySpan<float> audio16k, int tokenSteps)
+    {
+        _gate.Wait();
+        try
+        {
+            var sw = Stopwatch.StartNew();
+            _logMel.Compute(audio16k[..Math.Min(audio16k.Length, _config.Frames * WhisperLogMel.HopLength)], _config.Frames, _mel);
+            double featureMs = sw.Elapsed.TotalMilliseconds;
+
+            sw.Restart();
+            using var melValue = OrtValue.CreateTensorValueFromMemory(_mel, [1, _config.Mels, _config.Frames]);
+            using var encoded = _encoder.Session.Run(_runOptions, ["mel"], [melValue], _encoderOutputs);
+            double encoderMs = sw.Elapsed.TotalMilliseconds;
+
+            using var empty = OrtValue.CreateAllocatedTensorValue(
+                OrtAllocator.DefaultInstance, TensorElementType.Float, [_config.TextLayers, 1, 0, _config.TextState]);
+            sw.Restart();
+            using var sot = Step([_config.Sot], empty, empty, encoded[0], encoded[1]);
+            ReadLogits(sot);
+            string language = ChooseLanguage(RecognitionLanguageMode.AutoBanglaEnglish);
+            double startMs = sw.Elapsed.TotalMilliseconds;
+
+            sw.Restart();
+            var state = Step([_config.Languages[language], _config.Transcribe, _config.NoTimestamps], sot[1], sot[2], encoded[0], encoded[1]);
+            double promptMs;
+            var steps = new double[Math.Clamp(tokenSteps, 0, _config.TextContext - 4)];
+            try
+            {
+                ReadLogits(state);
+                Pick(firstStep: true);
+                promptMs = sw.Elapsed.TotalMilliseconds;
+                for (int i = 0; i < steps.Length; i++)
+                {
+                    sw.Restart();
+                    var previous = state;
+                    state = Step([0], previous[1], previous[2], encoded[0], encoded[1]); // any text token: cost does not depend on it
+                    previous.Dispose();
+                    ReadLogits(state);
+                    Pick(firstStep: false);
+                    steps[i] = sw.Elapsed.TotalMilliseconds;
+                }
+            }
+            finally
+            {
+                state.Dispose();
+            }
+
+            return new WhisperComputeTiming(featureMs, encoderMs, startMs, promptMs, steps);
+        }
+        finally
+        {
+            _gate.Release();
+        }
+    }
+
     private (int[] Top5, float[] Top5Logits) Top5()
     {
         var idx = Enumerable.Range(0, _logits.Length).OrderByDescending(i => _logits[i]).Take(5).ToArray();
@@ -451,3 +532,9 @@ internal sealed record WhisperDecodeResult(
 
 internal sealed record WhisperHypothesis(
     IReadOnlyList<int> Tokens, IReadOnlyList<double> LogProbabilities, string Language, double AverageLogProbability, bool HitLimit);
+
+/// <summary>Milliseconds per stage from <see cref="WhisperOnnxRecognizer.MeasureCompute"/>.</summary>
+public sealed record WhisperComputeTiming(double FeatureMs, double EncoderMs, double StartStepMs, double PromptStepMs, IReadOnlyList<double> TokenStepMs)
+{
+    public double TotalMs => FeatureMs + EncoderMs + StartStepMs + PromptStepMs + TokenStepMs.Sum();
+}

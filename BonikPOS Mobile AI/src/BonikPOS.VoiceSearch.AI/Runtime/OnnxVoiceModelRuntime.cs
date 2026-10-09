@@ -28,10 +28,10 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
     private readonly ILogger _logger;
     private readonly SemaphoreSlim _initGate = new(1, 1);
     private readonly bool _allowTestFixtures;
-    private (AcceleratorPreference, int)? _loadedWith;
+    private OnnxSessionPreferences? _loadedWith;
     private SileroVadModel? _vad;
     private ISpeakerEmbeddingService? _encoder;
-    private StreamingTseModel? _tse;
+    private ITseModel? _tse;
     private ISpeechRecognitionService _recognizer = new UnavailableSpeechRecognizer("Models have not been loaded yet.");
     private string _tseUnavailableMessage = "No target-speaker extraction model is installed.";
     private TargetSpeakerExtractionAvailability _tseUnavailable = TargetSpeakerExtractionAvailability.NotInstalled;
@@ -59,18 +59,18 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
     public async Task InitializeAsync(VoiceSearchSettings settings, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(settings);
-        var key = (settings.Accelerator, settings.InferenceThreads);
+        var preferences = new OnnxSessionPreferences(
+            settings.Accelerator, settings.InferenceThreads, settings.InferenceThreadSpinning, settings.StreamingModelThreads);
         await _initGate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
         {
-            if (_loadedWith == key)
+            if (_loadedWith == preferences)
             {
                 return;
             }
 
-            var preferences = new OnnxSessionPreferences(settings.Accelerator, settings.InferenceThreads);
             await Task.Run(() => LoadAll(preferences, cancellationToken), cancellationToken).ConfigureAwait(false);
-            _loadedWith = key;
+            _loadedWith = preferences;
         }
         finally
         {
@@ -93,12 +93,52 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
         await InitializeAsync(settings, cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
+    public async Task<double> WarmUpAsync(CancellationToken cancellationToken)
+    {
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+        await Task.Run(async () =>
+        {
+            var rng = new Random(3);
+            var audio = new float[16000];
+            for (int i = 0; i < audio.Length; i++)
+            {
+                // A quiet voiced-like tone with noise: valid input for every model, never real speech.
+                audio[i] = (float)(0.05 * Math.Sin(2 * Math.PI * 150 * i / 16000.0) + 0.005 * (rng.NextDouble() - 0.5));
+            }
+
+            if (_vad is not null)
+            {
+                using var vad = _vad.CreateDetector();
+                vad.Process(audio.AsSpan(0, vad.ChunkSamples));
+            }
+
+            _encoder?.EmbedUtterance(audio, cancellationToken);
+            if (_tse is not null)
+            {
+                using var extractor = _tse.CreateExtractor(null);
+                extractor.SetTarget(new SpeakerEmbedding(_tse.RequiredEncoderId, "warm-up", Enumerable.Repeat(1f, _tse.EmbeddingDim).ToArray()));
+                var output = new float[_tse.ChunkSamples * 2];
+                extractor.Process(audio.AsSpan(0, output.Length), output);
+            }
+
+            if (_recognizer.Info.IsAvailable)
+            {
+                await _recognizer.RecognizeAsync(audio, new SpeechRecognitionOptions { MaxTokens = 2, AlternativeLanguageBelow = 0 }, cancellationToken)
+                    .ConfigureAwait(false);
+            }
+        }, cancellationToken).ConfigureAwait(false);
+        double ms = sw.Elapsed.TotalMilliseconds;
+        _telemetry.Record("model.warm_up_ms", ms);
+        return ms;
+    }
+
     public IVoiceActivityDetector CreateVoiceActivityDetector() =>
         _vad?.CreateDetector() ?? throw new InvalidOperationException("The voice activity model is not installed.");
 
     public ITargetSpeakerExtractor CreateTargetSpeakerExtractor() =>
         _tse is not null
-            ? new OnnxStreamingTargetSpeakerExtractor(_tse, _logger)
+            ? _tse.CreateExtractor(_logger)
             : new UnavailableTargetSpeakerExtractor(_tseUnavailable, _tseUnavailableMessage);
 
     public TargetSpeakerExtractorStatus CreateTargetSpeakerExtractorStatusPreview() =>
@@ -145,7 +185,13 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
 
         var tseStatus = Load(ModelRole.TargetSpeakerExtraction, model =>
         {
-            var tse = StreamingTseModel.Load(model, preferences, _logger);
+            ITseModel tse = model.Descriptor.Format switch
+            {
+                StreamingTseModel.FormatId => StreamingTseModel.Load(model, preferences, _logger),
+                StftStreamingTseModel.FormatId => StftStreamingTseModel.Load(model, preferences, _logger),
+                _ => throw new ModelContractException(
+                    $"Unknown target-speaker extraction format '{model.Descriptor.Format}' (supported: {StreamingTseModel.FormatId}, {StftStreamingTseModel.FormatId})."),
+            };
             if (_encoder is not null && tse.RequiredEncoderId != _encoder.Info.ModelId)
             {
                 string msg = $"TSE model {model.Descriptor.Id} is conditioned on {tse.RequiredEncoderId}, but the installed speaker encoder is {_encoder.Info.ModelId}.";
@@ -154,8 +200,7 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
             }
 
             _tse = tse;
-            return new ComponentStatus(true, model.Descriptor.Id,
-                $"Streaming target-speaker extraction ({tse.ChunkSamples} samples/chunk)", tse.Loaded.ExecutionProvider, tse.Loaded.InitMilliseconds);
+            return new ComponentStatus(true, model.Descriptor.Id, tse.Description, tse.Loaded.ExecutionProvider, tse.Loaded.InitMilliseconds);
         }, messages, token);
         if (!tseStatus.Available)
         {

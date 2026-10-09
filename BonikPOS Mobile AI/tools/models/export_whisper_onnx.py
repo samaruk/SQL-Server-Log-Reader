@@ -69,6 +69,15 @@ RANDOM_PRESETS = {
     # Small enough to commit as a test fixture, but with the real vocabulary so token ids are real.
     "test-tiny": dict(n_mels=80, n_audio_ctx=150, n_audio_state=32, n_audio_head=2, n_audio_layer=2,
                       n_vocab=51865, n_text_ctx=448, n_text_state=32, n_text_head=2, n_text_layer=2),
+    # COMPUTE-BENCHMARK shapes: random weights with the published dimensions of Whisper tiny / base / small (Radford et
+    # al. 2022, Table 1). Same tensor sizes and operator counts as the real models, so per-frame and per-token timings are
+    # representative; the output text is meaningless. Never register these as speech-recognition models.
+    "shape-tiny": dict(n_mels=80, n_audio_ctx=1500, n_audio_state=384, n_audio_head=6, n_audio_layer=4,
+                       n_vocab=51865, n_text_ctx=448, n_text_state=384, n_text_head=6, n_text_layer=4),
+    "shape-base": dict(n_mels=80, n_audio_ctx=1500, n_audio_state=512, n_audio_head=8, n_audio_layer=6,
+                       n_vocab=51865, n_text_ctx=448, n_text_state=512, n_text_head=8, n_text_layer=6),
+    "shape-small": dict(n_mels=80, n_audio_ctx=1500, n_audio_state=768, n_audio_head=12, n_audio_layer=12,
+                        n_vocab=51865, n_text_ctx=448, n_text_state=768, n_text_head=12, n_text_layer=12),
 }
 
 
@@ -88,6 +97,8 @@ def load_random(preset: str, seed: int) -> Whisper:
     dims = ModelDimensions(**RANDOM_PRESETS[preset])
     torch.manual_seed(seed)
     model = Whisper(dims)
+    if preset.startswith("shape-"):
+        return model.eval()  # PyTorch default initialisation keeps large random models numerically finite
     with torch.no_grad():
         for module in model.modules():
             if isinstance(module, torch.nn.LayerNorm):
@@ -168,7 +179,9 @@ def hf_to_openai(hf_model) -> Whisper:
 def load_model(args) -> tuple[Whisper, dict]:
     if args.random_preset:
         return load_random(args.random_preset, args.seed), {
-            "source": f"RANDOM WEIGHTS preset={args.random_preset} seed={args.seed} - test fixture, not a speech model",
+            "source": (f"RANDOM WEIGHTS preset={args.random_preset} seed={args.seed} - COMPUTE BENCHMARK ONLY (published "
+                       f"{args.random_preset[6:]} dimensions), not a speech model") if args.random_preset.startswith("shape-")
+                      else f"RANDOM WEIGHTS preset={args.random_preset} seed={args.seed} - test fixture, not a speech model",
             "license": "n/a (random weights)", "model_id": f"whisper-random-{args.random_preset}"}
     if args.hf_model:
         from transformers import WhisperForConditionalGeneration

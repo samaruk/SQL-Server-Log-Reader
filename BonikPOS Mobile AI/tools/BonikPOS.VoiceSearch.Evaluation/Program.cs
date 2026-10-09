@@ -18,6 +18,11 @@ if (args.Length == 0 || args[0] is "-h" or "--help")
                         [--min-candidate x] [--confident x] [--margin x] [--min-confirm x] [--min-fuzzy-confirm x] [--all-cases]
           make-catalog  --out <products.json> [--count 20000] [--seed 20261009]
           make-cases    --catalog <products.json> --out <cases.jsonl> [--count 2000] [--seed 7] [--negatives 500] [--phrases A|B|C]
+          tse-bench     --models a.onnx,b.onnx [--seconds 10] [--threads 1,2] [--out r.json] [--md r.md]
+          asr-bench     --configs a-config.json,b-config.json [--threads 1,2,4] [--repetitions 5] [--tokens 12] [--seconds 3]
+                        [--out r.json] [--md r.md]
+          pipeline-bench --asr-config <prefix-config.json> [--tse model.onnx] [--repetitions 3] [--no-warmup] [--sequential] [--fast]
+                        [--threads 0] [--streaming-threads 1] [--spinning] [--solution-root .] [--label text] [--out r.json] [--md r.md]
 
         Reports contain only numbers measured in the run. Datasets authored by developers or generated synthetically are
         regression checks, not estimates of accuracy in a real pharmacy (see docs/SEARCH_EVALUATION.md).
@@ -49,6 +54,40 @@ switch (args[0])
         Console.WriteLine($"Wrote {cases.Count} generated cases to {opts.Required("out")}");
         return 0;
     }
+
+    case "pipeline-bench":
+        return await BonikPOS.VoiceSearch.Evaluation.Pipeline.PipelineBenchCommand.RunAsync(
+            Path.GetFullPath(opts.Get("solution-root") ?? "."),
+            opts.Required("asr-config"),
+            opts.Get("tse"),
+            opts.Int("repetitions", 3),
+            warmUp: opts.Get("no-warmup") is null,
+            parallel: opts.Get("sequential") is null,
+            realTime: opts.Get("fast") is null,
+            threads: opts.Int("threads", 0),
+            streamingThreads: opts.Int("streaming-threads", 1),
+            spinning: opts.Get("spinning") is not null,
+            opts.Get("label") ?? string.Empty,
+            opts.Get("out"), opts.Get("md"));
+
+    case "tse-bench":
+        return BonikPOS.VoiceSearch.Evaluation.Tse.TseBenchmark.Run(
+            opts.Required("models").Split(',', StringSplitOptions.RemoveEmptyEntries),
+            opts.Int("seconds", 10),
+            [.. (opts.Get("threads") ?? "1,2").Split(',').Select(t => int.Parse(t, CultureInfo.InvariantCulture))],
+            opts.Get("out"), opts.Get("md"));
+
+    case "asr-bench":
+        return await BonikPOS.VoiceSearch.Evaluation.Asr.AsrBenchmark.RunAsync(
+            opts.Required("configs").Split(',', StringSplitOptions.RemoveEmptyEntries),
+            [.. (opts.Get("threads") ?? "1,2,4").Split(',').Select(t => int.Parse(t, CultureInfo.InvariantCulture))],
+            opts.Int("repetitions", 5), opts.Int("tokens", 12), opts.Double("seconds", 3),
+            opts.Get("out"), opts.Get("md"));
+
+    case "asr-bench-one": // child process of asr-bench
+        return BonikPOS.VoiceSearch.Evaluation.Asr.AsrBenchmark.RunOne(
+            opts.Required("config"), opts.Int("threads", 1), opts.Int("repetitions", 5), opts.Int("tokens", 12), opts.Double("seconds", 3),
+            opts.Required("row-out"));
 
     default:
         Console.Error.WriteLine($"Unknown command '{args[0]}'. Use --help.");

@@ -4,6 +4,7 @@ namespace BonikPOS.VoiceSearch.Core.Telemetry;
 public static class TelemetryMetrics
 {
     public const string CaptureToProcessedMs = "audio.capture_to_processed_ms";
+    public const string FrameProcessingMs = "pipeline.frame_processing_ms";
     public const string TseChunkMs = "tse.chunk_ms";
     public const string VadChunkMs = "vad.chunk_ms";
     public const string SpeakerVerifyMs = "speaker.verify_ms";
@@ -14,6 +15,8 @@ public static class TelemetryMetrics
     public const string AsrTotalMs = "asr.total_ms";
     public const string SearchMs = "search.query_ms";
     public const string EndOfSpeechToResultMs = "pipeline.end_of_speech_to_result_ms";
+    /// <summary>End of speech to ANY feedback (result, "didn't catch that", or "not the owner's voice").</summary>
+    public const string EndOfSpeechToOutcomeMs = "pipeline.end_of_speech_to_outcome_ms";
     public const string ModelInitPrefix = "model.init_ms.";
     public const string CpuPercent = "device.process_cpu_percent";
     public const string ManagedMemoryMb = "device.managed_memory_mb";

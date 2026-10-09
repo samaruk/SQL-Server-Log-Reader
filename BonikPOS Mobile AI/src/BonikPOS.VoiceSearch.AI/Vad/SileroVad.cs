@@ -34,7 +34,7 @@ public sealed class SileroVadModel : IDisposable
 
     public static SileroVadModel Load(ResolvedModel model, OnnxSessionPreferences preferences, ILogger? logger = null)
     {
-        var loaded = OnnxSessionFactory.Create(model.PathOf("model"), preferences, allowAccelerator: false, logger);
+        var loaded = OnnxSessionFactory.Create(model.PathOf("model"), preferences.ForStreaming(), allowAccelerator: false, logger);
         try
         {
             var s = loaded.Session;

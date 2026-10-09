@@ -33,9 +33,17 @@ public sealed record AudioLevelEvent(double RmsDbfs, double PeakDbfs, float Spee
 public sealed record UtteranceCapturedEvent(double SpeechMilliseconds, bool Truncated) : PipelineEvent;
 
 /// <summary>An utterance was not used, e.g. because it was attributed to someone other than the owner.</summary>
-public sealed record UtteranceIgnoredEvent(OwnerVerificationResult Verification, string Reason) : PipelineEvent;
+public sealed record UtteranceIgnoredEvent(OwnerVerificationResult Verification, string Reason) : PipelineEvent
+{
+    /// <summary>Milliseconds from the detected end of speech to this event.</summary>
+    public double? EndOfSpeechToOutcomeMs { get; init; }
+}
 
-public sealed record NothingRecognizedEvent(SpeechRecognitionResult Recognition) : PipelineEvent;
+public sealed record NothingRecognizedEvent(SpeechRecognitionResult Recognition) : PipelineEvent
+{
+    /// <summary>Milliseconds from the detected end of speech to this event.</summary>
+    public double? EndOfSpeechToOutcomeMs { get; init; }
+}
 
 public sealed record PipelineTimings(double VerificationMs, double RecognitionMs, double SearchMs, double EndOfSpeechToResultMs);
 
@@ -356,6 +364,8 @@ public sealed class VoiceSearchPipeline : IVoiceSearchPipeline
                 }
 
                 var utterance = segmenter.Push(extracted, read.Info.CaptureTimestamp);
+                // Must stay well below the frame duration (20 ms) or the bounded queue fills and frames are dropped.
+                _telemetry.Record(TelemetryMetrics.FrameProcessingMs, Ticks.ElapsedMilliseconds(t0));
                 _telemetry.Record(TelemetryMetrics.CaptureToProcessedMs, Ticks.ElapsedMilliseconds(read.Info.CaptureTimestamp));
 
                 if (segmenter.InSpeech != wasInSpeech)
@@ -446,40 +456,98 @@ public sealed class VoiceSearchPipeline : IVoiceSearchPipeline
     private async Task<bool> ProcessUtteranceAsync(
         Utterance utterance, PipelineSessionOptions options, VoiceSearchSettings settings, CancellationToken token)
     {
-        long t0 = Ticks.Now();
-        var verification = Verify(utterance, options.Owner, token);
-        double verifyMs = Ticks.ElapsedMilliseconds(t0);
-        _telemetry.Record(TelemetryMetrics.SpeakerVerifyMs, verifyMs);
-
-        switch (verification.Decision)
-        {
-            case OwnerVoiceDecision.NotOwner when settings.Verification.RequireOwnerMatch:
-                _telemetry.Increment(TelemetryMetrics.UtterancesNotOwner);
-                Raise(new UtteranceIgnoredEvent(verification, "The voice did not match the enrolled owner."));
-                return false;
-            case OwnerVoiceDecision.InsufficientSpeech:
-                Raise(new UtteranceIgnoredEvent(verification, "Too little speech to check the speaker."));
-                return false;
-            case OwnerVoiceDecision.Uncertain:
-                _telemetry.Increment(TelemetryMetrics.UtterancesUncertain);
-                break;
-        }
-
         var recognizer = _runtime.Recognizer;
         if (!recognizer.Info.IsAvailable)
         {
             throw new SpeechRecognitionUnavailableException(recognizer.Info.StatusMessage);
         }
 
+        var asrOptions = new SpeechRecognitionOptions { LanguageMode = settings.LanguageMode };
+        bool parallel = settings.Pipeline.ParallelVerification && options.Owner is not null && _runtime.OwnerVerifier is not null;
+        using var asrCts = CancellationTokenSource.CreateLinkedTokenSource(token);
         long t1 = Ticks.Now();
-        var recognition = await recognizer.RecognizeAsync(
-            utterance.Audio, new SpeechRecognitionOptions { LanguageMode = settings.LanguageMode }, token).ConfigureAwait(false);
+        // Parallel mode: recognition starts at once and verification runs beside it; recognition of a voice that is
+        // clearly not the owner's is cancelled. This removes the verification time from the result latency.
+        Task<SpeechRecognitionResult>? asrTask = parallel ? recognizer.RecognizeAsync(utterance.Audio, asrOptions, asrCts.Token) : null;
+
+        long t0 = Ticks.Now();
+        OwnerVerificationResult verification;
+        try
+        {
+            verification = parallel
+                ? await Task.Run(() => Verify(utterance, options.Owner, token), token).ConfigureAwait(false)
+                : Verify(utterance, options.Owner, token);
+        }
+        catch when (asrTask is not null)
+        {
+            await asrCts.CancelAsync().ConfigureAwait(false);
+            _ = asrTask.ContinueWith(t => _ = t.Exception, TaskScheduler.Default); // observe the cancelled recognition
+            throw;
+        }
+
+        double verifyMs = Ticks.ElapsedMilliseconds(t0);
+        _telemetry.Record(TelemetryMetrics.SpeakerVerifyMs, verifyMs);
+
+        bool ignore = verification.Decision switch
+        {
+            OwnerVoiceDecision.NotOwner when settings.Verification.RequireOwnerMatch => true,
+            OwnerVoiceDecision.InsufficientSpeech => true,
+            _ => false,
+        };
+        if (ignore)
+        {
+            if (asrTask is not null)
+            {
+                await asrCts.CancelAsync().ConfigureAwait(false); // the recognizer stops between ONNX operators
+            }
+
+            double outcomeMs = Ticks.ElapsedMilliseconds(utterance.EndDetectedTimestamp);
+            _telemetry.Record(TelemetryMetrics.EndOfSpeechToOutcomeMs, outcomeMs);
+            if (verification.Decision == OwnerVoiceDecision.NotOwner)
+            {
+                _telemetry.Increment(TelemetryMetrics.UtterancesNotOwner);
+                Raise(new UtteranceIgnoredEvent(verification, "The voice did not match the enrolled owner.") { EndOfSpeechToOutcomeMs = outcomeMs });
+            }
+            else
+            {
+                Raise(new UtteranceIgnoredEvent(verification, "Too little speech to check the speaker.") { EndOfSpeechToOutcomeMs = outcomeMs });
+            }
+
+            if (asrTask is not null)
+            {
+                // Awaited after the outcome is reported, so the cancelled recognition never delays it.
+                try
+                {
+                    await asrTask.ConfigureAwait(false);
+                }
+                catch (OperationCanceledException) when (!token.IsCancellationRequested)
+                {
+                }
+            }
+
+            return false;
+        }
+
+        if (verification.Decision == OwnerVoiceDecision.Uncertain)
+        {
+            _telemetry.Increment(TelemetryMetrics.UtterancesUncertain);
+        }
+
+        if (asrTask is null)
+        {
+            t1 = Ticks.Now();
+            asrTask = recognizer.RecognizeAsync(utterance.Audio, asrOptions, token);
+        }
+
+        var recognition = await asrTask.ConfigureAwait(false);
         double recognitionMs = Ticks.ElapsedMilliseconds(t1);
         _telemetry.Record(TelemetryMetrics.AsrTotalMs, recognitionMs);
 
         if (string.IsNullOrWhiteSpace(recognition.Text))
         {
-            Raise(new NothingRecognizedEvent(recognition));
+            double outcomeMs = Ticks.ElapsedMilliseconds(utterance.EndDetectedTimestamp);
+            _telemetry.Record(TelemetryMetrics.EndOfSpeechToOutcomeMs, outcomeMs);
+            Raise(new NothingRecognizedEvent(recognition) { EndOfSpeechToOutcomeMs = outcomeMs });
             return false;
         }
 
@@ -494,6 +562,7 @@ public sealed class VoiceSearchPipeline : IVoiceSearchPipeline
         double endToResult = Ticks.ElapsedMilliseconds(utterance.EndDetectedTimestamp);
         _telemetry.Record(TelemetryMetrics.SearchMs, searchMs);
         _telemetry.Record(TelemetryMetrics.EndOfSpeechToResultMs, endToResult);
+        _telemetry.Record(TelemetryMetrics.EndOfSpeechToOutcomeMs, endToResult);
 
         Raise(new SearchCompletedEvent(
             search,

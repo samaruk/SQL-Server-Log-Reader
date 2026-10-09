@@ -104,6 +104,13 @@ public interface IMicrophoneCapture : IAsyncDisposable
 
     MicrophoneCaptureInfo? ActiveConfiguration { get; }
 
+    /// <summary>
+    /// Latest estimate of the platform input latency in milliseconds: from the sound reaching the microphone's
+    /// converter to the newest sample being handed to the app (Android: AudioRecord.getTimestamp; iOS: buffer host
+    /// time plus AVAudioSession.inputLatency). Null when the platform does not report it.
+    /// </summary>
+    double? InputLatencyMilliseconds => null;
+
     event EventHandler<MicrophoneCaptureStateChangedEventArgs>? StateChanged;
 
     /// <summary>Starts capture. Throws <see cref="MicrophonePermissionDeniedException"/> if access is not granted.</summary>

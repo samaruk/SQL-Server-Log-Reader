@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using AVFoundation;
 using BonikPOS.VoiceSearch.Core.Audio;
 using Foundation;
@@ -16,7 +17,7 @@ namespace BonikPOS.VoiceSearch.Audio.Platforms.iOS;
 /// size); the pipeline re-frames them into 20 ms frames. The session uses <c>AVAudioSessionMode.Measurement</c> for
 /// speech recognition so that iOS applies minimal processing, unless the owner selects the default input path.
 /// </remarks>
-public sealed class IosMicrophoneCapture : IMicrophoneCapture
+public sealed partial class IosMicrophoneCapture : IMicrophoneCapture
 {
     private readonly ILogger _logger;
     private readonly Lock _gate = new();
@@ -25,6 +26,9 @@ public sealed class IosMicrophoneCapture : IMicrophoneCapture
     private CaptureProcessor? _processor;
     private NSObject? _interruptionObserver;
     private NSObject? _configurationObserver;
+    private long _inputLatencyMicros = -1; // written by the tap thread, -1 = not reported
+    private double _hardwareInputLatencySeconds; // AVAudioSession.inputLatency of the current route
+    private int _tapSampleRate;
 
     public IosMicrophoneCapture(ILogger<IosMicrophoneCapture>? logger = null)
     {
@@ -36,6 +40,8 @@ public sealed class IosMicrophoneCapture : IMicrophoneCapture
     public MicrophoneCaptureState State { get; private set; } = MicrophoneCaptureState.Stopped;
 
     public MicrophoneCaptureInfo? ActiveConfiguration { get; private set; }
+
+    public double? InputLatencyMilliseconds => Interlocked.Read(ref _inputLatencyMicros) is var us and >= 0 ? us / 1000.0 : null;
 
     public event EventHandler<MicrophoneCaptureStateChangedEventArgs>? StateChanged;
 
@@ -161,6 +167,9 @@ public sealed class IosMicrophoneCapture : IMicrophoneCapture
 
         _engine = engine;
         _processor = processor;
+        Volatile.Write(ref _hardwareInputLatencySeconds, AVAudioSession.SharedInstance().InputLatency);
+        Volatile.Write(ref _tapSampleRate, rate);
+        Interlocked.Exchange(ref _inputLatencyMicros, -1);
         ActiveConfiguration = new MicrophoneCaptureInfo(rate, (int)format.ChannelCount, (int)requestedFrames, "AVAudioEngine input tap", processor.IsResampling);
     }
 
@@ -227,7 +236,23 @@ public sealed class IosMicrophoneCapture : IMicrophoneCapture
             float* channel0 = ((float**)channels)[0];
             processor.Process(new ReadOnlySpan<float>(channel0, frames), timestamp);
         }
+
+        // Input latency of the newest sample: time since the buffer's first sample (host time) minus the buffer
+        // duration, plus the route's hardware input latency. Arithmetic only, no allocation.
+        int rate = Volatile.Read(ref _tapSampleRate);
+        if (when.HostTimeValid && rate > 0)
+        {
+            double latency = AVAudioTime.SecondsForHostTime(MachAbsoluteTime() - when.HostTime) - (double)frames / rate
+                             + Volatile.Read(ref _hardwareInputLatencySeconds);
+            if (latency is >= 0 and < 2)
+            {
+                Interlocked.Exchange(ref _inputLatencyMicros, (long)(latency * 1_000_000));
+            }
+        }
     }
+
+    [LibraryImport("/usr/lib/libSystem.dylib", EntryPoint = "mach_absolute_time")]
+    private static partial ulong MachAbsoluteTime();
 
     private void OnInterruption(object? sender, AVAudioSessionInterruptionEventArgs e)
     {

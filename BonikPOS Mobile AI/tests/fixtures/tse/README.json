@@ -1,0 +1,15 @@
+{
+  "notice": "TEST FIXTURE WITH RANDOM, UNTRAINED WEIGHTS. It does not extract any speaker. It exists only to test the streaming-tse-stft-onnx/1 tensor contract and the C# STFT/overlap-add adapter against a Python reference.",
+  "model": {
+    "file": "pgtcrn-c16-e256-random.onnx",
+    "sha256": "fd26f859302fe5605b5b6e671d4c3eb16908a7339d18b9af63aa44a80bce2f89",
+    "architecture": "pGTCRN, channels 16, FiLM on a 256-dim embedding (tools/models/tse/pgtcrn.py)",
+    "generated_by": "tools/models/tse/export_pgtcrn_onnx.py --export tests/fixtures/tse/pgtcrn-c16-e256-random.onnx --channels 16 --emb-dim 256 --seed 1234 --fixture-dir tests/fixtures/tse --fixture-audio tests/fixtures/audio/synthetic-overlap-A2-B2.wav"
+  },
+  "reference": {
+    "input": "pgtcrn-fixture-input.f32 (float32 little endian, 32000 samples, 16 kHz, from synthetic-overlap-A2-B2.wav)",
+    "embedding": "pgtcrn-fixture-embedding.f32 (float32, 256 values, random unit vector, seed 1234)",
+    "expected": "pgtcrn-fixture-expected.f32 (float32, 32000 samples): streaming STFT (n_fft 512, hop 256, periodic sqrt-Hann, zero history) -> ONNX Runtime 1.31 frame by frame -> inverse FFT with the same window and overlap-add; output delayed by n_fft - hop = 256 samples",
+    "tolerance_note": "C# adapter vs this reference measured at 3.3e-7 max abs difference (2026-10-09)"
+  }
+}

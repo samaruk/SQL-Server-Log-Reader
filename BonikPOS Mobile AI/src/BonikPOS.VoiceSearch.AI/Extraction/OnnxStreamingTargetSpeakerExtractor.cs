@@ -21,8 +21,32 @@ public sealed record StreamingStateSpec(string InputName, string OutputName, lon
 /// <c>embedding_input</c>, <c>audio_output</c>, <c>states</c> (array of {input, output, shape}),
 /// <c>algorithmic_latency_samples</c>. See docs/MODELS.md "Integrating a target-speaker extraction model".
 /// </summary>
-public sealed class StreamingTseModel : IDisposable
+/// <summary>A loaded target-speaker extraction model of one of the supported manifest formats.</summary>
+public interface ITseModel : IDisposable
 {
+    LoadedSession Loaded { get; }
+
+    ModelDescriptor Descriptor { get; }
+
+    string RequiredEncoderId { get; }
+
+    int EmbeddingDim { get; }
+
+    /// <summary>Samples consumed per model call.</summary>
+    int ChunkSamples { get; }
+
+    /// <summary>Algorithmic latency of the model/adapter, excluding the extractor's alignment delay.</summary>
+    int LatencySamples { get; }
+
+    string Description { get; }
+
+    ITargetSpeakerExtractor CreateExtractor(ILogger? logger);
+}
+
+public sealed class StreamingTseModel : ITseModel
+{
+    public const string FormatId = "streaming-tse-onnx/1";
+
     private StreamingTseModel(LoadedSession loaded, ModelDescriptor descriptor)
     {
         Loaded = loaded;
@@ -100,7 +124,7 @@ public sealed class StreamingTseModel : IDisposable
 
     public static StreamingTseModel Load(ResolvedModel model, OnnxSessionPreferences preferences, ILogger? logger = null)
     {
-        var loaded = OnnxSessionFactory.Create(model.PathOf("model"), preferences, allowAccelerator: true, logger);
+        var loaded = OnnxSessionFactory.Create(model.PathOf("model"), preferences.ForStreaming(), allowAccelerator: true, logger);
         try
         {
             return new StreamingTseModel(loaded, model.Descriptor);
@@ -111,6 +135,10 @@ public sealed class StreamingTseModel : IDisposable
             throw;
         }
     }
+
+    public string Description => $"Streaming target-speaker extraction ({ChunkSamples} samples/chunk)";
+
+    public ITargetSpeakerExtractor CreateExtractor(ILogger? logger) => new OnnxStreamingTargetSpeakerExtractor(this, logger);
 
     public void Dispose() => Loaded.Dispose();
 }

@@ -84,7 +84,7 @@ public sealed class FileSystemModelProvider : IModelProvider
                     continue;
                 }
 
-                list.AddRange(file.Models.Select(m => (m, root)));
+                list.AddRange(file.Models.Select(m => (Normalize(m), root)));
             }
             catch (JsonException ex)
             {
@@ -222,6 +222,18 @@ public sealed class FileSystemModelProvider : IModelProvider
         }
     }
 
+    /// <summary>
+    /// Source-generated JSON assigns every init-only property, so a manifest entry without "sha256", "license" or
+    /// "source" yields null instead of the declared default. Restore the defaults (a missing checksum is reported as
+    /// "no checksum pinned", never treated as verified).
+    /// </summary>
+    internal static ModelDescriptor Normalize(ModelDescriptor d) => d with
+    {
+        Sha256 = d.Sha256 ?? new Dictionary<string, string>(),
+        License = d.License ?? "unknown",
+        Source = d.Source ?? "unknown",
+    };
+
     private sealed record Evaluated(ModelStatus Status, ResolvedModel? Resolved);
 }
 
@@ -259,7 +271,7 @@ public static class BundledModelExtractor
         var manifest = JsonSerializer.Deserialize(manifestBytes, InfrastructureJsonContext.Default.ModelManifestFile)
                        ?? throw new InvalidDataException("Bundled model manifest is empty.");
         int copied = 0;
-        foreach (var model in manifest.Models.Where(m => !m.IsTestFixture))
+        foreach (var model in manifest.Models.Where(m => !m.IsTestFixture).Select(FileSystemModelProvider.Normalize))
         {
             foreach (var relative in model.Files.Values)
             {

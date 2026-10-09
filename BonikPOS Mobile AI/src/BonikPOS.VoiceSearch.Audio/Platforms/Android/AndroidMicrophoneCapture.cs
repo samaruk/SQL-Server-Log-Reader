@@ -18,6 +18,9 @@ public sealed class AndroidMicrophoneCapture : IMicrophoneCapture
 {
     // android.media.AudioRecord.READ_BLOCKING (the binding exposes readMode as int).
     private const int ReadBlocking = 0;
+
+    // Input-latency probe every 10 reads (100 ms); AudioRecord.getTimestamp reads shared memory and does not block.
+    private const int LatencyProbeEveryReads = 10;
     private static readonly int[] CandidateRates = [16000, 48000, 44100];
 
     private readonly Context _context;
@@ -27,6 +30,7 @@ public sealed class AndroidMicrophoneCapture : IMicrophoneCapture
     private AudioRecord? _record;
     private Thread? _thread;
     private volatile bool _running;
+    private long _inputLatencyMicros = -1; // written by the capture thread, -1 = not reported
 
     public AndroidMicrophoneCapture(Context context, ILogger<AndroidMicrophoneCapture>? logger = null)
     {
@@ -39,6 +43,8 @@ public sealed class AndroidMicrophoneCapture : IMicrophoneCapture
     public MicrophoneCaptureState State { get; private set; } = MicrophoneCaptureState.Stopped;
 
     public MicrophoneCaptureInfo? ActiveConfiguration { get; private set; }
+
+    public double? InputLatencyMilliseconds => Interlocked.Read(ref _inputLatencyMicros) is var us and >= 0 ? us / 1000.0 : null;
 
     public event EventHandler<MicrophoneCaptureStateChangedEventArgs>? StateChanged;
 
@@ -94,8 +100,9 @@ public sealed class AndroidMicrophoneCapture : IMicrophoneCapture
             var processor = new CaptureProcessor(rate, _queue, callbackSamples);
             _record = record;
             _running = true;
+            Interlocked.Exchange(ref _inputLatencyMicros, -1);
             ActiveConfiguration = new MicrophoneCaptureInfo(rate, 1, callbackSamples, sourceName + (isFloat ? "/float" : "/pcm16"), processor.IsResampling);
-            _thread = new Thread(() => ReadLoop(record, processor, callbackSamples, isFloat))
+            _thread = new Thread(() => ReadLoop(record, processor, callbackSamples, isFloat, rate))
             {
                 IsBackground = true,
                 Name = "BonikPOS.AudioCapture",
@@ -152,7 +159,7 @@ public sealed class AndroidMicrophoneCapture : IMicrophoneCapture
 
     public async ValueTask DisposeAsync() => await StopAsync(CancellationToken.None).ConfigureAwait(false);
 
-    private void ReadLoop(AudioRecord record, CaptureProcessor processor, int callbackSamples, bool isFloat)
+    private void ReadLoop(AudioRecord record, CaptureProcessor processor, int callbackSamples, bool isFloat, int sampleRate)
     {
         try
         {
@@ -165,6 +172,9 @@ public sealed class AndroidMicrophoneCapture : IMicrophoneCapture
 
         var floats = new float[callbackSamples];
         var shorts = new short[callbackSamples];
+        var audioTimestamp = OperatingSystem.IsAndroidVersionAtLeast(24) ? new AudioTimestamp() : null;
+        long framesRead = 0;
+        int reads = 0;
         while (_running)
         {
             int n = isFloat
@@ -201,6 +211,39 @@ public sealed class AndroidMicrophoneCapture : IMicrophoneCapture
             {
                 processor.Process(shorts.AsSpan(0, n), timestamp);
             }
+
+            framesRead += n; // mono: one sample per frame
+            if (audioTimestamp is not null && ++reads % LatencyProbeEveryReads == 0)
+            {
+                ProbeInputLatency(record, audioTimestamp, framesRead, sampleRate);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Input latency of the newest sample read: now minus the time its frame was captured, extrapolated from the
+    /// (frame position, CLOCK_MONOTONIC time) pair AudioRecord.getTimestamp reports. Implausible values are ignored.
+    /// </summary>
+    [System.Runtime.Versioning.SupportedOSPlatform("android24.0")]
+    private void ProbeInputLatency(AudioRecord record, AudioTimestamp audioTimestamp, long framesRead, int sampleRate)
+    {
+        try
+        {
+            if (record.GetTimestamp(audioTimestamp, AudioTimebase.Monotonic) != 0)
+            {
+                return; // not available on this device / route yet
+            }
+
+            long capturedNs = audioTimestamp.NanoTime + (framesRead - audioTimestamp.FramePosition) * 1_000_000_000L / sampleRate;
+            long latencyUs = (Java.Lang.JavaSystem.NanoTime() - capturedNs) / 1000;
+            if (latencyUs is >= 0 and < 2_000_000)
+            {
+                Interlocked.Exchange(ref _inputLatencyMicros, latencyUs);
+            }
+        }
+        catch (Java.Lang.Exception)
+        {
+            // Some vendor implementations throw instead of returning an error code; the estimate stays unavailable.
         }
     }
 

@@ -10,5 +10,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Core\BonikPOS.VoiceSearch.Core.csproj" />
     <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.MedicineSearch\BonikPOS.VoiceSearch.MedicineSearch.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.AI\BonikPOS.VoiceSearch.AI.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Audio\BonikPOS.VoiceSearch.Audio.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Infrastructure\BonikPOS.VoiceSearch.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

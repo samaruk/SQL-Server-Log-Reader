@@ -64,6 +64,12 @@ public sealed record PipelineSettings
     public int MaxListenMilliseconds { get; init; } = 15000;
 
     public int QueueCapacityFrames { get; init; } = 150;
+
+    /// <summary>Verify the owner's voice while speech recognition runs (cancelling recognition for other voices).</summary>
+    public bool ParallelVerification { get; init; } = true;
+
+    /// <summary>Run one small inference per model after loading so the first utterance does not pay one-time costs.</summary>
+    public bool WarmUpModels { get; init; } = true;
 }
 
 public sealed record BonikPosApiSettings
@@ -133,8 +139,17 @@ public sealed record VoiceSearchSettings
 
     public AcceleratorPreference Accelerator { get; init; } = AcceleratorPreference.Auto;
 
-    /// <summary>ONNX Runtime intra-op threads; 0 = automatic (min(4, cores)).</summary>
+    /// <summary>ONNX Runtime intra-op threads for the per-utterance models (speaker encoder, ASR); 0 = automatic (min(4, cores)).</summary>
     public int InferenceThreads { get; init; }
+
+    /// <summary>
+    /// Threads for the small models run every 10-32 ms (VAD, target-speaker extraction). 1 (default) runs them on the
+    /// audio-processing thread; 0 = same as <see cref="InferenceThreads"/>.
+    /// </summary>
+    public int StreamingModelThreads { get; init; } = 1;
+
+    /// <summary>Lets ONNX Runtime worker threads busy-wait between operators (ONNX Runtime's own default). Off by default.</summary>
+    public bool InferenceThreadSpinning { get; init; }
 
     /// <summary>Whether to use target-speaker extraction when a compatible model is installed.</summary>
     public bool TargetSpeakerExtractionEnabled { get; init; } = true;

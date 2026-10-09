@@ -5,11 +5,21 @@ using Microsoft.ML.OnnxRuntime;
 
 namespace BonikPOS.VoiceSearch.AI.Onnx;
 
-public sealed record OnnxSessionPreferences(AcceleratorPreference Accelerator, int IntraOpThreads)
+/// <param name="Accelerator">Execution-provider preference.</param>
+/// <param name="IntraOpThreads">Threads for models run once per utterance (speaker encoder, ASR); 0 = min(4, cores).</param>
+/// <param name="AllowSpinning">Whether ONNX Runtime worker threads busy-wait for work between operators.</param>
+/// <param name="StreamingThreads">Threads for the small models run every 10-32 ms (VAD, extraction); 0 = as <paramref name="IntraOpThreads"/>.</param>
+public sealed record OnnxSessionPreferences(AcceleratorPreference Accelerator, int IntraOpThreads, bool AllowSpinning = false, int StreamingThreads = 1)
 {
     public static OnnxSessionPreferences Default { get; } = new(AcceleratorPreference.Auto, 0);
 
     public int EffectiveThreads => IntraOpThreads > 0 ? IntraOpThreads : Math.Clamp(Environment.ProcessorCount, 1, 4);
+
+    /// <summary>
+    /// Preferences for streaming models. With one thread a Run executes on the calling (audio-processing) thread and
+    /// no worker pool exists that could spin or be woken every frame.
+    /// </summary>
+    public OnnxSessionPreferences ForStreaming() => StreamingThreads > 0 ? this with { IntraOpThreads = StreamingThreads } : this;
 }
 
 /// <summary>A persistent session plus how it was created (shown on the diagnostics screen).</summary>
@@ -78,12 +88,14 @@ public static class OnnxSessionFactory
         };
         try
         {
+            // ORT's default lets idle workers busy-wait; between utterances and between 10-32 ms streaming calls that
+            // only burns CPU (and battery). docs/BENCHMARKS.md has the measured effect.
+            options.AddSessionConfigEntry("session.intra_op.allow_spinning", preferences.AllowSpinning ? "1" : "0");
             switch (provider)
             {
                 case "XNNPACK":
                     // XNNPACK runs its own thread pool; ORT's pool is reduced to avoid oversubscription.
                     options.IntraOpNumThreads = 1;
-                    options.AddSessionConfigEntry("session.intra_op.allow_spinning", "0");
                     options.AppendExecutionProvider("XNNPACK", new Dictionary<string, string>
                     {
                         ["intra_op_num_threads"] = preferences.EffectiveThreads.ToString(System.Globalization.CultureInfo.InvariantCulture),
