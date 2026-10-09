@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Integration tests against the real ONNX models in models/ and the reference fixtures in tests/fixtures/
+    (located at run time by walking up from the test binary to models/models.json; see TestSupport/SolutionPaths.cs).
+    Fixture models (random-weight Whisper, arithmetic TSE graph) are only loaded with allowTestFixtures: true.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>BonikPOS.VoiceSearch.IntegrationTests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Core\BonikPOS.VoiceSearch.Core.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Audio\BonikPOS.VoiceSearch.Audio.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.AI\BonikPOS.VoiceSearch.AI.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.MedicineSearch\BonikPOS.VoiceSearch.MedicineSearch.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Infrastructure\BonikPOS.VoiceSearch.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

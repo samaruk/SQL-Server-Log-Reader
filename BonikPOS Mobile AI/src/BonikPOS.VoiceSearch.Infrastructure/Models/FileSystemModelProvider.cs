@@ -63,6 +63,17 @@ public sealed class FileSystemModelProvider : IModelProvider
         _logger.LogWarning("Model for {Role} reported {State}: {Message}", role, state, message);
     }
 
+    /// <summary>
+    /// The source-generated serializer sets init-only properties that are absent from the JSON to null instead of their
+    /// declared defaults. Checksums, licence and source are optional in a manifest, so their defaults are restored here.
+    /// </summary>
+    internal static ModelDescriptor WithOptionalDefaults(ModelDescriptor d) => d with
+    {
+        Sha256 = d.Sha256 ?? new Dictionary<string, string>(),
+        License = d.License ?? "unknown",
+        Source = d.Source ?? "unknown",
+    };
+
     /// <summary>Reads every manifest entry from all roots.</summary>
     public IReadOnlyList<(ModelDescriptor Descriptor, string Root)> ReadManifests()
     {
@@ -84,7 +95,7 @@ public sealed class FileSystemModelProvider : IModelProvider
                     continue;
                 }
 
-                list.AddRange(file.Models.Select(m => (Normalize(m), root)));
+                list.AddRange((file.Models ?? []).Select(m => (WithOptionalDefaults(m), root)));
             }
             catch (JsonException ex)
             {
@@ -112,10 +123,12 @@ public sealed class FileSystemModelProvider : IModelProvider
         var paths = new Dictionary<string, string>(StringComparer.Ordinal);
         var state = ModelState.Ready;
         var messages = new List<string>();
+        // With a trailing separator, so that a sibling such as "models-evil" does not count as inside "models".
+        string rootPrefix = Path.TrimEndingDirectorySeparator(Path.GetFullPath(root)) + Path.DirectorySeparatorChar;
         foreach (var (logical, relative) in d.Files)
         {
             string full = Path.GetFullPath(Path.Combine(root, relative));
-            if (!full.StartsWith(Path.GetFullPath(root), StringComparison.Ordinal))
+            if (!full.StartsWith(rootPrefix, StringComparison.Ordinal))
             {
                 state = ModelState.InvalidManifest;
                 messages.Add($"'{relative}' points outside the model directory.");
@@ -222,18 +235,6 @@ public sealed class FileSystemModelProvider : IModelProvider
         }
     }
 
-    /// <summary>
-    /// Source-generated JSON assigns every init-only property, so a manifest entry without "sha256", "license" or
-    /// "source" yields null instead of the declared default. Restore the defaults (a missing checksum is reported as
-    /// "no checksum pinned", never treated as verified).
-    /// </summary>
-    internal static ModelDescriptor Normalize(ModelDescriptor d) => d with
-    {
-        Sha256 = d.Sha256 ?? new Dictionary<string, string>(),
-        License = d.License ?? "unknown",
-        Source = d.Source ?? "unknown",
-    };
-
     private sealed record Evaluated(ModelStatus Status, ResolvedModel? Resolved);
 }
 
@@ -271,7 +272,7 @@ public static class BundledModelExtractor
         var manifest = JsonSerializer.Deserialize(manifestBytes, InfrastructureJsonContext.Default.ModelManifestFile)
                        ?? throw new InvalidDataException("Bundled model manifest is empty.");
         int copied = 0;
-        foreach (var model in manifest.Models.Where(m => !m.IsTestFixture).Select(FileSystemModelProvider.Normalize))
+        foreach (var model in (manifest.Models ?? []).Where(m => !m.IsTestFixture).Select(FileSystemModelProvider.WithOptionalDefaults))
         {
             foreach (var relative in model.Files.Values)
             {

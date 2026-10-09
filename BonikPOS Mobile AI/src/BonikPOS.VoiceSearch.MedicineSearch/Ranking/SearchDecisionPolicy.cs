@@ -87,14 +87,17 @@ public static class SearchDecisionPolicy
             explanation = "The match is weak. Please check the suggestions or correct the text.";
         }
 
-        // Upstream uncertainty caps the decision.
-        if (query.RecognitionConfidence is double rc && rc < thresholds.MinRecognitionConfidence && decision is SearchDecision.Confident or SearchDecision.NeedsConfirmation)
+        // Upstream uncertainty caps the decision. Below the recognition threshold the result is at best LowConfidence
+        // (SearchThresholds.MinRecognitionConfidence), so an ambiguous result is capped too.
+        if (query.RecognitionConfidence is double rc && rc < thresholds.MinRecognitionConfidence
+            && decision is SearchDecision.Confident or SearchDecision.NeedsConfirmation or SearchDecision.Ambiguous)
         {
             decision = SearchDecision.LowConfidence;
             explanation = "Speech recognition was not confident. " + explanation;
         }
 
-        if (query.SpeakerDecision is OwnerVoiceDecision.Uncertain or OwnerVoiceDecision.NoProfile or OwnerVoiceDecision.ModelUnavailable
+        // Any voice query whose speaker was not confirmed as the owner (including NotOwner when RequireOwnerMatch is off).
+        if (query.SpeakerDecision is { } speaker && speaker != OwnerVoiceDecision.Owner
             && decision == SearchDecision.Confident)
         {
             decision = SearchDecision.NeedsConfirmation;

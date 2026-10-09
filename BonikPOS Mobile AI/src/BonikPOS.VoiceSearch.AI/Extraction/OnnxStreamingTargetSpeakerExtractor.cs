@@ -1,3 +1,4 @@
+using System.Text.Json;
 using BonikPOS.VoiceSearch.AI.Onnx;
 using BonikPOS.VoiceSearch.Core.Extraction;
 using BonikPOS.VoiceSearch.Core.Models;
@@ -58,6 +59,12 @@ public sealed class StreamingTseModel : ITseModel
         AudioOutput = o.String("audio_output", "enhanced");
         ChunkSamples = o.RequiredInt("chunk_samples");
         EmbeddingDim = o.RequiredInt("embedding_dim");
+        if (ChunkSamples <= 0 || EmbeddingDim <= 0)
+        {
+            throw new ModelContractException(
+                $"Manifest entry '{descriptor.Id}' must declare positive chunk_samples and embedding_dim (got {ChunkSamples} and {EmbeddingDim}).");
+        }
+
         RequiredEncoderId = o.RequiredString("required_encoder_id");
         LatencySamples = o.Int("algorithmic_latency_samples", 0);
         if (o.Int("sample_rate", 16000) != 16000)
@@ -78,11 +85,25 @@ public sealed class StreamingTseModel : ITseModel
         var states = new List<StreamingStateSpec>();
         foreach (var st in o.Array("states"))
         {
-            string inName = st.GetProperty("input").GetString()!;
-            string outName = st.GetProperty("output").GetString()!;
+            if (st.ValueKind != JsonValueKind.Object
+                || !st.TryGetProperty("input", out var inJson) || inJson.ValueKind != JsonValueKind.String
+                || !st.TryGetProperty("output", out var outJson) || outJson.ValueKind != JsonValueKind.String)
+            {
+                throw new ModelContractException(
+                    $"Each entry of 'states' in manifest entry '{descriptor.Id}' must be an object with string 'input' and 'output' names: {st.GetRawText()}");
+            }
+
+            string inName = inJson.GetString()!;
+            string outName = outJson.GetString()!;
             var meta = TensorContract.RequireInput(s, inName, TensorElementType.Float);
             TensorContract.RequireOutput(s, outName, TensorElementType.Float);
-            long[] shape = st.TryGetProperty("shape", out var shapeJson)
+            bool hasShape = st.TryGetProperty("shape", out var shapeJson);
+            if (hasShape && (shapeJson.ValueKind != JsonValueKind.Array || shapeJson.EnumerateArray().Any(e => e.ValueKind != JsonValueKind.Number || !e.TryGetInt64(out _))))
+            {
+                throw new ModelContractException($"State '{inName}' shape must be an array of integers, not {shapeJson.GetRawText()}.");
+            }
+
+            long[] shape = hasShape
                 ? [.. shapeJson.EnumerateArray().Select(e => e.GetInt64())]
                 : [.. meta.Dimensions.Select(d => (long)d)];
             if (shape.Any(d => d <= 0))
