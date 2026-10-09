@@ -92,6 +92,7 @@ public sealed record MedicineQuery(
     OwnerVoiceDecision? SpeakerDecision = null);
 
 /// <summary>What the query parser understood. Shown to the owner so that the interpretation is transparent.</summary>
+/// <param name="NameWithNumbersText">Name tokens with the bare numbers kept in place, for brands that contain digits ("Cef-3").</param>
 public sealed record ParsedMedicineQuery(
     string OriginalText,
     string NormalizedText,
@@ -100,7 +101,8 @@ public sealed record ParsedMedicineQuery(
     IReadOnlyList<StrengthValue> Strengths,
     IReadOnlyList<decimal> BareNumbers,
     IReadOnlyList<DosageFormCategory> Forms,
-    bool ContainsBanglaScript);
+    bool ContainsBanglaScript,
+    string NameWithNumbersText = "");
 
 public enum MatchKind
 {
@@ -147,6 +149,15 @@ public enum SearchDecision
 /// <summary>One choice offered on the clarification screen.</summary>
 public sealed record ClarificationOption(string Label, string ProductId);
 
+/// <summary>
+/// A near-miss catalog name offered when nothing matched well enough. It is NOT a match: the owner must tap it to
+/// search again, and must then still confirm a product.
+/// </summary>
+/// <param name="QueryText">Text to search if the owner picks it: the catalog name plus the strength/form they said.</param>
+/// <param name="CatalogName">The catalog's own spelling of the similar name.</param>
+/// <param name="Similarity">Name similarity (0..1) that produced the suggestion.</param>
+public sealed record CorrectionSuggestion(string QueryText, string CatalogName, double Similarity);
+
 public sealed record MedicineSearchResult(
     MedicineQuery Query,
     ParsedMedicineQuery Parsed,
@@ -155,7 +166,11 @@ public sealed record MedicineSearchResult(
     IReadOnlyList<ClarificationOption> Clarifications,
     string Explanation,
     TimeSpan Elapsed,
-    MedicineCatalogInfo Catalog);
+    MedicineCatalogInfo Catalog)
+{
+    /// <summary>"Did you mean" names for <see cref="SearchDecision.NoMatch"/> and weak results (never auto-applied).</summary>
+    public IReadOnlyList<CorrectionSuggestion> Suggestions { get; init; } = [];
+}
 
 public sealed record MedicineCatalogInfo(
     bool IsLoaded,
@@ -223,3 +238,23 @@ public interface IMedicineSearchService
 }
 
 public sealed class CatalogUnavailableException(string message, Exception? inner = null) : Exception(message, inner);
+
+/// <summary>
+/// Local, owner-specific signals that refine ranking: how often a product was confirmed (tie-breaking only) and
+/// products the owner chose after correcting a query. Hints never bypass confirmation.
+/// </summary>
+public interface IMedicineSearchHints
+{
+    int GetPopularity(string productId);
+
+    /// <summary>Product ids the owner confirmed for this exact normalised query text before.</summary>
+    IReadOnlyList<string> GetLearnedProducts(string normalizedQuery);
+}
+
+/// <summary>Loads the catalog chosen in settings (demo, local index file or BonikPOS API) into the search service.</summary>
+public interface ICatalogManager
+{
+    MedicineCatalogInfo Info { get; }
+
+    Task ReloadAsync(CancellationToken cancellationToken);
+}

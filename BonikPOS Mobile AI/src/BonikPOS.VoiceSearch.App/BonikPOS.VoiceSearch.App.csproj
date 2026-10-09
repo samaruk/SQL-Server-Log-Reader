@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- Android builds on Windows, macOS and Linux; iOS needs macOS (or Windows paired with a Mac). -->
+		<TargetFrameworks>net10.0-android</TargetFrameworks>
+		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios</TargetFrameworks>
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>BonikPOS.VoiceSearch.App</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<MauiXamlInflator>SourceGen</MauiXamlInflator>
+		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
+
+		<ApplicationTitle>BonikPOS Voice Search</ApplicationTitle>
+		<ApplicationId>com.bonikpos.voicesearch</ApplicationId>
+		<ApplicationDisplayVersion>0.1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#0B6E5F" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#0B6E5F" BaseSize="128,128" />
+		<MauiImage Include="Resources\Images\*" />
+		<MauiFont Include="Resources\Fonts\*" />
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		<!-- On-device models from the solution's models/ folder (see docs/MODELS.md). Large ASR models placed in models/asr are bundled too. -->
+		<MauiAsset Include="$(BonikSolutionRoot)models\**\*.onnx;$(BonikSolutionRoot)models\**\*.json;$(BonikSolutionRoot)models\**\*.txt" LogicalName="models/%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' And '$(Configuration)' == 'Debug'">
+		<!-- Debug only: exposes Documents/ in the Files app so developers can side-load models. -->
+		<PartialAppManifest Include="Platforms\iOS\DebugFileSharing.plist" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" />
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+		<!-- Referenced directly so the Android AAR / iOS xcframework native libraries are packaged with the app. -->
+		<PackageReference Include="Microsoft.ML.OnnxRuntime" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android' Or $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+		<!-- The package's build targets add the mobile binaries (Android AAR, iOS xcframework). Without this, NuGet's RID
+		     fallback (android-x64 -> linux-x64) also packs the desktop glibc libonnxruntime.so into the APK, where it shadows
+		     the AAR's Android x86_64 library and cannot load. -->
+		<PackageReference Update="Microsoft.ML.OnnxRuntime" ExcludeAssets="native" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BonikPOS.VoiceSearch.Core\BonikPOS.VoiceSearch.Core.csproj" />
+		<ProjectReference Include="..\BonikPOS.VoiceSearch.Audio\BonikPOS.VoiceSearch.Audio.csproj" />
+		<ProjectReference Include="..\BonikPOS.VoiceSearch.AI\BonikPOS.VoiceSearch.AI.csproj" />
+		<ProjectReference Include="..\BonikPOS.VoiceSearch.MedicineSearch\BonikPOS.VoiceSearch.MedicineSearch.csproj" />
+		<ProjectReference Include="..\BonikPOS.VoiceSearch.Infrastructure\BonikPOS.VoiceSearch.Infrastructure.csproj" />
+		<ProjectReference Include="..\BonikPOS.VoiceSearch.Presentation\BonikPOS.VoiceSearch.Presentation.csproj" />
+	</ItemGroup>
+
+</Project>

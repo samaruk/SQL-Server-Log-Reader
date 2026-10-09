@@ -31,6 +31,8 @@ public sealed class LoadedSession(InferenceSession session, string executionProv
 /// </summary>
 public static class OnnxSessionFactory
 {
+    static OnnxSessionFactory() => OnnxRuntimeTelemetry.Disable();
+
     public static LoadedSession Create(string modelPath, OnnxSessionPreferences preferences, bool allowAccelerator, ILogger? logger = null)
     {
         if (!File.Exists(modelPath))

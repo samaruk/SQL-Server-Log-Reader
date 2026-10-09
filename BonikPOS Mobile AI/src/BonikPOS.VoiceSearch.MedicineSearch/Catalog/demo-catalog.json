@@ -1,0 +1,433 @@
+{
+ "notice": "DEMO CATALOG - illustrative test data for development and automated tests. Product ids are synthetic. Names and strengths may be incomplete or inaccurate and must not be used for dispensing. Connect the BonikPOS product catalog (docs/BACKEND_INTEGRATION.md) for real use.",
+ "products": [
+  {
+   "productId": "DEMO-0001",
+   "brandName": "Napa",
+   "genericName": "Paracetamol",
+   "strength": "500 mg",
+   "dosageForm": "Tablet",
+   "localName": "নাপা"
+  },
+  {
+   "productId": "DEMO-0002",
+   "brandName": "Napa",
+   "genericName": "Paracetamol",
+   "strength": "120 mg/5 ml",
+   "dosageForm": "Suspension",
+   "localName": "নাপা"
+  },
+  {
+   "productId": "DEMO-0003",
+   "brandName": "Napa",
+   "genericName": "Paracetamol",
+   "strength": "80 mg/ml",
+   "dosageForm": "Pediatric Drops",
+   "localName": "নাপা"
+  },
+  {
+   "productId": "DEMO-0004",
+   "brandName": "Napa Extra",
+   "genericName": "Paracetamol + Caffeine",
+   "strength": "500 mg + 65 mg",
+   "dosageForm": "Tablet",
+   "localName": "নাপা এক্সট্রা"
+  },
+  {
+   "productId": "DEMO-0005",
+   "brandName": "Napa Extend",
+   "genericName": "Paracetamol",
+   "strength": "665 mg",
+   "dosageForm": "Extended Release Tablet",
+   "localName": "নাপা এক্সটেন্ড"
+  },
+  {
+   "productId": "DEMO-0006",
+   "brandName": "Ace",
+   "genericName": "Paracetamol",
+   "strength": "500 mg",
+   "dosageForm": "Tablet",
+   "localName": "এইস"
+  },
+  {
+   "productId": "DEMO-0007",
+   "brandName": "Ace",
+   "genericName": "Paracetamol",
+   "strength": "120 mg/5 ml",
+   "dosageForm": "Suspension",
+   "localName": "এইস"
+  },
+  {
+   "productId": "DEMO-0008",
+   "brandName": "Ace Plus",
+   "genericName": "Paracetamol + Caffeine",
+   "strength": "500 mg + 65 mg",
+   "dosageForm": "Tablet",
+   "localName": "এইস প্লাস"
+  },
+  {
+   "productId": "DEMO-0009",
+   "brandName": "Fast",
+   "genericName": "Paracetamol",
+   "strength": "500 mg",
+   "dosageForm": "Tablet"
+  },
+  {
+   "productId": "DEMO-0010",
+   "brandName": "Seclo",
+   "genericName": "Omeprazole",
+   "strength": "20 mg",
+   "dosageForm": "Capsule",
+   "localName": "সেকলো"
+  },
+  {
+   "productId": "DEMO-0011",
+   "brandName": "Seclo",
+   "genericName": "Omeprazole",
+   "strength": "40 mg",
+   "dosageForm": "Capsule",
+   "localName": "সেকলো"
+  },
+  {
+   "productId": "DEMO-0012",
+   "brandName": "Losectil",
+   "genericName": "Omeprazole",
+   "strength": "20 mg",
+   "dosageForm": "Capsule",
+   "localName": "লোসেকটিল"
+  },
+  {
+   "productId": "DEMO-0013",
+   "brandName": "Sergel",
+   "genericName": "Esomeprazole",
+   "strength": "20 mg",
+   "dosageForm": "Capsule",
+   "localName": "সার্জেল"
+  },
+  {
+   "productId": "DEMO-0014",
+   "brandName": "Sergel",
+   "genericName": "Esomeprazole",
+   "strength": "40 mg",
+   "dosageForm": "Capsule",
+   "localName": "সার্জেল"
+  },
+  {
+   "productId": "DEMO-0015",
+   "brandName": "Maxpro",
+   "genericName": "Esomeprazole",
+   "strength": "20 mg",
+   "dosageForm": "Tablet",
+   "localName": "ম্যাক্সপ্রো"
+  },
+  {
+   "productId": "DEMO-0016",
+   "brandName": "Maxpro",
+   "genericName": "Esomeprazole",
+   "strength": "40 mg",
+   "dosageForm": "Tablet",
+   "localName": "ম্যাক্সপ্রো"
+  },
+  {
+   "productId": "DEMO-0017",
+   "brandName": "Nexum",
+   "genericName": "Esomeprazole",
+   "strength": "20 mg",
+   "dosageForm": "Tablet"
+  },
+  {
+   "productId": "DEMO-0018",
+   "brandName": "Pantonix",
+   "genericName": "Pantoprazole",
+   "strength": "20 mg",
+   "dosageForm": "Tablet",
+   "localName": "প্যান্টোনিক্স"
+  },
+  {
+   "productId": "DEMO-0019",
+   "brandName": "Pantonix",
+   "genericName": "Pantoprazole",
+   "strength": "40 mg",
+   "dosageForm": "Tablet",
+   "localName": "প্যান্টোনিক্স"
+  },
+  {
+   "productId": "DEMO-0020",
+   "brandName": "Fexo",
+   "genericName": "Fexofenadine",
+   "strength": "120 mg",
+   "dosageForm": "Tablet",
+   "localName": "ফেক্সো"
+  },
+  {
+   "productId": "DEMO-0021",
+   "brandName": "Fexo",
+   "genericName": "Fexofenadine",
+   "strength": "180 mg",
+   "dosageForm": "Tablet",
+   "localName": "ফেক্সো"
+  },
+  {
+   "productId": "DEMO-0022",
+   "brandName": "Alatrol",
+   "genericName": "Cetirizine",
+   "strength": "10 mg",
+   "dosageForm": "Tablet",
+   "localName": "অ্যালাট্রল"
+  },
+  {
+   "productId": "DEMO-0023",
+   "brandName": "Alatrol",
+   "genericName": "Cetirizine",
+   "strength": "5 mg/5 ml",
+   "dosageForm": "Syrup",
+   "localName": "অ্যালাট্রল"
+  },
+  {
+   "productId": "DEMO-0024",
+   "brandName": "Monas",
+   "genericName": "Montelukast",
+   "strength": "10 mg",
+   "dosageForm": "Tablet",
+   "localName": "মোনাস"
+  },
+  {
+   "productId": "DEMO-0025",
+   "brandName": "Monas",
+   "genericName": "Montelukast",
+   "strength": "5 mg",
+   "dosageForm": "Chewable Tablet",
+   "localName": "মোনাস"
+  },
+  {
+   "productId": "DEMO-0026",
+   "brandName": "Monas",
+   "genericName": "Montelukast",
+   "strength": "4 mg",
+   "dosageForm": "Chewable Tablet",
+   "localName": "মোনাস"
+  },
+  {
+   "productId": "DEMO-0027",
+   "brandName": "Montair",
+   "genericName": "Montelukast",
+   "strength": "10 mg",
+   "dosageForm": "Tablet"
+  },
+  {
+   "productId": "DEMO-0028",
+   "brandName": "Zimax",
+   "genericName": "Azithromycin",
+   "strength": "500 mg",
+   "dosageForm": "Tablet",
+   "localName": "জিম্যাক্স"
+  },
+  {
+   "productId": "DEMO-0029",
+   "brandName": "Zimax",
+   "genericName": "Azithromycin",
+   "strength": "200 mg/5 ml",
+   "dosageForm": "Powder for Suspension",
+   "localName": "জিম্যাক্স"
+  },
+  {
+   "productId": "DEMO-0030",
+   "brandName": "Azithrocin",
+   "genericName": "Azithromycin",
+   "strength": "500 mg",
+   "dosageForm": "Tablet"
+  },
+  {
+   "productId": "DEMO-0031",
+   "brandName": "Ciprocin",
+   "genericName": "Ciprofloxacin",
+   "strength": "500 mg",
+   "dosageForm": "Tablet",
+   "localName": "সিপ্রোসিন"
+  },
+  {
+   "productId": "DEMO-0032",
+   "brandName": "Ciprocin",
+   "genericName": "Ciprofloxacin",
+   "strength": "250 mg",
+   "dosageForm": "Tablet",
+   "localName": "সিপ্রোসিন"
+  },
+  {
+   "productId": "DEMO-0033",
+   "brandName": "Moxacil",
+   "genericName": "Amoxicillin",
+   "strength": "500 mg",
+   "dosageForm": "Capsule",
+   "localName": "মোক্সাসিল"
+  },
+  {
+   "productId": "DEMO-0034",
+   "brandName": "Moxacil",
+   "genericName": "Amoxicillin",
+   "strength": "250 mg",
+   "dosageForm": "Capsule",
+   "localName": "মোক্সাসিল"
+  },
+  {
+   "productId": "DEMO-0035",
+   "brandName": "Moxacil",
+   "genericName": "Amoxicillin",
+   "strength": "125 mg/5 ml",
+   "dosageForm": "Powder for Suspension",
+   "localName": "মোক্সাসিল"
+  },
+  {
+   "productId": "DEMO-0036",
+   "brandName": "Cef-3",
+   "genericName": "Cefixime",
+   "strength": "200 mg",
+   "dosageForm": "Capsule"
+  },
+  {
+   "productId": "DEMO-0037",
+   "brandName": "Filmet",
+   "genericName": "Metronidazole",
+   "strength": "400 mg",
+   "dosageForm": "Tablet",
+   "localName": "ফিলমেট"
+  },
+  {
+   "productId": "DEMO-0038",
+   "brandName": "Amodis",
+   "genericName": "Metronidazole",
+   "strength": "400 mg",
+   "dosageForm": "Tablet",
+   "localName": "অ্যামোডিস"
+  },
+  {
+   "productId": "DEMO-0039",
+   "brandName": "Flagyl",
+   "genericName": "Metronidazole",
+   "strength": "400 mg",
+   "dosageForm": "Tablet",
+   "localName": "ফ্ল্যাজিল"
+  },
+  {
+   "productId": "DEMO-0040",
+   "brandName": "Tufnil",
+   "genericName": "Tolfenamic Acid",
+   "strength": "200 mg",
+   "dosageForm": "Tablet"
+  },
+  {
+   "productId": "DEMO-0041",
+   "brandName": "Clofenac",
+   "genericName": "Diclofenac Sodium",
+   "strength": "50 mg",
+   "dosageForm": "Tablet"
+  },
+  {
+   "productId": "DEMO-0042",
+   "brandName": "Rolac",
+   "genericName": "Ketorolac Tromethamine",
+   "strength": "10 mg",
+   "dosageForm": "Tablet"
+  },
+  {
+   "productId": "DEMO-0043",
+   "brandName": "Comet",
+   "genericName": "Metformin Hydrochloride",
+   "strength": "500 mg",
+   "dosageForm": "Tablet",
+   "localName": "কমেট"
+  },
+  {
+   "productId": "DEMO-0044",
+   "brandName": "Comet",
+   "genericName": "Metformin Hydrochloride",
+   "strength": "850 mg",
+   "dosageForm": "Tablet",
+   "localName": "কমেট"
+  },
+  {
+   "productId": "DEMO-0045",
+   "brandName": "Osartil",
+   "genericName": "Losartan Potassium",
+   "strength": "50 mg",
+   "dosageForm": "Tablet",
+   "localName": "ওসারটিল"
+  },
+  {
+   "productId": "DEMO-0046",
+   "brandName": "Amdocal",
+   "genericName": "Amlodipine",
+   "strength": "5 mg",
+   "dosageForm": "Tablet"
+  },
+  {
+   "productId": "DEMO-0047",
+   "brandName": "Camlodin",
+   "genericName": "Amlodipine",
+   "strength": "5 mg",
+   "dosageForm": "Tablet"
+  },
+  {
+   "productId": "DEMO-0048",
+   "brandName": "Ceevit",
+   "genericName": "Vitamin C (Ascorbic Acid)",
+   "strength": "250 mg",
+   "dosageForm": "Chewable Tablet",
+   "localName": "সিভিট"
+  },
+  {
+   "productId": "DEMO-0049",
+   "brandName": "Calbo-D",
+   "genericName": "Calcium Carbonate + Vitamin D3",
+   "strength": "500 mg + 200 IU",
+   "dosageForm": "Tablet",
+   "localName": "ক্যালবো ডি"
+  },
+  {
+   "productId": "DEMO-0050",
+   "brandName": "Neuro-B",
+   "genericName": "Vitamin B1 + B6 + B12",
+   "strength": null,
+   "dosageForm": "Tablet",
+   "localName": "নিউরো বি"
+  },
+  {
+   "productId": "DEMO-0051",
+   "brandName": "Entacyd Plus",
+   "genericName": "Aluminium Hydroxide + Magnesium Hydroxide + Simethicone",
+   "strength": null,
+   "dosageForm": "Suspension",
+   "localName": "এন্টাসিড প্লাস"
+  },
+  {
+   "productId": "DEMO-0052",
+   "brandName": "Azmasol",
+   "genericName": "Salbutamol",
+   "strength": "100 mcg/puff",
+   "dosageForm": "Inhaler",
+   "localName": "অ্যাজমাসল"
+  },
+  {
+   "productId": "DEMO-0053",
+   "brandName": "Orsaline-N",
+   "genericName": "Oral Rehydration Salts",
+   "strength": null,
+   "dosageForm": "Powder (Sachet)",
+   "localName": "অরস্যালাইন"
+  },
+  {
+   "productId": "DEMO-0054",
+   "brandName": "Nebanol",
+   "genericName": "Neomycin + Bacitracin",
+   "strength": null,
+   "dosageForm": "Powder"
+  },
+  {
+   "productId": "DEMO-0055",
+   "brandName": "Betnovate-N",
+   "genericName": "Betamethasone + Neomycin",
+   "strength": null,
+   "dosageForm": "Cream"
+  }
+ ]
+}

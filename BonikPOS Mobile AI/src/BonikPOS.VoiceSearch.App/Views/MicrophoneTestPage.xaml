@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.MicrophoneTestPage"
+             x:DataType="vm:MicrophoneTestViewModel"
+             Title="Microphone test">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16" MaximumWidthRequest="720">
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Microphone permission" Style="{StaticResource SectionTitle}" />
+                    <Label Style="{StaticResource Body}"
+                           Text="Voice search needs the microphone. Audio is processed on this phone; it is not uploaded or stored." />
+                    <Label Text="Permission granted" Style="{StaticResource SuccessText}" IsVisible="{Binding PermissionGranted}" />
+                    <Button Text="Allow microphone" Command="{Binding RequestPermissionCommand}"
+                            IsVisible="{Binding PermissionGranted, Converter={StaticResource Not}}" />
+                    <Button Text="Open system settings" Style="{StaticResource SecondaryButton}"
+                            Command="{Binding OpenAppSettingsCommand}" IsVisible="{Binding PermissionPermanentlyDenied}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Audio test" Style="{StaticResource SectionTitle}" />
+                    <Label Text="{Binding Instruction}" Style="{StaticResource Body}" />
+                    <ProgressBar Progress="{Binding Level}" ProgressColor="{StaticResource Primary}"
+                                 SemanticProperties.Description="Microphone level" />
+                    <ActivityIndicator IsRunning="{Binding IsTesting}" IsVisible="{Binding IsTesting}" />
+                    <Button Text="Start test" Command="{Binding StartTestCommand}"
+                            IsEnabled="{Binding IsTesting, Converter={StaticResource Not}}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}" IsVisible="{Binding HasResult}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Result" Style="{StaticResource SectionTitle}" />
+                    <Label Text="{Binding ResultSummary}" Style="{StaticResource Body}" />
+                    <Label Text="{Binding DeviceSummary}" Style="{StaticResource Muted}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Continue to enrollment" Command="{Binding ContinueCommand}" IsEnabled="{Binding HasResult}" />
+            <Label Style="{StaticResource Muted}" Text="You can continue after a failed test, but samples recorded in noise may be rejected." />
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}" IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

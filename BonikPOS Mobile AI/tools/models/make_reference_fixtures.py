@@ -15,6 +15,11 @@ the TSE adapter. It is never shipped in the app.
 """
 from __future__ import annotations
 
+import os
+
+# ONNX Runtime 1.31 ships Microsoft usage telemetry; keep tooling runs off the network (docs/PRIVACY.md).
+os.environ.setdefault("ORT_DISABLE_TELEMETRY", "1")
+
 import argparse
 import hashlib
 import json

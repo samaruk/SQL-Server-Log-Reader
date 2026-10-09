@@ -41,6 +41,9 @@ public interface IVoiceModelRuntime : IDisposable
     /// <summary>Loads (or reloads after a settings change) every installed model. Safe to call repeatedly.</summary>
     Task InitializeAsync(VoiceSearchSettings settings, CancellationToken cancellationToken);
 
+    /// <summary>Unloads and loads all models again (after installing or removing a model).</summary>
+    Task ReloadAsync(VoiceSearchSettings settings, CancellationToken cancellationToken);
+
     /// <summary>New stateful VAD instance sharing the loaded session. Throws if no VAD model is available.</summary>
     IVoiceActivityDetector CreateVoiceActivityDetector();
 
@@ -52,6 +55,9 @@ public interface IVoiceModelRuntime : IDisposable
 
     /// <summary>New streaming extractor. Returns a non-active pass-through extractor when no TSE model is installed.</summary>
     ITargetSpeakerExtractor CreateTargetSpeakerExtractor();
+
+    /// <summary>Status the next extractor would report, without creating one (for UI indicators).</summary>
+    TargetSpeakerExtractorStatus CreateTargetSpeakerExtractorStatusPreview();
 
     /// <summary>Encoder id the installed TSE model must be conditioned with, or null when no TSE model is installed.</summary>
     string? ExtractionRequiredEncoderId { get; }

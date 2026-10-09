@@ -78,6 +78,21 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
         }
     }
 
+    public async Task ReloadAsync(VoiceSearchSettings settings, CancellationToken cancellationToken)
+    {
+        await _initGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            _loadedWith = null;
+        }
+        finally
+        {
+            _initGate.Release();
+        }
+
+        await InitializeAsync(settings, cancellationToken).ConfigureAwait(false);
+    }
+
     public IVoiceActivityDetector CreateVoiceActivityDetector() =>
         _vad?.CreateDetector() ?? throw new InvalidOperationException("The voice activity model is not installed.");
 
@@ -85,6 +100,12 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
         _tse is not null
             ? new OnnxStreamingTargetSpeakerExtractor(_tse, _logger)
             : new UnavailableTargetSpeakerExtractor(_tseUnavailable, _tseUnavailableMessage);
+
+    public TargetSpeakerExtractorStatus CreateTargetSpeakerExtractorStatusPreview() =>
+        _tse is not null
+            ? new TargetSpeakerExtractorStatus(TargetSpeakerExtractionAvailability.NeedsReEnrollment, _tse.Descriptor.Id, _tse.RequiredEncoderId,
+                _tse.ChunkSamples, _tse.LatencySamples, "Installed; activates when listening starts with a compatible owner profile.")
+            : new TargetSpeakerExtractorStatus(_tseUnavailable, null, null, 0, 0, _tseUnavailableMessage);
 
     public void Dispose()
     {

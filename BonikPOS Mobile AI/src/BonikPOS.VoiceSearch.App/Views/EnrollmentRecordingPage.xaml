@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.EnrollmentRecordingPage"
+             x:DataType="vm:EnrollmentViewModel"
+             Title="Record samples">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14" MaximumWidthRequest="760">
+            <Label Text="{Binding ProgressText}" Style="{StaticResource SectionTitle}" />
+            <ProgressBar Progress="{Binding Progress}" ProgressColor="{StaticResource Primary}"
+                         SemanticProperties.Description="Enrollment progress" />
+
+            <Border Style="{StaticResource TopCard}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding CurrentPrompt.Instruction}" Style="{StaticResource Muted}" />
+                    <Label Text="{Binding CurrentPrompt.Text}" Style="{StaticResource BanglaBody}" FontSize="22"
+                           SemanticProperties.Description="Sentence to read aloud" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <ProgressBar Progress="{Binding Level}" ProgressColor="{StaticResource Primary}"
+                                 SemanticProperties.Description="Recording level" />
+                    <HorizontalStackLayout Spacing="12">
+                        <Label Text="Speech detected" Style="{StaticResource SuccessText}" IsVisible="{Binding SpeechDetected}" />
+                        <Label Text="{Binding Elapsed, StringFormat='{0:0.0} s'}" Style="{StaticResource Muted}" IsVisible="{Binding IsRecording}" />
+                    </HorizontalStackLayout>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button Text="Record" Command="{Binding StartRecordingCommand}"
+                                SemanticProperties.Hint="Starts recording. Recording stops automatically when you stop speaking." />
+                        <Button Grid.Column="1" Text="Stop" Style="{StaticResource SecondaryButton}" Command="{Binding StopRecordingCommand}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button Text="Play back" Style="{StaticResource SecondaryButton}" Command="{Binding PlayLastCommand}"
+                                SemanticProperties.Hint="Plays the last sample from memory. Recordings are never saved." />
+                        <Button Grid.Column="1" Text="Next sentence" Style="{StaticResource SecondaryButton}" Command="{Binding SkipPromptCommand}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource SuccessBanner}" IsVisible="{Binding ShowAcceptedFeedback}">
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Feedback}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Label Text="{Binding .}" Style="{StaticResource SuccessText}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Border>
+            <Border Style="{StaticResource WarningBanner}" IsVisible="{Binding ShowRejectedFeedback}">
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Feedback}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Label Text="{Binding .}" Style="{StaticResource WarningText}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Finish enrollment" Command="{Binding FinishCommand}" />
+            <Button Text="Cancel" Style="{StaticResource SecondaryButton}" Command="{Binding CancelCommand}" />
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}" IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

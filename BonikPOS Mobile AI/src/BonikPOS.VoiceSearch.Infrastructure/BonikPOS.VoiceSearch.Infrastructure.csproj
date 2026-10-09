@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Persistence (encrypted profile/history, settings), model files and the BonikPOS backend adapter. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>BonikPOS.VoiceSearch.Infrastructure</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BonikPOS.VoiceSearch.Core\BonikPOS.VoiceSearch.Core.csproj" />
+    <ProjectReference Include="..\BonikPOS.VoiceSearch.MedicineSearch\BonikPOS.VoiceSearch.MedicineSearch.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="BonikPOS.VoiceSearch.UnitTests" />
+    <InternalsVisibleTo Include="BonikPOS.VoiceSearch.IntegrationTests" />
+  </ItemGroup>
+</Project>

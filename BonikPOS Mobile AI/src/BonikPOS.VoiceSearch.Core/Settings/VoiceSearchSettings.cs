@@ -171,3 +171,9 @@ public static class SecretKeys
     public const string ProfileDataKey = "bonikpos.profile.datakey.v1";
     public const string HistoryDataKey = "bonikpos.history.datakey.v1";
 }
+
+/// <summary>Deletes everything the app stored about the owner (profile and key, history and key, API token, caches, settings).</summary>
+public interface IPrivacyService
+{
+    Task DeleteAllDataAsync(CancellationToken cancellationToken);
+}

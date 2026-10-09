@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.DiagnosticsPage"
+             x:DataType="vm:DiagnosticsViewModel"
+             Title="Diagnostics">
+    <ContentPage.Resources>
+        <DataTemplate x:Key="RowTemplate" x:DataType="vm:DiagnosticRow">
+            <VerticalStackLayout Spacing="1" Padding="0,4">
+                <Label Text="{Binding Title}" Style="{StaticResource Body}" FontAttributes="Bold" />
+                <Label Text="{Binding Value}" Style="{StaticResource Body}" />
+                <Label Text="{Binding Detail}" Style="{StaticResource Muted}" IsVisible="{Binding Detail, Converter={StaticResource HasText}}" />
+                <Label Text="Needs attention" Style="{StaticResource WarningText}" IsVisible="{Binding IsProblem}" />
+            </VerticalStackLayout>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14" MaximumWidthRequest="900">
+            <Label Style="{StaticResource Muted}"
+                   Text="Numbers only: this screen never shows or stores audio or recognised text." />
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Models" Style="{StaticResource SectionTitle}" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding ModelRows}" BindableLayout.ItemTemplate="{StaticResource RowTemplate}" />
+                    <Button Text="Reload models" Style="{StaticResource SecondaryButton}" Command="{Binding ReloadModelsCommand}" />
+                </VerticalStackLayout>
+            </Border>
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Performance (measured on this phone)" Style="{StaticResource SectionTitle}" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding PerformanceRows}" BindableLayout.ItemTemplate="{StaticResource RowTemplate}" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button Text="Model speed test" Command="{Binding RunSelfTestCommand}" />
+                        <Button Grid.Column="1" Text="Reset numbers" Style="{StaticResource SecondaryButton}" Command="{Binding ResetTelemetryCommand}" />
+                    </Grid>
+                    <Label Text="{Binding SelfTestSummary}" Style="{StaticResource Body}"
+                           IsVisible="{Binding SelfTestSummary, Converter={StaticResource HasText}}" />
+                </VerticalStackLayout>
+            </Border>
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Device" Style="{StaticResource SectionTitle}" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding DeviceRows}" BindableLayout.ItemTemplate="{StaticResource RowTemplate}" />
+                </VerticalStackLayout>
+            </Border>
+            <Button Text="Refresh" Command="{Binding RefreshCommand}" />
+            <Button Text="Copy report" Style="{StaticResource SecondaryButton}" Command="{Binding CopyReportCommand}" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}"
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

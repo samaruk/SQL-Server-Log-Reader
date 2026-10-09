@@ -40,6 +40,11 @@ Examples
 """
 from __future__ import annotations
 
+import os
+
+# ONNX Runtime 1.31 ships Microsoft usage telemetry; keep tooling runs off the network (docs/PRIVACY.md).
+os.environ.setdefault("ORT_DISABLE_TELEMETRY", "1")
+
 import argparse
 import base64
 import hashlib
@@ -385,6 +390,8 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=20261009)
     ap.add_argument("--max-tokens", type=int, default=24, help="tokens decoded during validation")
     ap.add_argument("--fixture-wav", type=pathlib.Path, help="16 kHz mono wav for validation/fixtures")
+    ap.add_argument("--register", type=pathlib.Path, default=None,
+                    help="models.json to add the exported model to (paths are stored relative to it)")
     args = ap.parse_args()
 
     wm.MultiHeadAttention.use_sdpa = False  # explicit attention math exports deterministically
@@ -585,6 +592,19 @@ def main() -> int:
         }
         with open(args.out_dir / f"{args.prefix}-reference.json", "w", encoding="utf-8") as f:
             json.dump(fixture, f, indent=2, ensure_ascii=False)
+
+    if args.register and ok:
+        from register_model import register
+        rel = lambda p: p.resolve().relative_to(args.register.resolve().parent).as_posix()
+        register(args.register, {
+            "id": args.prefix, "version": provenance["model_id"], "role": "SpeechRecognition",
+            "format": "bonikpos-whisper-onnx/1",
+            "files": {"config": rel(args.out_dir / f"{args.prefix}-config.json"), "encoder": rel(final_paths[0]),
+                      "decoder": rel(final_paths[1]), "tokens": rel(tokens_path)},
+            "license": provenance["license"], "source": provenance["source"],
+            **({"isTestFixture": True} if args.random_preset else {}),
+        })
+        report["registered_in"] = str(args.register)
 
     print(json.dumps(report, indent=2, ensure_ascii=False))
     if not ok:

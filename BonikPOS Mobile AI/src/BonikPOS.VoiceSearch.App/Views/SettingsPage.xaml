@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BonikPOS.VoiceSearch.Presentation.ViewModels;assembly=BonikPOS.VoiceSearch.Presentation"
+             x:Class="BonikPOS.VoiceSearch.App.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             Title="Settings">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14" MaximumWidthRequest="760">
+            <!-- Catalog -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Medicine catalog" Style="{StaticResource SectionTitle}" />
+                    <Picker Title="Catalog source" ItemsSource="{Binding CatalogSources}" SelectedItem="{Binding SelectedCatalogSource}" />
+                    <Label Text="{Binding CatalogStatus}" Style="{StaticResource Muted}" />
+
+                    <VerticalStackLayout IsVisible="{Binding IsLocalFile}" Spacing="6">
+                        <Label Text="{Binding LocalCatalogPath, StringFormat='File: {0}'}" Style="{StaticResource Muted}" />
+                        <Button Text="Import product index (JSON)" Style="{StaticResource SecondaryButton}" Command="{Binding ImportCatalogFileCommand}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout IsVisible="{Binding IsApi}" Spacing="6">
+                        <Label Text="BonikPOS API base URL (https)" Style="{StaticResource Muted}" />
+                        <Entry Text="{Binding ApiBaseUrl}" Placeholder="https://your-bonikpos-server/" Keyboard="Url" />
+                        <Label Text="Products path" Style="{StaticResource Muted}" />
+                        <Entry Text="{Binding ProductsPath}" />
+                        <Label Text="Authentication" Style="{StaticResource Muted}" />
+                        <Picker ItemsSource="{Binding AuthSchemes}" SelectedItem="{Binding AuthScheme}" />
+                        <Label Text="API key header (for ApiKey)" Style="{StaticResource Muted}" />
+                        <Entry Text="{Binding ApiKeyHeader}" />
+                        <Label Text="Token or API key (stored in the phone's secure storage)" Style="{StaticResource Muted}" />
+                        <Entry Text="{Binding ApiToken}" IsPassword="True" />
+                        <Label Text="Response field names" Style="{StaticResource Muted}" />
+                        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnSpacing="8">
+                            <Label Text="Items array" Style="{StaticResource Body}" VerticalOptions="Center" />
+                            <Entry Grid.Column="1" Text="{Binding FieldItems}" />
+                            <Label Grid.Row="1" Text="Product id" Style="{StaticResource Body}" VerticalOptions="Center" />
+                            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding FieldProductId}" />
+                            <Label Grid.Row="2" Text="Brand name" Style="{StaticResource Body}" VerticalOptions="Center" />
+                            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding FieldBrandName}" />
+                            <Label Grid.Row="3" Text="Generic name" Style="{StaticResource Body}" VerticalOptions="Center" />
+                            <Entry Grid.Row="3" Grid.Column="1" Text="{Binding FieldGenericName}" />
+                            <Label Grid.Row="4" Text="Strength" Style="{StaticResource Body}" VerticalOptions="Center" />
+                            <Entry Grid.Row="4" Grid.Column="1" Text="{Binding FieldStrength}" />
+                            <Label Grid.Row="5" Text="Dosage form" Style="{StaticResource Body}" VerticalOptions="Center" />
+                            <Entry Grid.Row="5" Grid.Column="1" Text="{Binding FieldDosageForm}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                    <Button Text="Sync catalog now" Style="{StaticResource SecondaryButton}" Command="{Binding SyncCatalogCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Recognition and audio -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Speech and audio" Style="{StaticResource SectionTitle}" />
+                    <Picker Title="Recognition language" ItemsSource="{Binding LanguageModes}" SelectedItem="{Binding SelectedLanguageMode}" />
+                    <Picker Title="Microphone input" ItemsSource="{Binding AudioInputs}" SelectedItem="{Binding SelectedAudioInput}" />
+                    <Picker Title="Processing" ItemsSource="{Binding Accelerators}" SelectedItem="{Binding SelectedAccelerator}" />
+                    <Button Text="Owner voice settings" Style="{StaticResource SecondaryButton}" Command="{Binding OpenVoiceSettingsCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Matching -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Matching thresholds (advanced)" Style="{StaticResource SectionTitle}" />
+                    <Label Text="{Binding MinCandidateScore, StringFormat='Minimum candidate score: {0:0.00}'}" Style="{StaticResource Body}" />
+                    <Slider Minimum="0.3" Maximum="0.9" Value="{Binding MinCandidateScore}" />
+                    <Label Text="{Binding ConfidentScore, StringFormat='Confident match score: {0:0.00}'}" Style="{StaticResource Body}" />
+                    <Slider Minimum="0.6" Maximum="1" Value="{Binding ConfidentScore}" />
+                    <Label Text="{Binding AmbiguityMargin, StringFormat='Ambiguity margin: {0:0.00}'}" Style="{StaticResource Body}" />
+                    <Slider Minimum="0" Maximum="0.3" Value="{Binding AmbiguityMargin}" />
+                    <Label Text="{Binding MinRecognitionConfidence, StringFormat='Minimum recognition confidence: {0:0.00}'}" Style="{StaticResource Body}" />
+                    <Slider Minimum="0" Maximum="1" Value="{Binding MinRecognitionConfidence}" />
+                    <Label Style="{StaticResource Muted}"
+                           Text="Changing thresholds changes how often you are asked to confirm. Re-run the search evaluation (docs/SEARCH_EVALUATION.md) after changing defaults." />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Privacy -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Privacy" Style="{StaticResource SectionTitle}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Keep search history (text only)" Style="{StaticResource Body}" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding HistoryEnabled}" />
+                    </Grid>
+                    <Button Text="What is stored and why" Style="{StaticResource SecondaryButton}" Command="{Binding ShowPrivacyCommand}" />
+                    <Button Text="Delete all app data" Style="{StaticResource DangerButton}" Command="{Binding DeleteAllDataCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Save settings" Command="{Binding SaveCommand}" />
+            <Button Text="Model and performance diagnostics" Style="{StaticResource SecondaryButton}" Command="{Binding OpenDiagnosticsCommand}" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource DangerText}"
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource HasText}}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

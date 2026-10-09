@@ -1,0 +1,55 @@
+{
+  "format": "bonikpos-models/1",
+  "models": [
+    {
+      "id": "silero-vad",
+      "version": "6.2.3",
+      "role": "VoiceActivity",
+      "format": "silero-vad",
+      "files": {
+        "model": "vad/silero-vad-6.2.3-16k.onnx"
+      },
+      "license": "MIT",
+      "source": "PyPI silero-vad 6.2.3, silero_vad/data/silero_vad_openvino_16k.onnx (fixed-shape 16 kHz graph; outputs identical to silero_vad.onnx)",
+      "sha256": {
+        "vad/silero-vad-6.2.3-16k.onnx": "7776b81ad1b0350c15d7f1555943b9232eb53e9ca5d989c6d0cea9ebc8664d87"
+      }
+    },
+    {
+      "id": "ge2e-resemblyzer",
+      "version": "0.1.4",
+      "role": "SpeakerEncoder",
+      "format": "ge2e-onnx",
+      "files": {
+        "model": "speaker/ge2e-resemblyzer-0.1.4.onnx"
+      },
+      "license": "Apache-2.0",
+      "source": "PyPI Resemblyzer 0.1.4 resemblyzer/pretrained.pt (sha256 39373b86598fa3da9fcddee6142382efe09777e8d37dc9c0561f41f0070f134e), exported with tools/models/export_ge2e_onnx.py",
+      "options": {
+        "input": "mels",
+        "output": "embedding",
+        "sample_rate": 16000,
+        "n_fft": 400,
+        "hop_length": 160,
+        "n_mels": 40,
+        "partial_frames": 160,
+        "partials_per_second": 1.3,
+        "min_coverage": 0.75,
+        "normalize_dbfs": -30,
+        "embedding_dim": 256,
+        "min_speech_seconds": 0.8,
+        "verification": {
+          "note": "PROVISIONAL thresholds - calibrate with docs/EVALUATION_PLAN.md",
+          "default_accept": 0.75,
+          "min_accept": 0.68,
+          "max_accept": 0.86,
+          "enroll_min_consistency": 0.7,
+          "single_speaker_min_window": 0.65
+        }
+      },
+      "sha256": {
+        "speaker/ge2e-resemblyzer-0.1.4.onnx": "f8e45a3d5d4aa7ea36c703594f618706bce7a68b6ad4e9b22f68b88a77c86937"
+      }
+    }
+  ]
+}
