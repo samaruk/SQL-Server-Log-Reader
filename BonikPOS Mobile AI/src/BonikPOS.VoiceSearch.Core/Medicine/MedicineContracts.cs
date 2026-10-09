@@ -89,10 +89,21 @@ public sealed record MedicineQuery(
     string Text,
     QuerySource Source,
     double? RecognitionConfidence = null,
-    OwnerVoiceDecision? SpeakerDecision = null);
+    OwnerVoiceDecision? SpeakerDecision = null)
+{
+    /// <summary>
+    /// Other readings of the same speech from the recogniser (n-best, or the other language when Bangla/English
+    /// detection was uncertain). They are searched as correction candidates; <see cref="Text"/> stays the primary reading.
+    /// </summary>
+    public IReadOnlyList<string> Alternatives { get; init; } = [];
+}
 
 /// <summary>What the query parser understood. Shown to the owner so that the interpretation is transparent.</summary>
 /// <param name="NameWithNumbersText">Name tokens with the bare numbers kept in place, for brands that contain digits ("Cef-3").</param>
+/// <param name="NameWithFormsText">
+/// Name tokens with dosage-form words kept in place, for names that a recogniser split into a form word ("sir gel" for
+/// "Sergel"). A form word used as part of a matched name is not treated as a requested form for that product.
+/// </param>
 public sealed record ParsedMedicineQuery(
     string OriginalText,
     string NormalizedText,
@@ -102,7 +113,8 @@ public sealed record ParsedMedicineQuery(
     IReadOnlyList<decimal> BareNumbers,
     IReadOnlyList<DosageFormCategory> Forms,
     bool ContainsBanglaScript,
-    string NameWithNumbersText = "");
+    string NameWithNumbersText = "",
+    string NameWithFormsText = "");
 
 public enum MatchKind
 {
@@ -118,11 +130,15 @@ public enum AttributeMatch
     /// <summary>The query did not mention this attribute.</summary>
     NotRequested,
     Match,
+    /// <summary>A form the owner commonly uses for this one (e.g. "syrup" for an oral suspension); needs confirmation.</summary>
+    Compatible,
     Mismatch,
     /// <summary>The query mentioned it but the catalog entry has no parsable value.</summary>
     Unknown,
 }
 
+/// <param name="MatchedReading">Set when the product matched an alternative recogniser reading rather than the primary text.</param>
+/// <param name="NameCoverage">Share of the spoken name words explained by the matched name (1 = all of them).</param>
 public sealed record MedicineCandidate(
     MedicineProduct Product,
     double Score,
@@ -131,7 +147,9 @@ public sealed record MedicineCandidate(
     string MatchedField,
     AttributeMatch StrengthMatch,
     AttributeMatch FormMatch,
-    IReadOnlyList<string> Notes);
+    IReadOnlyList<string> Notes,
+    string? MatchedReading = null,
+    double NameCoverage = 1.0);
 
 public enum SearchDecision
 {
@@ -197,6 +215,21 @@ public sealed record SearchThresholds
 
     /// <summary>Speech-recognition confidence below which the result is at best <see cref="SearchDecision.LowConfidence"/>.</summary>
     public double MinRecognitionConfidence { get; init; } = 0.45;
+
+    /// <summary>Top score required for <see cref="SearchDecision.NeedsConfirmation"/> and for offering an
+    /// <see cref="SearchDecision.Ambiguous"/> choice; weaker results are <see cref="SearchDecision.LowConfidence"/>.</summary>
+    public double MinConfirmScore { get; init; } = 0.75;
+
+    /// <summary>
+    /// For approximate (fuzzy) name matches only: name similarity required before the best product is offered for
+    /// confirmation or as an ambiguity choice; below it the result is <see cref="SearchDecision.LowConfidence"/>.
+    /// 0 disables the check. Default 0.84 was chosen on the synthetic DEV split (smallest value with at most 3% wrong
+    /// products offered on negative cases); see docs/SEARCH_EVALUATION.md before changing it.
+    /// </summary>
+    public double MinFuzzyConfirmNameScore { get; init; } = 0.84;
+
+    /// <summary>Name similarity for a near-miss name to be offered as a "did you mean" suggestion on no-match.</summary>
+    public double SuggestionMinNameScore { get; init; } = 0.45;
 
     public int MaxCandidates { get; init; } = 10;
 }

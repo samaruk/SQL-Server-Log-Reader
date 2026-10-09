@@ -14,7 +14,17 @@ public sealed record SpeechRecognitionOptions
 
     /// <summary>Upper bound of generated tokens. Bangla needs about two tokens per character with Whisper's vocabulary.</summary>
     public int MaxTokens { get; init; } = 128;
+
+    /// <summary>
+    /// In automatic Bangla/English mode, when the detected language's probability (between the two) is below this value,
+    /// the other language is decoded as well and returned as an alternative reading (searched as a correction
+    /// candidate). 0 disables the second decode.
+    /// </summary>
+    public double AlternativeLanguageBelow { get; init; } = 0.85;
 }
+
+/// <summary>Another reading of the same audio (e.g. the other language), offered to the search as a correction candidate.</summary>
+public sealed record RecognitionAlternative(string Text, string Language, double Confidence);
 
 public sealed record SpeechRecognitionResult(
     string Text,
@@ -28,7 +38,11 @@ public sealed record SpeechRecognitionResult(
     TimeSpan EncoderTime,
     TimeSpan DecoderTime,
     string ModelId,
-    bool Truncated);
+    bool Truncated)
+{
+    /// <summary>Alternative readings, best first. Never used as the displayed text; only searched as candidates.</summary>
+    public IReadOnlyList<RecognitionAlternative> Alternatives { get; init; } = [];
+}
 
 public sealed record SpeechRecognizerInfo(
     bool IsAvailable,

@@ -271,7 +271,10 @@ public sealed partial class SearchViewModel : ViewModelBase, IDisposable
         var source = corrected ? QuerySource.Correction : _recognizedOriginal is null ? QuerySource.Typed : QuerySource.Voice;
         var query = new MedicineQuery(RecognizedText, source,
             source == QuerySource.Voice ? _lastRecognition?.Confidence : null,
-            source == QuerySource.Voice ? _lastVerification?.Decision : null);
+            source == QuerySource.Voice ? _lastVerification?.Decision : null)
+        {
+            Alternatives = source == QuerySource.Voice && _lastRecognition is { } r ? [.. r.Alternatives.Select(a => a.Text)] : [],
+        };
         var result = await _search.SearchAsync(query, CancellationToken.None);
         if (source != QuerySource.Voice)
         {

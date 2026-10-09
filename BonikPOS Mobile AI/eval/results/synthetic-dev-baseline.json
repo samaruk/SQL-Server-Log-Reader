@@ -1,0 +1,5454 @@
+{
+  "format": "bonikpos-search-eval-report/1",
+  "run": {
+    "Label": "Baseline (before search changes), synthetic-20k DEV",
+    "DatasetPath": "eval/search/synthetic-20k-dev.cases.jsonl",
+    "DatasetSha256": "008167bd913491cfdeec59387442fd29f3a04513fab2394f9a690597338f1823",
+    "CatalogDescription": "Local product index (synthetic-catalog-20k.json)",
+    "CatalogProducts": 20000,
+    "CatalogSha256": "539870d42230de346e65767a4088c581a1d815216bc63179aa9cba02dc0703d4",
+    "CatalogIsDemo": false,
+    "IndexBuildMs": 933.6979,
+    "StartedUtc": "2026-10-09T07:52:54.9330313+00:00",
+    "Thresholds": {
+      "MinCandidateScore": 0.55,
+      "ConfidentScore": 0.9,
+      "AmbiguityMargin": 0.06,
+      "MinRecognitionConfidence": 0.45,
+      "MaxCandidates": 10
+    },
+    "Machine": "Ubuntu 24.04.5 LTS; X64; 4 logical CPUs; .NET 10.0.12"
+  },
+  "metrics": {
+    "Cases": 2600,
+    "Positives": 2000,
+    "Negatives": 600,
+    "Top1": {
+      "Count": 1980,
+      "Total": 2000,
+      "Rate": 0.99
+    },
+    "Top5": {
+      "Count": 1985,
+      "Total": 2000,
+      "Rate": 0.9925
+    },
+    "FalseMatchAll": {
+      "Count": 26,
+      "Total": 2600,
+      "Rate": 0.01
+    },
+    "FalseMatchPositives": {
+      "Count": 2,
+      "Total": 2000,
+      "Rate": 0.001
+    },
+    "FalseMatchNegatives": {
+      "Count": 24,
+      "Total": 600,
+      "Rate": 0.04
+    },
+    "FalseConfident": {
+      "Count": 2,
+      "Total": 2600,
+      "Rate": 0.0007692307692307692
+    },
+    "WrongOfferedAll": {
+      "Count": 170,
+      "Total": 2600,
+      "Rate": 0.06538461538461539
+    },
+    "WrongOfferedNegatives": {
+      "Count": 163,
+      "Total": 600,
+      "Rate": 0.27166666666666667
+    },
+    "CorrectButLowConfidence": {
+      "Count": 8,
+      "Total": 2000,
+      "Rate": 0.004
+    },
+    "MissedPositives": {
+      "Count": 4,
+      "Total": 2000,
+      "Rate": 0.002
+    },
+    "NegativesRejected": {
+      "Count": 5,
+      "Total": 600,
+      "Rate": 0.008333333333333333
+    },
+    "NegativesSafe": {
+      "Count": 437,
+      "Total": 600,
+      "Rate": 0.7283333333333334
+    },
+    "DecisionAgreement": {
+      "Count": 98,
+      "Total": 98,
+      "Rate": 1
+    },
+    "DecisionCounts": {
+      "Confident": 1214,
+      "NeedsConfirmation": 420,
+      "Ambiguous": 510,
+      "LowConfidence": 447,
+      "NoMatch": 9
+    },
+    "MatcherP50Ms": 2.08215,
+    "MatcherP95Ms": 6.124429999999998,
+    "MatcherMaxMs": 70.8779
+  },
+  "by_kind": {
+    "asr-split": {
+      "Cases": 222,
+      "Positives": 222,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 219,
+        "Total": 222,
+        "Rate": 0.9864864864864865
+      },
+      "Top5": {
+        "Count": 219,
+        "Total": 222,
+        "Rate": 0.9864864864864865
+      },
+      "FalseMatchAll": {
+        "Count": 1,
+        "Total": 222,
+        "Rate": 0.0045045045045045045
+      },
+      "FalseMatchPositives": {
+        "Count": 1,
+        "Total": 222,
+        "Rate": 0.0045045045045045045
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 222,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 2,
+        "Total": 222,
+        "Rate": 0.009009009009009009
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 4,
+        "Total": 222,
+        "Rate": 0.018018018018018018
+      },
+      "MissedPositives": {
+        "Count": 1,
+        "Total": 222,
+        "Rate": 0.0045045045045045045
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 192,
+        "NeedsConfirmation": 2,
+        "Ambiguous": 23,
+        "LowConfidence": 4,
+        "NoMatch": 1
+      },
+      "MatcherP50Ms": 2.59915,
+      "MatcherP95Ms": 7.684099999999992,
+      "MatcherMaxMs": 70.8779
+    },
+    "brand-form": {
+      "Cases": 213,
+      "Positives": 213,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 213,
+        "Total": 213,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 213,
+        "Total": 213,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 213,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 149,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 64,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 1.356,
+      "MatcherP95Ms": 4.627359999999987,
+      "MatcherMaxMs": 12.7152
+    },
+    "brand-strength": {
+      "Cases": 466,
+      "Positives": 466,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 466,
+        "Total": 466,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 466,
+        "Total": 466,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 1,
+        "Total": 466,
+        "Rate": 0.002145922746781116
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 466,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 440,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 25,
+        "LowConfidence": 1,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.0551500000000003,
+      "MatcherP95Ms": 5.9307,
+      "MatcherMaxMs": 28.5724
+    },
+    "typo": {
+      "Cases": 231,
+      "Positives": 231,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 230,
+        "Total": 231,
+        "Rate": 0.9956709956709957
+      },
+      "Top5": {
+        "Count": 231,
+        "Total": 231,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 1,
+        "Total": 231,
+        "Rate": 0.004329004329004329
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 231,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 8,
+        "NeedsConfirmation": 210,
+        "Ambiguous": 11,
+        "LowConfidence": 2,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.1569,
+      "MatcherP95Ms": 5.25225,
+      "MatcherMaxMs": 23.7243
+    },
+    "brand-only": {
+      "Cases": 174,
+      "Positives": 174,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 174,
+        "Total": 174,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 174,
+        "Total": 174,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 98,
+        "Total": 98,
+        "Rate": 1
+      },
+      "DecisionCounts": {
+        "Confident": 76,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 98,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 1.18595,
+      "MatcherP95Ms": 3.9313599999999997,
+      "MatcherMaxMs": 12.5957
+    },
+    "banglish-respelling": {
+      "Cases": 265,
+      "Positives": 265,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 256,
+        "Total": 265,
+        "Rate": 0.9660377358490566
+      },
+      "Top5": {
+        "Count": 257,
+        "Total": 265,
+        "Rate": 0.969811320754717
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 265,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 265,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 265,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 4,
+        "Total": 265,
+        "Rate": 0.01509433962264151
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 1,
+        "Total": 265,
+        "Rate": 0.0037735849056603774
+      },
+      "MissedPositives": {
+        "Count": 1,
+        "Total": 265,
+        "Rate": 0.0037735849056603774
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 114,
+        "NeedsConfirmation": 123,
+        "Ambiguous": 22,
+        "LowConfidence": 5,
+        "NoMatch": 1
+      },
+      "MatcherP50Ms": 1.9584,
+      "MatcherP95Ms": 7.4502599999999894,
+      "MatcherMaxMs": 21.5206
+    },
+    "bangla-script": {
+      "Cases": 318,
+      "Positives": 318,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 311,
+        "Total": 318,
+        "Rate": 0.9779874213836478
+      },
+      "Top5": {
+        "Count": 314,
+        "Total": 318,
+        "Rate": 0.9874213836477987
+      },
+      "FalseMatchAll": {
+        "Count": 1,
+        "Total": 318,
+        "Rate": 0.0031446540880503146
+      },
+      "FalseMatchPositives": {
+        "Count": 1,
+        "Total": 318,
+        "Rate": 0.0031446540880503146
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 318,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 1,
+        "Total": 318,
+        "Rate": 0.0031446540880503146
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 1,
+        "Total": 318,
+        "Rate": 0.0031446540880503146
+      },
+      "MissedPositives": {
+        "Count": 2,
+        "Total": 318,
+        "Rate": 0.006289308176100629
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 233,
+        "NeedsConfirmation": 63,
+        "Ambiguous": 17,
+        "LowConfidence": 3,
+        "NoMatch": 2
+      },
+      "MatcherP50Ms": 2.4969,
+      "MatcherP95Ms": 10.234984999999998,
+      "MatcherMaxMs": 24.7704
+    },
+    "generic-strength": {
+      "Cases": 111,
+      "Positives": 111,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 111,
+        "Total": 111,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 111,
+        "Total": 111,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 111,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 111,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 3.2246,
+      "MatcherP95Ms": 17.470750000000002,
+      "MatcherMaxMs": 46.7634
+    },
+    "neg-strength-mismatch": {
+      "Cases": 246,
+      "Positives": 0,
+      "Negatives": 246,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 1,
+        "Total": 246,
+        "Rate": 0.0040650406504065045
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 1,
+        "Total": 246,
+        "Rate": 0.0040650406504065045
+      },
+      "FalseConfident": {
+        "Count": 1,
+        "Total": 246,
+        "Rate": 0.0040650406504065045
+      },
+      "WrongOfferedAll": {
+        "Count": 8,
+        "Total": 246,
+        "Rate": 0.032520325203252036
+      },
+      "WrongOfferedNegatives": {
+        "Count": 8,
+        "Total": 246,
+        "Rate": 0.032520325203252036
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 246,
+        "Rate": 0
+      },
+      "NegativesSafe": {
+        "Count": 238,
+        "Total": 246,
+        "Rate": 0.967479674796748
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 1,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 7,
+        "LowConfidence": 238,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.3114999999999997,
+      "MatcherP95Ms": 4.20615,
+      "MatcherMaxMs": 6.7451
+    },
+    "neg-form-mismatch": {
+      "Cases": 150,
+      "Positives": 0,
+      "Negatives": 150,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 6,
+        "Total": 150,
+        "Rate": 0.04
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 6,
+        "Total": 150,
+        "Rate": 0.04
+      },
+      "FalseConfident": {
+        "Count": 1,
+        "Total": 150,
+        "Rate": 0.006666666666666667
+      },
+      "WrongOfferedAll": {
+        "Count": 12,
+        "Total": 150,
+        "Rate": 0.08
+      },
+      "WrongOfferedNegatives": {
+        "Count": 12,
+        "Total": 150,
+        "Rate": 0.08
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 150,
+        "Rate": 0
+      },
+      "NegativesSafe": {
+        "Count": 138,
+        "Total": 150,
+        "Rate": 0.92
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 1,
+        "NeedsConfirmation": 5,
+        "Ambiguous": 6,
+        "LowConfidence": 138,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 1.1594,
+      "MatcherP95Ms": 2.47598,
+      "MatcherMaxMs": 3.4392
+    },
+    "neg-unknown-brand": {
+      "Cases": 174,
+      "Positives": 0,
+      "Negatives": 174,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 14,
+        "Total": 174,
+        "Rate": 0.08045977011494253
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 14,
+        "Total": 174,
+        "Rate": 0.08045977011494253
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 174,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 118,
+        "Total": 174,
+        "Rate": 0.6781609195402298
+      },
+      "WrongOfferedNegatives": {
+        "Count": 118,
+        "Total": 174,
+        "Rate": 0.6781609195402298
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 4,
+        "Total": 174,
+        "Rate": 0.022988505747126436
+      },
+      "NegativesSafe": {
+        "Count": 56,
+        "Total": 174,
+        "Rate": 0.3218390804597701
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 14,
+        "Ambiguous": 104,
+        "LowConfidence": 52,
+        "NoMatch": 4
+      },
+      "MatcherP50Ms": 1.8365999999999998,
+      "MatcherP95Ms": 3.96726,
+      "MatcherMaxMs": 6.1971
+    },
+    "neg-not-medicine": {
+      "Cases": 30,
+      "Positives": 0,
+      "Negatives": 30,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 3,
+        "Total": 30,
+        "Rate": 0.1
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 3,
+        "Total": 30,
+        "Rate": 0.1
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 30,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 25,
+        "Total": 30,
+        "Rate": 0.8333333333333334
+      },
+      "WrongOfferedNegatives": {
+        "Count": 25,
+        "Total": 30,
+        "Rate": 0.8333333333333334
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 1,
+        "Total": 30,
+        "Rate": 0.03333333333333333
+      },
+      "NegativesSafe": {
+        "Count": 5,
+        "Total": 30,
+        "Rate": 0.16666666666666666
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 3,
+        "Ambiguous": 22,
+        "LowConfidence": 4,
+        "NoMatch": 1
+      },
+      "MatcherP50Ms": 1.8953,
+      "MatcherP95Ms": 4.301589999999999,
+      "MatcherMaxMs": 4.5955
+    }
+  },
+  "definitions": [
+    "- Positive case: at least one catalog product satisfies the request; any listed product id counts as correct.",
+    "- Negative case: nothing in the catalog satisfies the request (unknown brand, non-existent strength/form, not a medicine).",
+    "- Top-1 / Top-5 accuracy: share of positive cases whose first / any of the first five ranked products is correct.",
+    "- False match: the system presented a wrong product as the match (decision Confident or NeedsConfirmation with a wrong first result); counted on all cases, so every Confident/NeedsConfirmation answer to a negative case is a false match.",
+    "- False confident: the subset of false matches with decision Confident.",
+    "- Wrong product offered: a false match, or an Ambiguous choice in which none of the offered options is correct.",
+    "- Correct but low confidence: positive cases whose first result is correct but which were answered LowConfidence/NoMatch (shown only as a weak suggestion).",
+    "- Negatives safely handled: decision NoMatch or LowConfidence (candidates shown only with a warning).",
+    "- Missed positives: decision NoMatch although a correct product exists.",
+    "- Decision agreement: share of cases with an expected decision whose decision was one of the expected ones.",
+    "- Matcher latency: time inside the matcher per query on the machine named in the report (not a phone)."
+  ],
+  "cases_listed": "failures only (wrong or missing top-1, false match, wrong product offered, unexpected decision)",
+  "cases": [
+    {
+      "id": "syn-00001",
+      "query": "ceeprai data five",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-007665"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 70.878
+    },
+    {
+      "id": "syn-00066",
+      "query": "pupris ten mg",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-008996"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013957 Bupriil 10 mg Tablet [0.69]",
+        "SYN-003867 Pouprisai 0.5% + 500 IU Powder [0.60]",
+        "SYN-004139 Dofuprous 10 mg Tablet [0.60]",
+        "SYN-014689 Spoupris 100 mg Tablet [0.58]",
+        "SYN-014690 Spoupris 50 mg Tablet [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.79
+    },
+    {
+      "id": "syn-00178",
+      "query": "khohine 0.1",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-007496"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011797 Cosine 300 mg Tablet [0.65]",
+        "SYN-011798 Cosine 75 mg Tablet [0.65]",
+        "SYN-000770 Hosine 400 mg Tablet [0.60]",
+        "SYN-000771 Hosine 200 mg/5 ml Suspension [0.60]",
+        "SYN-009211 Cocheene 10 mg Tablet [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 11.547
+    },
+    {
+      "id": "syn-00230",
+      "query": "pespir 0.9",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-003993"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004783 Spespiil 0.9% Infusion [0.74]",
+        "SYN-015136 Peecipiid 15 mg/5 ml Syrup [0.70]",
+        "SYN-015137 Peecipiid 30 mg Tablet [0.70]",
+        "SYN-005082 Feespid 0.5 mg Tablet [0.67]",
+        "SYN-005083 Feespid 0.1% Cream [0.67]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 7.892
+    },
+    {
+      "id": "syn-00328",
+      "query": "পীব্রুন একশো ইনহেলার",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-000389"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006882 Pibrouc 100 mg Sustained Release Tablet [0.58]",
+        "SYN-009706 Pibroin 40 mg Tablet [0.58]",
+        "SYN-002342 Spibrouor 100 mcg/puff Inhaler [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.014
+    },
+    {
+      "id": "syn-00619",
+      "query": "do guk five",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-002237"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 6,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016975 Gukane 125 mg/5 ml Powder for Suspension [0.85]",
+        "SYN-010481 Gukephu 200 mg/5 ml Suspension [0.84]",
+        "SYN-007075 Gukax 20 mg Tablet [0.73]",
+        "SYN-016974 Gukane 500 mg Capsule [0.72]",
+        "SYN-016976 Gukane 250 mg Capsule [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.833
+    },
+    {
+      "id": "syn-00837",
+      "query": "জিরো চার",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-011356"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 0.613
+    },
+    {
+      "id": "syn-00951",
+      "query": "mosuol 100 mcg",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-012178"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 3,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008184 Moseeol 600 mg + 400 IU Tablet [0.69]",
+        "SYN-008185 Moseeol 500 mg + 200 IU Tablet [0.69]",
+        "SYN-012178 Mosouol 100 mg + 200 mg + 200 mcg Tablet [0.68]",
+        "SYN-006666 Mosol 150 mg Capsule [0.68]",
+        "SYN-000199 Mobuol 3.35 g/5 ml Syrup [0.61]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.531
+    },
+    {
+      "id": "syn-01030",
+      "query": "স্পোসী বিশ",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-004068"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 3,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001689 Speshi 20 mg Capsule [0.91]",
+        "SYN-001690 Speshi 20 mg Tablet [0.91]",
+        "SYN-004068 Sposee 20 mg Tablet [0.91]",
+        "SYN-008024 Spuci 20 mg Tablet [0.91]",
+        "SYN-001688 Speshi 40 mg Tablet [0.77]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.305
+    },
+    {
+      "id": "syn-01094",
+      "query": "do hir five hundred",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-019721"
+      ],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": 6,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007052 Hiraiin 500 mg Tablet [0.84]",
+        "SYN-011041 Hirara 200 mg + 0.2 mg Capsule [0.72]",
+        "SYN-017483 Hiroun 600 mg + 400 IU Tablet [0.72]",
+        "SYN-007051 Hiraiin 750 mg Tablet [0.71]",
+        "SYN-006214 Hirasis 2 mg Tablet [0.71]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.74
+    },
+    {
+      "id": "syn-01175",
+      "query": "phahpak 500",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-005882"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 3,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009355 Foheepaac 200 mg + 0.2 mg Capsule [0.73]",
+        "SYN-007327 Phahad 500 mg Capsule [0.70]",
+        "SYN-005882 Phaphak 500 mg Tablet [0.70]",
+        "SYN-004732 Phaiphak 10 mg Tablet [0.62]",
+        "SYN-004733 Phaiphak 5 mg/5 ml Syrup [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.276
+    },
+    {
+      "id": "syn-01177",
+      "query": "ফাজে ১০০",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-004010"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000427 Baje 100 mg + 200 mg + 200 mcg Tablet [0.82]",
+        "SYN-004010 Fage 100 mcg/puff Inhaler [0.82]",
+        "SYN-012963 Fazo 0.4 mg Modified Release Capsule [0.74]",
+        "SYN-004011 Fage 4 mg Tablet [0.70]",
+        "SYN-004012 Fage 2 mg/5 ml Syrup [0.70]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.486
+    },
+    {
+      "id": "syn-01208",
+      "query": "টীনিডীটা ১০",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-017909"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 2.185
+    },
+    {
+      "id": "syn-01287",
+      "query": "ডৌজীড একশো সিরাপ",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-010473"
+      ],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": 2,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014047 Dojiid 100 mg/5 ml Powder for Suspension [0.88]",
+        "SYN-010473 Dougeed 100 mg/5 ml Suspension [0.77]",
+        "SYN-019647 Diziid 5 mg Chewable Tablet [0.56]",
+        "SYN-019648 Diziid 4 mg Chewable Tablet [0.56]",
+        "SYN-019649 Diziid 10 mg Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.132
+    },
+    {
+      "id": "syn-01617",
+      "query": "khile 80 milligram",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-008602"
+      ],
+      "expected_decisions": [],
+      "decision": "NoMatch",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [],
+      "suggestions": 0,
+      "matcher_ms": 0.756
+    },
+    {
+      "id": "syn-01639",
+      "query": "khetaik 30 mg",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-010429"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015296 Keeshutaic 2 mg Tablet [0.56]",
+        "SYN-015297 Keeshutaic 1 mg Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.355
+    },
+    {
+      "id": "syn-01829",
+      "query": "cuhior 500",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-005711"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012796 Tujior 500 mg + 125 mg Tablet [0.65]",
+        "SYN-014311 Guhiol 20 mg Capsule [0.65]",
+        "SYN-014312 Guhiol 40 mg Capsule [0.65]",
+        "SYN-014313 Guhiol 40 mg Injection [0.65]",
+        "SYN-016957 Luchior 3.35 g/5 ml Syrup [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.127
+    },
+    {
+      "id": "syn-01918",
+      "query": "sleplis 500 milligram",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-010884"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015774 Flaiplis 500 mg Tablet [0.72]",
+        "SYN-004831 Sluplis 20 mg Tablet [0.70]",
+        "SYN-003989 Speclis 500 mg + 65 mg Tablet [0.70]",
+        "SYN-007891 Shegleeplir 500 mg Tablet [0.67]",
+        "SYN-004121 Sleeplaiix 5 mg Tablet [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.556
+    },
+    {
+      "id": "syn-01940",
+      "query": "গ্লীশীন আশি",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-011463"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005696 Glishina 200 ml Suspension [0.78]",
+        "SYN-005559 Glisuin 20 mg/ml Injection [0.78]",
+        "SYN-012310 Glici 100 IU/ml Injection [0.67]",
+        "SYN-008947 Glistaan 4 mg Tablet [0.65]",
+        "SYN-008948 Glistaan 8 mg Tablet [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.222
+    },
+    {
+      "id": "syn-01992",
+      "query": "rudien five",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-006331"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012721 Feedaien 3.35 g/5 ml Syrup [0.62]",
+        "SYN-019426 Rudojom 75 mg/5 ml Syrup [0.58]",
+        "SYN-005964 Trudeum 200 mg/5 ml Suspension [0.58]",
+        "SYN-014619 Rechien 50 mg Tablet [0.58]",
+        "SYN-013901 Vusien 1 g Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.752
+    },
+    {
+      "id": "syn-02006",
+      "query": "Hibotreeid 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017125 Notreeix 10 mg Tablet [0.59]",
+        "SYN-014378 Hibrabd 10 mg Tablet [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.368
+    },
+    {
+      "id": "syn-02007",
+      "query": "thank you very much",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006865 Muchim 40 mg Tablet [0.79]",
+        "SYN-010135 Beeruk 0.9% Infusion [0.60]",
+        "SYN-008773 Beeriol 10.25 g Powder (Sachet) [0.60]",
+        "SYN-016594 Tanaix 100 mg + 200 mg + 200 mcg Tablet [0.59]",
+        "SYN-019719 Veerool 0.4 mg Modified Release Capsule [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.012
+    },
+    {
+      "id": "syn-02012",
+      "query": "where is my phone",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017826 Phones 100 mg Tablet [0.83]",
+        "SYN-017827 Phones Plus 50 mg Tablet [0.79]",
+        "SYN-003310 Phitone 0.5% + 500 IU Powder [0.65]",
+        "SYN-014315 Phonine 5 mg/5 ml Syrup [0.65]",
+        "SYN-018125 Phovone 20 mg Tablet [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.996
+    },
+    {
+      "id": "syn-02017",
+      "query": "Pleefet 200",
+      "kind": [
+        "neg-strength-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003404 Prepheet 100 mg + 200 mg + 200 mcg Tablet [0.90]",
+        "SYN-004205 Pleefet 1 mg Tablet [0.85]",
+        "SYN-017979 Ploufeeta 100 mg Capsule [0.68]",
+        "SYN-008545 Clefeet 875 mg + 125 mg Tablet [0.67]",
+        "SYN-008839 Pleeflon 200 mg/5 ml Suspension [0.61]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.934
+    },
+    {
+      "id": "syn-02018",
+      "query": "Gaipeeor",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003741 Gaifeera 200 mg + 0.2 mg Capsule [0.72]",
+        "SYN-008536 Gavor 200 mg/5 ml Suspension [0.72]",
+        "SYN-008537 Gavor 500 mg/100 ml Infusion [0.72]",
+        "SYN-013599 Gairaor 30 mg/ml Injection [0.71]",
+        "SYN-016297 Jaisheeor 100 mg Capsule [0.67]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.885
+    },
+    {
+      "id": "syn-02019",
+      "query": "Neemilaiex",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003541 Nelaiax 30 mg Tablet [0.75]",
+        "SYN-003542 Nelaiax 15 mg/5 ml Syrup [0.75]",
+        "SYN-004236 Nimeeshiex 5% Infusion [0.70]",
+        "SYN-011123 Milix 50 mg Capsule [0.69]",
+        "SYN-008910 Meenaiex 0.5 mg Tablet [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.384
+    },
+    {
+      "id": "syn-02021",
+      "query": "Bisto",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010667 Visita 150 mg Capsule [0.82]",
+        "SYN-002214 Vistout 200 mg/5 ml Suspension [0.73]",
+        "SYN-015708 Visteek 0.4 mg Modified Release Capsule [0.72]",
+        "SYN-016220 Bisout 20 mg Capsule [0.71]",
+        "SYN-016221 Bisout 40 mg Tablet [0.71]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1
+    },
+    {
+      "id": "syn-02022",
+      "query": "give me the change",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017656 Chanuc 100 mg Sustained Release Tablet [0.66]",
+        "SYN-017657 Chanuc 50 mg Tablet [0.66]",
+        "SYN-017658 Chanuc 1% Gel [0.66]",
+        "SYN-013190 Chafee 250 mg Tablet [0.65]",
+        "SYN-013191 Chafee 500 mg Tablet [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.546
+    },
+    {
+      "id": "syn-02024",
+      "query": "Phacletaion 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008297 Gletion 500 mg + 65 mg Tablet [0.67]",
+        "SYN-010737 Fleetaien 2 mg/5 ml Syrup [0.64]",
+        "SYN-000366 Phaiclon 500 mg + 65 mg Tablet [0.63]",
+        "SYN-002733 Phaclaiex 500 mg Capsule [0.62]",
+        "SYN-008696 Faclorouon 20 mg Tablet [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.741
+    },
+    {
+      "id": "syn-02027",
+      "query": "Stepreeta 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017501 Steeprut 500 mg Capsule [0.88]",
+        "SYN-006710 Stiprota 0.9% Infusion [0.75]",
+        "SYN-017500 Steeprut 125 mg/5 ml Powder for Suspension [0.75]",
+        "SYN-017502 Steeprut 250 mg Capsule [0.75]",
+        "SYN-013260 Steprohee 500 mg + 65 mg Tablet [0.73]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.485
+    },
+    {
+      "id": "syn-02031",
+      "query": "card e dibo",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014420 Dibora 50 mg Capsule [0.79]",
+        "SYN-014421 Dibora 150 mg Capsule [0.79]",
+        "SYN-014422 Dibora Max 50 mg Capsule [0.76]",
+        "SYN-018198 Divom 750 mg Injection [0.66]",
+        "SYN-018199 Divom 500 mg Tablet [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.596
+    },
+    {
+      "id": "syn-02032",
+      "query": "ki khobor",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010734 Kovaor 2.5 mg/5 ml Syrup [0.90]",
+        "SYN-006036 Couvaor 0.3% Eye Drops [0.83]",
+        "SYN-006037 Couvaor 500 mg Tablet [0.83]",
+        "SYN-009933 Cobree 0.5 mg Tablet [0.79]",
+        "SYN-009934 Cobree 0.25 mg Tablet [0.79]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.701
+    },
+    {
+      "id": "syn-02038",
+      "query": "taka nai",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008362 Taica 250 mg Chewable Tablet [0.81]",
+        "SYN-006155 Takaon 0.9% Infusion [0.81]",
+        "SYN-003398 Naijas 500 mg Tablet [0.79]",
+        "SYN-010396 Naijud 50 mg Tablet [0.79]",
+        "SYN-010409 Naipir 20 mg/2 ml Injection [0.79]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.248
+    },
+    {
+      "id": "syn-02041",
+      "query": "Traijion 50",
+      "kind": [
+        "neg-strength-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010789 Traizain 50 mg Tablet [0.88]",
+        "SYN-018359 Traijion 500 mg Tablet [0.85]",
+        "SYN-018360 Traijion 250 mg Capsule [0.85]",
+        "SYN-014778 Trujoon 50 mg Capsule [0.79]",
+        "SYN-014779 Trujoon 150 mg Capsule [0.68]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.44
+    },
+    {
+      "id": "syn-02042",
+      "query": "Flatroura 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012096 Floutrol 20 mg/ml Injection [0.69]",
+        "SYN-003566 Flaflara 20 mg Tablet [0.66]",
+        "SYN-008085 Clatroum 20 mg/ml Injection [0.65]",
+        "SYN-002891 Flatreeid 200 mg/5 ml Suspension [0.64]",
+        "SYN-002892 Flatreeid 500 mg/100 ml Infusion [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.142
+    },
+    {
+      "id": "syn-02043",
+      "query": "Rogaiax",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014497 Rugaiix 1% Cream [0.87]",
+        "SYN-010814 Rijiax 100 mg Capsule [0.78]",
+        "SYN-001191 Rokoax 20 mg Tablet [0.78]",
+        "SYN-001192 Rokoax 40 mg Tablet [0.78]",
+        "SYN-019473 Rapaiax 10 mg Tablet [0.76]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.234
+    },
+    {
+      "id": "syn-02046",
+      "query": "Muslisi",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004427 Choslis 0.5% + 500 IU Ointment [0.66]",
+        "SYN-004488 Muslool 0.3% Eye Drops [0.66]",
+        "SYN-005480 Tuslisuta 250 mg Tablet [0.58]",
+        "SYN-010686 Vouslicec 0.5% + 500 IU Ointment [0.58]",
+        "SYN-010687 Vouslicec 0.5% + 500 IU Powder [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.978
+    },
+    {
+      "id": "syn-02048",
+      "query": "close the door",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016694 Clocee 250 mg Tablet [0.89]",
+        "SYN-013401 Dhor 10 mg Tablet [0.89]",
+        "SYN-013402 Dhor 20 mg/ml Injection [0.89]",
+        "SYN-002706 Closhu 20 mg Capsule [0.84]",
+        "SYN-002707 Closhu 40 mg Capsule [0.84]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.74
+    },
+    {
+      "id": "syn-02050",
+      "query": "Pigoon 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015351 Pizeon 500 mg Tablet [0.79]",
+        "SYN-017420 Pihon 500 mg + 65 mg Tablet [0.74]",
+        "SYN-002079 Pigai 0.5% + 500 IU Ointment [0.64]",
+        "SYN-014384 Ligon 150 mg Tablet [0.63]",
+        "SYN-014385 Ligon 75 mg/5 ml Syrup [0.63]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.784
+    },
+    {
+      "id": "syn-02058",
+      "query": "Phocloix",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001976 Phiclouix 250 mg Chewable Tablet [0.89]",
+        "SYN-015648 Phogloax 400 mg Chewable Tablet [0.86]",
+        "SYN-001274 Docloux 180 mg Tablet [0.78]",
+        "SYN-001275 Docloux 30 mg/5 ml Suspension [0.78]",
+        "SYN-009298 Phoclous 75 mg Tablet [0.78]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.282
+    },
+    {
+      "id": "syn-02065",
+      "query": "Brijax 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004780 Breesuex 10 mg Tablet [0.66]",
+        "SYN-014517 Broroux 10 mg Tablet [0.66]",
+        "SYN-019828 Brilas 10 mg Tablet [0.66]",
+        "SYN-004725 Sijax 10 mg Tablet [0.66]",
+        "SYN-014478 Brichuax 25 mg Tablet [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.369
+    },
+    {
+      "id": "syn-02067",
+      "query": "আচ্ছা ঠিক আছে",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012105 Chatrik 10 mg Tablet [0.71]",
+        "SYN-003695 Ticou 40 mg Tablet [0.69]",
+        "SYN-009851 Tikou 80 mg Tablet [0.69]",
+        "SYN-009852 Tikou 30 mg Modified Release Tablet [0.69]",
+        "SYN-016774 Chostik 400 mg Capsule [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.225
+    },
+    {
+      "id": "syn-02069",
+      "query": "see you tomorrow",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015619 Seetro 500 mg Capsule [0.79]",
+        "SYN-004469 Tomoura 10 mg Tablet [0.77]",
+        "SYN-013982 Seenorouax 40 mg Tablet [0.76]",
+        "SYN-013983 Seenorouax 20 mg/2 ml Injection [0.76]",
+        "SYN-001787 Seetaicaion 0.9% Infusion [0.76]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.717
+    },
+    {
+      "id": "syn-02070",
+      "query": "Staivaan 500",
+      "kind": [
+        "neg-strength-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013606 Staivaan Plus 500 mg Tablet [0.87]",
+        "SYN-011553 Stoubaan 500 mg Capsule [0.87]",
+        "SYN-013602 Staivaan 120 mg/5 ml Suspension [0.85]",
+        "SYN-013603 Staivaan 80 mg/ml Pediatric Drops [0.85]",
+        "SYN-013604 Staivaan 665 mg Extended Release Tablet [0.85]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.256
+    },
+    {
+      "id": "syn-02074",
+      "query": "Plephouac 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-002852 Pliphac 500 mg Capsule [0.79]",
+        "SYN-007029 Pleepefouc 500 mg Tablet [0.73]",
+        "SYN-002853 Pliphac 250 mg Capsule [0.68]",
+        "SYN-004377 Pleeveac 5 mg Tablet [0.66]",
+        "SYN-015491 Plislouac 0.5% + 500 IU Powder [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.532
+    },
+    {
+      "id": "syn-02075",
+      "query": "Clato 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001358 Clastuol 20 mg/ml Injection [0.61]",
+        "SYN-008085 Clatroum 20 mg/ml Injection [0.61]",
+        "SYN-007497 Clanita 200 mg Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.096
+    },
+    {
+      "id": "syn-02076",
+      "query": "bill koto holo",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011557 Kotoulaior 5 mg/5 ml Suspension [0.75]",
+        "SYN-011558 Kotoulaior 10 mg Tablet [0.75]",
+        "SYN-018642 Vicacota 0.5% + 500 IU Ointment [0.65]",
+        "SYN-018643 Vicacota 0.5% + 500 IU Powder [0.65]",
+        "SYN-002573 Viloujuta 100 mg Capsule [0.55]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.19
+    },
+    {
+      "id": "syn-02077",
+      "query": "Pleeleax",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008606 Plouleeax 0.3% Eye Drops [0.89]",
+        "SYN-003552 Pleraex 100 mg Capsule [0.82]",
+        "SYN-017726 Pliruax 100 mg Tablet [0.81]",
+        "SYN-008888 Plilouix 0.9% Infusion [0.78]",
+        "SYN-000090 Plelais 200 mg/5 ml Suspension [0.77]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.113
+    },
+    {
+      "id": "syn-02084",
+      "query": "Naipaix tablet",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008300 Naisaix 150 mg Tablet [0.84]",
+        "SYN-010295 Raipaix 500 mg Tablet [0.84]",
+        "SYN-014668 Naipaix 100 mg Capsule [0.80]",
+        "SYN-002198 Novaix 120 mg Tablet [0.78]",
+        "SYN-003124 Tipaix 500 mg + 65 mg Tablet [0.75]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.408
+    },
+    {
+      "id": "syn-02087",
+      "query": "how much is this",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006865 Muchim 40 mg Tablet [0.79]",
+        "SYN-000154 Tice 5 mg Chewable Tablet [0.77]",
+        "SYN-018862 Comoustis 500 mg Tablet [0.71]",
+        "SYN-018863 Comoustis 1 g Extended Release Tablet [0.71]",
+        "SYN-019284 Houmac 400 mg Capsule [0.67]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.654
+    },
+    {
+      "id": "syn-02095",
+      "query": "Jephion 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007078 Jeephod 10 mg Tablet [0.67]",
+        "SYN-005035 Jeezoon 10 mg Tablet [0.67]",
+        "SYN-007830 Zenoon 10 mg Tablet [0.67]",
+        "SYN-003863 Chefion 850 mg Tablet [0.66]",
+        "SYN-004247 Zevounu 10 mg/5 ml Syrup [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.99
+    },
+    {
+      "id": "syn-02098",
+      "query": "Trepraigool 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013403 Treepleol 10 mg Tablet [0.70]",
+        "SYN-011177 Treeplool 10 mg Tablet [0.70]",
+        "SYN-015638 Caitreprail 10 mg Tablet [0.60]",
+        "SYN-013194 Prefopraiol 10 mg Tablet [0.58]",
+        "SYN-013636 Traigos 10 mg/5 ml Syrup [0.55]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.532
+    },
+    {
+      "id": "syn-02099",
+      "query": "ar kichu lagbe",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-018054 Dichu 100 mg Vaginal Tablet [0.78]",
+        "SYN-018055 Dichu 1% Cream [0.78]",
+        "SYN-002006 Jichu 120 mg/5 ml Suspension [0.78]",
+        "SYN-002007 Jichu 80 mg/ml Pediatric Drops [0.78]",
+        "SYN-002008 Jichu 665 mg Extended Release Tablet [0.78]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.917
+    },
+    {
+      "id": "syn-02100",
+      "query": "bhai ektu daran",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005180 Douraan 200 mg/5 ml Powder for Suspension [0.76]",
+        "SYN-005181 Douraan 250 mg Capsule [0.76]",
+        "SYN-008571 Dabrana 200 mg + 0.2 mg Capsule [0.68]",
+        "SYN-012271 Daroum 200 mg/5 ml Powder for Suspension [0.65]",
+        "SYN-012272 Daroum 250 mg Capsule [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.567
+    },
+    {
+      "id": "syn-02102",
+      "query": "Roplo",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-019705 Ropel 100 mg/5 ml Suspension [0.79]",
+        "SYN-010506 Rouplot 100 mcg Tablet [0.73]",
+        "SYN-010507 Rouplot 50 mcg Tablet [0.73]",
+        "SYN-018799 Roplim 200 mg Capsule [0.72]",
+        "SYN-018800 Roplim 100 mg/5 ml Powder for Suspension [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.778
+    },
+    {
+      "id": "syn-02105",
+      "query": "hello",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003582 Hela 250 mg Capsule [0.88]",
+        "SYN-003583 Hela 500 mg Tablet [0.88]",
+        "SYN-003584 Hela 200 mg/5 ml Powder for Suspension [0.88]",
+        "SYN-018056 Sheclo 500 mg + 65 mg Tablet [0.65]",
+        "SYN-016305 Heleer 30 mg Modified Release Tablet [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.61
+    },
+    {
+      "id": "syn-02107",
+      "query": "ধন্যবাদ",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016088 Mivad 0.5 mg Tablet [0.57]",
+        "SYN-016089 Mivad 2 mg Tablet [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.075
+    },
+    {
+      "id": "syn-02108",
+      "query": "Haplidoor 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010390 Haflit 500 mg Tablet [0.61]",
+        "SYN-001761 Baplior 200 mg + 0.2 mg Capsule [0.58]",
+        "SYN-004380 Haplabru 25 mg Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.716
+    },
+    {
+      "id": "syn-02110",
+      "query": "Niflaphoid",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006715 Flaveid 40 mg Injection [0.66]",
+        "SYN-006716 Flaveid 20 mg Tablet [0.66]",
+        "SYN-006717 Flaveid 20 mg Capsule [0.66]",
+        "SYN-006718 Flaveid 40 mg Tablet [0.66]",
+        "SYN-017377 Plophoid 20 mg Tablet [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.364
+    },
+    {
+      "id": "syn-02111",
+      "query": "change nai",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003398 Naijas 500 mg Tablet [0.79]",
+        "SYN-010396 Naijud 50 mg Tablet [0.79]",
+        "SYN-010409 Naipir 20 mg/2 ml Injection [0.79]",
+        "SYN-007569 Naisim 0.4 mg Modified Release Capsule [0.79]",
+        "SYN-001452 Naibrac 200 ml Suspension [0.78]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.486
+    },
+    {
+      "id": "syn-02112",
+      "query": "Deemoufleena 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006578 Stoufleene 20 mg Tablet [0.61]",
+        "SYN-019921 Dogoplena 10 mg Tablet [0.58]",
+        "SYN-019922 Dogoplena 5 mg Tablet [0.58]",
+        "SYN-015052 Prezouglena 20 mg Tablet [0.57]",
+        "SYN-001110 Deepmouleeil 30 mg/ml Injection [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.127
+    },
+    {
+      "id": "syn-02114",
+      "query": "Slitrout",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000008 Slatrota 500 mg + 125 mg Tablet [0.81]",
+        "SYN-000009 Slatrota 875 mg + 125 mg Tablet [0.81]",
+        "SYN-017593 Slitroan 0.9% Infusion [0.78]",
+        "SYN-013754 Slobrout 10 mg/5 ml Syrup [0.78]",
+        "SYN-019856 Slotron 1% Cream [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.169
+    },
+    {
+      "id": "syn-02115",
+      "query": "Fluplousta",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-019739 Plouplota 100 IU/ml Injection [0.70]",
+        "SYN-010311 Chuplouta 100 IU/ml Injection [0.69]",
+        "SYN-000252 Fleeprita 750 mg Tablet [0.66]",
+        "SYN-018698 Gliplous 120 mg Tablet [0.64]",
+        "SYN-018100 Flupluac 250 mg Capsule [0.63]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.497
+    },
+    {
+      "id": "syn-02120",
+      "query": "Sluphaiil 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006500 Slopiil 250 mg Capsule [0.76]",
+        "SYN-013579 Sleepail 20 mg/ml Injection [0.71]",
+        "SYN-013580 Sleepail 10 mg Tablet [0.71]",
+        "SYN-002034 Slubal 50 mg Tablet [0.70]",
+        "SYN-011510 Slophouil 200 mg + 0.2 mg Capsule [0.68]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.437
+    },
+    {
+      "id": "syn-02123",
+      "query": "Brichuflora",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-018129 Briflira 665 mg Extended Release Tablet [0.77]",
+        "SYN-018130 Briflira 1 g Tablet [0.77]",
+        "SYN-016074 Brichuor 10 mg Tablet [0.71]",
+        "SYN-015485 Brouflol 500 mg Tablet [0.70]",
+        "SYN-015486 Brouflol 80 mg/ml Pediatric Drops [0.70]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.294
+    },
+    {
+      "id": "syn-02142",
+      "query": "ok fine",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-002372 Fineeboix 40 mg Tablet [0.78]",
+        "SYN-002373 Fineeboix 20 mg Tablet [0.78]",
+        "SYN-002374 Fineeboix 10 mg Tablet [0.78]",
+        "SYN-004249 Foufine 10 mg/5 ml Syrup [0.70]",
+        "SYN-016333 Gifine 500 mg Tablet [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.668
+    },
+    {
+      "id": "syn-02143",
+      "query": "no problem",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003424 Probrun 5 mg Tablet [0.71]",
+        "SYN-006923 Shoprobron 500 mg Capsule [0.67]",
+        "SYN-006822 Papraglem 600 mg + 400 IU Tablet [0.63]",
+        "SYN-006823 Papraglem 500 mg + 200 IU Tablet [0.63]",
+        "SYN-019683 Beerobem 875 mg + 125 mg Tablet [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.589
+    },
+    {
+      "id": "syn-02148",
+      "query": "Prodad",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003728 Pledad 500 mg Tablet [0.82]",
+        "SYN-003729 Pledad 750 mg Tablet [0.82]",
+        "SYN-002313 Protud 10 mg Tablet [0.82]",
+        "SYN-014259 Prodaax 100 IU/ml Injection [0.70]",
+        "SYN-019090 Pritrad 500 mg + 65 mg Tablet [0.68]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.992
+    },
+    {
+      "id": "syn-02153",
+      "query": "Clakus 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008624 Cleeslous 10 mg Tablet [0.56]",
+        "SYN-000648 Clicla 10 mg Tablet [0.55]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.361
+    },
+    {
+      "id": "syn-02154",
+      "query": "Daileephir",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005668 Daluphak 400 mg Chewable Tablet [0.63]",
+        "SYN-004711 Dasleezeer 500 mg Capsule [0.62]",
+        "SYN-004712 Dasleezeer 250 mg Capsule [0.62]",
+        "SYN-000227 Gleefair 2.5 mg/5 ml Syrup [0.61]",
+        "SYN-002125 Daluid 2% Cream [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.954
+    },
+    {
+      "id": "syn-02156",
+      "query": "Danuuta 200",
+      "kind": [
+        "neg-strength-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Confident",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": true,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000856 Danuta 200 mg/5 ml Suspension [0.96]",
+        "SYN-001023 Danuuta 500 mg Tablet [0.85]",
+        "SYN-001024 Danuuta 80 mg/ml Pediatric Drops [0.85]",
+        "SYN-001025 Danuuta 120 mg/5 ml Suspension [0.85]",
+        "SYN-001026 Danuuta 1 g Tablet [0.85]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.884
+    },
+    {
+      "id": "syn-02160",
+      "query": "where is the receipt",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016948 Shouhera 200 mg/5 ml Suspension [0.57]",
+        "SYN-011022 Reestoupheet 10 mg Tablet [0.56]",
+        "SYN-001720 Chahera 400 mg Tablet [0.55]",
+        "SYN-001721 Chahera 500 mg/100 ml Infusion [0.55]",
+        "SYN-001722 Chahera 200 mg/5 ml Suspension [0.55]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.996
+    },
+    {
+      "id": "syn-02164",
+      "query": "Breekeeid",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003337 Brefleeid 500 mg Capsule [0.76]",
+        "SYN-009321 Preeco Kid 2% Ointment [0.70]",
+        "SYN-008611 Brekara 100 mg Tablet [0.68]",
+        "SYN-009731 Brougiid 10.25 g Powder (Sachet) [0.68]",
+        "SYN-009003 Bralaid 3.35 g/5 ml Syrup [0.67]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.999
+    },
+    {
+      "id": "syn-02166",
+      "query": "Zopoupouex 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010047 Jofoex 250 mg Chewable Tablet [0.64]",
+        "SYN-017357 Jacipouex 20 mg/ml Injection [0.61]",
+        "SYN-017358 Jacipouex 10 mg Tablet [0.61]",
+        "SYN-008190 Jaicipouex 100 mg + 200 mg + 200 mcg Tablet [0.56]",
+        "SYN-005365 Pouphaiex 1 g Tablet [0.55]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.924
+    },
+    {
+      "id": "syn-02167",
+      "query": "Gleespouol 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001681 Glapluol 500 mg Tablet [0.64]",
+        "SYN-008637 Haispouol 500 mg Tablet [0.64]",
+        "SYN-014651 Gleetreespouon 500 mg Tablet [0.63]",
+        "SYN-017874 Glespaon 10 mg Tablet [0.62]",
+        "SYN-017875 Glespaon 40 mg Tablet [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.488
+    },
+    {
+      "id": "syn-02169",
+      "query": "চা খাবেন",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015362 Kabem 20 mg Tablet [0.80]",
+        "SYN-007733 Geeveen 50 mg Tablet [0.72]",
+        "SYN-007734 Geeveen 25 mg Tablet [0.72]",
+        "SYN-009784 Cabeel 100 mg Vaginal Tablet [0.68]",
+        "SYN-009785 Cabeel 1% Cream [0.68]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.399
+    },
+    {
+      "id": "syn-02177",
+      "query": "Cleepharaiix 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010352 Cleepiix 20 mg Tablet [0.70]",
+        "SYN-015338 Globraiix 500 mg Tablet [0.65]",
+        "SYN-006861 Cheephutraiix 500 mg Tablet [0.64]",
+        "SYN-018147 Clepriraiex 400 mg Tablet [0.64]",
+        "SYN-018148 Clepriraiex 200 mg/5 ml Suspension [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.591
+    },
+    {
+      "id": "syn-02190",
+      "query": "good morning",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001643 Gotrod 100 mg/5 ml Suspension [0.60]",
+        "SYN-001644 Gotrod 400 mg Tablet [0.60]",
+        "SYN-014041 Gobad 10 mg Tablet [0.58]",
+        "SYN-001487 Gomed 5 mg Tablet [0.58]",
+        "SYN-001488 Gomed 10 mg Tablet [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.55
+    },
+    {
+      "id": "syn-02199",
+      "query": "Kuloshaiid",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015113 Kourasaid 30 mg/ml Injection [0.79]",
+        "SYN-015114 Kourasaid 10 mg Tablet [0.79]",
+        "SYN-002591 Gleshaiid 500 mg Capsule [0.78]",
+        "SYN-007801 Glospaid 250 mg Tablet [0.69]",
+        "SYN-014579 Glosppaid 875 mg + 125 mg Tablet [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.057
+    },
+    {
+      "id": "syn-02200",
+      "query": "Midotroac",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-019370 Daidotrouc 500 mg Capsule [0.75]",
+        "SYN-019371 Daidotrouc 125 mg/5 ml Powder for Suspension [0.75]",
+        "SYN-019372 Daidotrouc 250 mg Capsule [0.75]",
+        "SYN-012655 Mibroac 500 mg Tablet [0.65]",
+        "SYN-008238 Cleeditroac 300 mg Tablet [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.12
+    },
+    {
+      "id": "syn-02201",
+      "query": "Shoucleeta capsule",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015212 Seecleeta 250 mg Capsule [0.87]",
+        "SYN-000273 Shoucleeta 250 mg Chewable Tablet [0.80]",
+        "SYN-000274 Shoucleeta 500 mg Tablet [0.80]",
+        "SYN-019306 Mouclita 0.4 mg Modified Release Capsule [0.76]",
+        "SYN-013831 Chaigleeta 250 mg Capsule [0.70]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.168
+    },
+    {
+      "id": "syn-02206",
+      "query": "Flaispoflour 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009409 Flaipliil 250 mg Tablet [0.59]",
+        "SYN-005828 Baispiflail 40 mg Injection [0.56]",
+        "SYN-002068 Laispoor 100 mg Tablet [0.56]",
+        "SYN-005193 Flaisper 2% Cream [0.55]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.183
+    },
+    {
+      "id": "syn-02210",
+      "query": "Paigleor 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013547 Praigleeid 10 mg Tablet [0.72]",
+        "SYN-019543 Paiglouum 10 mg Tablet [0.70]",
+        "SYN-011373 Laiglod 10 mg Tablet [0.66]",
+        "SYN-019263 Staiglepoor 10 mg Tablet [0.62]",
+        "SYN-018467 Phaiglaac 10 mg Tablet [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.144
+    },
+    {
+      "id": "syn-02213",
+      "query": "Daphour capsule",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016799 Naphour 150 mg Capsule [0.84]",
+        "SYN-003477 Daphour 20 mg Tablet [0.80]",
+        "SYN-003478 Daphour 10 mg Tablet [0.80]",
+        "SYN-012160 Dafoul 40 mg Injection [0.70]",
+        "SYN-003479 Daphour Extra 20 mg Tablet [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.904
+    },
+    {
+      "id": "syn-02215",
+      "query": "dam koto",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011557 Kotoulaior 5 mg/5 ml Suspension [0.77]",
+        "SYN-011558 Kotoulaior 10 mg Tablet [0.77]",
+        "SYN-017048 Kosto 3.35 g/5 ml Syrup [0.73]",
+        "SYN-008141 Daigakot 80 mg Tablet [0.61]",
+        "SYN-009169 Dadim 40 mg Tablet [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.139
+    },
+    {
+      "id": "syn-02216",
+      "query": "Kispeenoix",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000034 Cuspujoix 1% Cream [0.78]",
+        "SYN-000035 Cuspujoix 100 mg Vaginal Tablet [0.78]",
+        "SYN-007619 Kepumoix 5 mg/5 ml Suspension [0.71]",
+        "SYN-007620 Kepumoix 10 mg Tablet [0.71]",
+        "SYN-006828 Specoix 500 mg Tablet [0.68]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.228
+    },
+    {
+      "id": "syn-02218",
+      "query": "Tagajux",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007653 Neekazux 40 mg Injection [0.70]",
+        "SYN-007654 Neekazux 20 mg Capsule [0.70]",
+        "SYN-019440 Tacux 10 mg Tablet [0.69]",
+        "SYN-003564 Steesajuax 5 mg Tablet [0.64]",
+        "SYN-003565 Steesajuax 10 mg Tablet [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.96
+    },
+    {
+      "id": "syn-02219",
+      "query": "Daplai capsule",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-019076 Dapli 100 mg Capsule [0.90]",
+        "SYN-012017 Daplai 500 mg Tablet [0.80]",
+        "SYN-012018 Daplai 250 mg Tablet [0.80]",
+        "SYN-012019 Daplai MR 250 mg Tablet [0.71]",
+        "SYN-009376 Dalaix 250 mg Capsule [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.939
+    },
+    {
+      "id": "syn-02224",
+      "query": "Gineezaol",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008552 Gileesaor 40 mg Tablet [0.65]",
+        "SYN-008553 Gileesaor 20 mg/2 ml Injection [0.65]",
+        "SYN-006550 Gijuil 100 mcg/puff Inhaler [0.63]",
+        "SYN-006551 Gijuil 2 mg/5 ml Syrup [0.63]",
+        "SYN-006552 Gijuil 4 mg Tablet [0.63]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.038
+    },
+    {
+      "id": "syn-02227",
+      "query": "Suspuex",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007438 Shouspoax 5 mg/5 ml Suspension [0.83]",
+        "SYN-010175 Ceepuex 50 mg Tablet [0.78]",
+        "SYN-011745 Luspiex 10 mg Tablet [0.78]",
+        "SYN-011335 Pespuex 10 mg Tablet [0.78]",
+        "SYN-003210 Shushuix 500 mg Tablet [0.78]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.089
+    },
+    {
+      "id": "syn-02231",
+      "query": "Spochil 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008118 Spoclee 20 mg Tablet [0.73]",
+        "SYN-001576 Sposiol 40 mg Tablet [0.70]",
+        "SYN-012768 Cochil 20 mg Tablet [0.70]",
+        "SYN-008751 Spahuil 20 mg Tablet [0.66]",
+        "SYN-019055 Spokeeteeil 20 mg Tablet [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.932
+    },
+    {
+      "id": "syn-02233",
+      "query": "Flephaplouc",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017528 Flaplaiac 300 mg Tablet [0.67]",
+        "SYN-017529 Flaplaiac 75 mg Tablet [0.67]",
+        "SYN-001925 Fleefloin 5 mg/5 ml Syrup [0.64]",
+        "SYN-002743 Flaplo 150 mg Tablet [0.63]",
+        "SYN-009120 Flehophoun 5 mg/5 ml Syrup [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.316
+    },
+    {
+      "id": "syn-02236",
+      "query": "Geesleras 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017970 Geeslas 20 mg Tablet [0.77]",
+        "SYN-017971 Geeslas 40 mg Injection [0.66]",
+        "SYN-017972 Geeslas 40 mg Tablet [0.66]",
+        "SYN-017842 Geeslena 5 mg Tablet [0.65]",
+        "SYN-017843 Geeslena 10 mg Tablet [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.053
+    },
+    {
+      "id": "syn-02237",
+      "query": "Spezigeeol 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004032 Spidaol 20 mg Capsule [0.58]",
+        "SYN-002027 Phigeeol 100 mg Vaginal Tablet [0.58]",
+        "SYN-002028 Phigeeol 1% Cream [0.58]",
+        "SYN-008608 Spezal 0.5 mg Tablet [0.57]",
+        "SYN-014958 Speeguor 150 mg Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.031
+    },
+    {
+      "id": "syn-02242",
+      "query": "Trapufaol",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007883 Traplaol 50 mg Tablet [0.79]",
+        "SYN-013403 Treepleol 10 mg Tablet [0.68]",
+        "SYN-011177 Treeplool 10 mg Tablet [0.67]",
+        "SYN-009597 Trepol 200 mg + 0.2 mg Capsule [0.67]",
+        "SYN-005036 Trabral 2.5 mg/5 ml Syrup [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.139
+    },
+    {
+      "id": "syn-02247",
+      "query": "Foslocoon",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010174 Foslucoin 40 mg Injection [0.89]",
+        "SYN-006564 Phosikon 40 mg Tablet [0.78]",
+        "SYN-006565 Phosikon 20 mg Tablet [0.78]",
+        "SYN-004196 Slokoon 20 mg Tablet [0.77]",
+        "SYN-009394 Phasloc 100 mg Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.008
+    },
+    {
+      "id": "syn-02250",
+      "query": "Shounoshair",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012392 Cishouna SR 100 mg Vaginal Tablet [0.61]",
+        "SYN-005898 Dousair 100 mg + 200 mg + 200 mcg Tablet [0.60]",
+        "SYN-007088 Sousaceol 100 mg/5 ml Suspension [0.58]",
+        "SYN-000710 Slousaira 300 mg Tablet [0.57]",
+        "SYN-000711 Slousaira 75 mg Tablet [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.025
+    },
+    {
+      "id": "syn-02251",
+      "query": "Kaclane",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009542 Kaclaum 10 mg Tablet [0.75]",
+        "SYN-009543 Kaclaum 30 mg/ml Injection [0.75]",
+        "SYN-014151 Naclana 100 mg Capsule [0.74]",
+        "SYN-003879 Kaclac 1% Cream [0.73]",
+        "SYN-013634 Caprane 2% Cream [0.71]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.476
+    },
+    {
+      "id": "syn-02260",
+      "query": "Plouphom",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016538 Plophun 2 mg Tablet [0.76]",
+        "SYN-016539 Plophun 1 mg Tablet [0.76]",
+        "SYN-016133 Plouzoum 1% Cream [0.75]",
+        "SYN-001740 Ploujim 50 mg Tablet [0.74]",
+        "SYN-005789 Gouphom 500 mg Tablet [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.921
+    },
+    {
+      "id": "syn-02263",
+      "query": "দাম কত হয়েছে",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008141 Daigakot 80 mg Tablet [0.58]",
+        "SYN-018223 Danax 3.35 g/5 ml Syrup [0.57]",
+        "SYN-009169 Dadim 40 mg Tablet [0.57]",
+        "SYN-009170 Dadim 20 mg Tablet [0.57]",
+        "SYN-006846 Dahem 200 mg Capsule [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.638
+    },
+    {
+      "id": "syn-02265",
+      "query": "Glibran syrup",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004599 Glaibreean 5 mg/5 ml Syrup [0.88]",
+        "SYN-018702 Clibram 200 ml Suspension [0.80]",
+        "SYN-017854 Glibran 0.5 mg Tablet [0.80]",
+        "SYN-018046 Glibrene 5 mg Tablet [0.70]",
+        "SYN-004598 Glaibreean 10 mg Tablet [0.70]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.069
+    },
+    {
+      "id": "syn-02270",
+      "query": "Kouzoplain",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011220 Couplaan 200 mg + 0.2 mg Capsule [0.74]",
+        "SYN-003198 Lofoplain 10 mg Tablet [0.69]",
+        "SYN-003199 Lofoplain 5 mg/5 ml Syrup [0.69]",
+        "SYN-012066 Koupreen 0.5% + 500 IU Powder [0.62]",
+        "SYN-012067 Koupreen 0.5% + 500 IU Ointment [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.209
+    },
+    {
+      "id": "syn-02272",
+      "query": "Kaigleer 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017633 Caiclac 500 mg Tablet [0.64]",
+        "SYN-019711 Haiglal 500 mg Tablet [0.64]",
+        "SYN-012626 Giglet 500 mg/100 ml Infusion [0.63]",
+        "SYN-005605 Baigleet 400 mg Chewable Tablet [0.62]",
+        "SYN-005606 Baigleet 200 ml Suspension [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.07
+    },
+    {
+      "id": "syn-02274",
+      "query": "Lapiol",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012050 Laphool 500 mg Capsule [0.79]",
+        "SYN-012051 Laphool 125 mg/5 ml Powder for Suspension [0.79]",
+        "SYN-012052 Laphool 250 mg Capsule [0.79]",
+        "SYN-011001 Lapliil 2 mg Tablet [0.72]",
+        "SYN-011002 Lapliil 1 mg Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.833
+    },
+    {
+      "id": "syn-02278",
+      "query": "Fluzuix",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016743 Flizoix 50 mcg Tablet [0.89]",
+        "SYN-016744 Flizoix 100 mcg Tablet [0.89]",
+        "SYN-011937 Fliziix 10 mg Tablet [0.88]",
+        "SYN-011938 Fliziix 4 mg Chewable Tablet [0.88]",
+        "SYN-004467 Plujukix 80 mg Tablet [0.79]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.116
+    },
+    {
+      "id": "syn-02281",
+      "query": "Nijaid",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013682 Nichaid 500 mg + 125 mg Tablet [0.88]",
+        "SYN-013683 Nichaid 875 mg + 125 mg Tablet [0.88]",
+        "SYN-002858 Mozaid 500 mg + 200 IU Tablet [0.80]",
+        "SYN-005948 Nicheid 20 mg Capsule [0.80]",
+        "SYN-014067 Nihaiid 20 mg Tablet [0.76]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.807
+    },
+    {
+      "id": "syn-02291",
+      "query": "Prebroax 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006790 Probreeax 20 mg/2 ml Injection [0.90]",
+        "SYN-009893 Priproax 200 mg Tablet [0.75]",
+        "SYN-016157 Plivoax 20 mg Tablet [0.74]",
+        "SYN-008389 Plibrouax 3.35 g/5 ml Syrup [0.71]",
+        "SYN-001595 Briproax 50 mcg Tablet [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.668
+    },
+    {
+      "id": "syn-02296",
+      "query": "Naprasoax",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004836 Fibraishoax 0.5% + 500 IU Powder [0.72]",
+        "SYN-004837 Fibraishoax 0.5% + 500 IU Ointment [0.72]",
+        "SYN-012165 Naiflaiax 500 mg Tablet [0.64]",
+        "SYN-012166 Naiflaiax 250 mg Capsule [0.64]",
+        "SYN-002991 Brasloax 500 mg Tablet [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.066
+    },
+    {
+      "id": "syn-02298",
+      "query": "Gatreechaiix 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-019768 Catroushaix 20 mg Tablet [0.78]",
+        "SYN-002215 Fatreeix 20 mg Tablet [0.68]",
+        "SYN-019767 Catroushaix 40 mg Tablet [0.66]",
+        "SYN-002235 Gatreex 75 mg/5 ml Syrup [0.65]",
+        "SYN-002236 Gatreex 150 mg Tablet [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.977
+    },
+    {
+      "id": "syn-02306",
+      "query": "Jaislasheid 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016033 Zaceslaid 20 mg Tablet [0.61]",
+        "SYN-008584 Saslaceor 2 mg Tablet [0.58]",
+        "SYN-008585 Saslaceor 1 mg Tablet [0.58]",
+        "SYN-015642 Zaislaor 50 mg Tablet [0.58]",
+        "SYN-012366 Gluslasteid 100 IU/ml Injection [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.097
+    },
+    {
+      "id": "syn-02312",
+      "query": "পরে আসবেন",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009935 Prasten 10 mg/5 ml Syrup [0.77]",
+        "SYN-009936 Prasten 20 mg Tablet [0.77]",
+        "SYN-000791 Prishaen 250 mg Tablet [0.72]",
+        "SYN-000429 Prosien 120 mg Tablet [0.72]",
+        "SYN-000430 Prosien 180 mg Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.149
+    },
+    {
+      "id": "syn-02316",
+      "query": "Babouspiil 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008487 Hacouspik 10 mg Tablet [0.59]",
+        "SYN-019177 Brouspal 75 mg Tablet [0.55]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.834
+    },
+    {
+      "id": "syn-02320",
+      "query": "Sleekaiproul 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013579 Sleepail 20 mg/ml Injection [0.57]",
+        "SYN-004085 Sleecoura 20 mg/ml Injection [0.57]",
+        "SYN-001279 Slibrul 200 mg Tablet [0.56]",
+        "SYN-015366 Sleehipro 2.5 mg/5 ml Syrup [0.56]",
+        "SYN-015367 Sleehipro 5 mg Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.389
+    },
+    {
+      "id": "syn-02321",
+      "query": "Breshuac 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-019597 Brousac 250 mg Tablet [0.82]",
+        "SYN-008512 Brisheeac 20 mg/ml Injection [0.74]",
+        "SYN-018022 Breesik 100 IU/ml Injection [0.73]",
+        "SYN-000434 Brecix 250 mg Capsule [0.70]",
+        "SYN-019598 Brousac 500 mg Tablet [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.578
+    },
+    {
+      "id": "syn-02323",
+      "query": "kal ashben",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005928 Kaleol 20 mg Tablet [0.79]",
+        "SYN-014359 Kalufle 200 ml Suspension [0.78]",
+        "SYN-005929 Kaleol MR 20 mg Tablet [0.77]",
+        "SYN-005396 Calipoon 500 mg Tablet [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.393
+    },
+    {
+      "id": "syn-02327",
+      "query": "Vagitaic 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011445 Vojichaic 500 mg Tablet [0.67]",
+        "SYN-015379 Fastaic 500 mg Tablet [0.66]",
+        "SYN-009239 Vaijitak 250 mg Tablet [0.65]",
+        "SYN-002817 Rastaik 500 mg + 200 IU Tablet [0.57]",
+        "SYN-011446 Vojichaic 250 mg Chewable Tablet [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.277
+    },
+    {
+      "id": "syn-02328",
+      "query": "Mefeac 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015083 Meefeeil 500 mg + 65 mg Tablet [0.68]",
+        "SYN-000706 Meeleac 20 mg Tablet [0.65]",
+        "SYN-000707 Meeleac 40 mg Tablet [0.65]",
+        "SYN-004990 Mephom 0.5% + 500 IU Powder [0.58]",
+        "SYN-004991 Mephom 0.5% + 500 IU Ointment [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.049
+    },
+    {
+      "id": "syn-02331",
+      "query": "Phastastota",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013980 Tostota 500 mg + 65 mg Tablet [0.64]",
+        "SYN-006273 Velastota 50 mg Tablet [0.63]",
+        "SYN-019188 Phastesoac 500 mg Tablet [0.62]",
+        "SYN-008303 Saidastot 500 mg + 200 IU Tablet [0.62]",
+        "SYN-005425 Phastut 500 mg Tablet [0.59]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.913
+    },
+    {
+      "id": "syn-02346",
+      "query": "Plovouid",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017377 Plophoid 20 mg Tablet [0.84]",
+        "SYN-017378 Plophoid 10 mg/5 ml Syrup [0.84]",
+        "SYN-004743 Flodouid 400 mg Chewable Tablet [0.74]",
+        "SYN-004744 Flodouid 200 ml Suspension [0.74]",
+        "SYN-015953 Plobaum 10 mg Tablet [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.112
+    },
+    {
+      "id": "syn-02348",
+      "query": "Ladatita 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009889 Claitita 10 mg Tablet [0.61]",
+        "SYN-012756 Nadata 10 mg Tablet [0.61]",
+        "SYN-004997 Glagatita 100 mg Tablet [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.169
+    },
+    {
+      "id": "syn-02352",
+      "query": "Gomaimouan",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007853 Goumoan 200 mg Tablet [0.66]",
+        "SYN-000447 Maiman 2% Cream [0.66]",
+        "SYN-004949 Goutrigouan 10.25 g Powder (Sachet) [0.62]",
+        "SYN-003422 Caitouan 30 mg Tablet [0.59]",
+        "SYN-003423 Caitouan 15 mg/5 ml Syrup [0.59]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.162
+    },
+    {
+      "id": "syn-02355",
+      "query": "Flouspaluol",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-002774 Floushipleeil 400 mg Tablet [0.81]",
+        "SYN-017159 Flosliol 2.5 mg/5 ml Syrup [0.73]",
+        "SYN-017160 Flosliol 5 mg Tablet [0.73]",
+        "SYN-009148 Flospagior 120 mg Tablet [0.72]",
+        "SYN-009149 Flospagior 30 mg/5 ml Suspension [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.343
+    },
+    {
+      "id": "syn-02360",
+      "query": "Ploumur",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003999 Plomel 40 mg Tablet [0.76]",
+        "SYN-014006 Plouceor 20 mg/ml Injection [0.69]",
+        "SYN-014007 Plouceor 10 mg Tablet [0.69]",
+        "SYN-003080 Plohium SR 0.1% Cream [0.67]",
+        "SYN-004886 Ploloor 50 mg Tablet [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.929
+    },
+    {
+      "id": "syn-02361",
+      "query": "Tochaihium 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011262 Chainoum 500 mg + 200 IU Tablet [0.59]",
+        "SYN-003718 Shaphium 500 mg/100 ml Infusion [0.59]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.795
+    },
+    {
+      "id": "syn-02364",
+      "query": "Spuspepeean 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-002862 Spespane 20 mg Tablet [0.66]",
+        "SYN-019319 Spuspein 80 mg Tablet [0.65]",
+        "SYN-019156 Spuspeon 50 mg Tablet [0.65]",
+        "SYN-005120 Spuspian 5 mg Tablet [0.65]",
+        "SYN-019272 Suspein 20 mg Tablet [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.547
+    },
+    {
+      "id": "syn-02365",
+      "query": "Trecliex",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000969 Troglex 665 mg Extended Release Tablet [0.83]",
+        "SYN-014021 Treepleex 300 mg Tablet [0.81]",
+        "SYN-014022 Treepleex 75 mg Tablet [0.81]",
+        "SYN-018043 Preeliex 125 mg/5 ml Powder for Suspension [0.74]",
+        "SYN-018044 Preeliex 250 mg Capsule [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.249
+    },
+    {
+      "id": "syn-02381",
+      "query": "Pheebupliac",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010533 Fepliac 120 mg Tablet [0.79]",
+        "SYN-018100 Flupluac 250 mg Capsule [0.73]",
+        "SYN-018101 Flupluac 500 mg Capsule [0.73]",
+        "SYN-005200 Fouplic 2 mg Tablet [0.73]",
+        "SYN-004403 Pheemefliac 40 mg Injection [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.462
+    },
+    {
+      "id": "syn-02383",
+      "query": "Giche 40",
+      "kind": [
+        "neg-strength-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010912 Gicheeum 40 mg Injection [0.87]",
+        "SYN-010915 Gicheeum 40 mg Tablet [0.87]",
+        "SYN-011344 Giche 250 mg Capsule [0.85]",
+        "SYN-011345 Giche 125 mg/5 ml Powder for Suspension [0.85]",
+        "SYN-011346 Giche 500 mg Capsule [0.85]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.053
+    },
+    {
+      "id": "syn-02399",
+      "query": "Tririviex",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005833 Trariplix 100 mg + 200 mg + 200 mcg Tablet [0.73]",
+        "SYN-004402 Trouvaex 0.9% Infusion [0.73]",
+        "SYN-006713 Traiphex 50 mg Tablet [0.70]",
+        "SYN-019246 Triseephix 250 mg Capsule [0.70]",
+        "SYN-019247 Triseephix 125 mg/5 ml Powder for Suspension [0.70]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.534
+    },
+    {
+      "id": "syn-02401",
+      "query": "Spaihir",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008751 Spahuil 20 mg Tablet [0.75]",
+        "SYN-008752 Spahuil 40 mg Tablet [0.75]",
+        "SYN-014110 Spaishiil 50 mg Tablet [0.71]",
+        "SYN-010596 Spaizit 250 mg Capsule [0.70]",
+        "SYN-003053 Spaihene 250 mg Chewable Tablet [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.901
+    },
+    {
+      "id": "syn-02408",
+      "query": "Spaifoil 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008751 Spahuil 20 mg Tablet [0.69]",
+        "SYN-017673 Spaphain 20 mg Tablet [0.69]",
+        "SYN-003068 Spaival 500 mg Capsule [0.66]",
+        "SYN-005783 Speeboil 0.5 mg Tablet [0.66]",
+        "SYN-017667 Spaichool 200 mg Capsule [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.398
+    },
+    {
+      "id": "syn-02409",
+      "query": "Pruphoushoax 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007050 Preesiax 250 mg Chewable Tablet [0.69]",
+        "SYN-001712 Proufouspiix 100 mg Capsule [0.68]",
+        "SYN-014991 Praploax 250 mg Tablet [0.67]",
+        "SYN-007425 Prousuax 300 mg Tablet [0.66]",
+        "SYN-007426 Prousuax 75 mg Tablet [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.53
+    },
+    {
+      "id": "syn-02410",
+      "query": "Phejeenone",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013827 Pheenoon 100 mg Tablet [0.68]",
+        "SYN-007830 Zenoon 10 mg Tablet [0.68]",
+        "SYN-004310 Pezeene 75 mg Tablet [0.66]",
+        "SYN-007704 Pheglane 2% Cream [0.60]",
+        "SYN-011196 Planone 50 mcg Tablet [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.873
+    },
+    {
+      "id": "syn-02414",
+      "query": "Propruk 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017398 Precluk 10 mg Tablet [0.68]",
+        "SYN-012606 Prupraac 100 mg Capsule [0.66]",
+        "SYN-018740 Priprux 500 mg Tablet [0.60]",
+        "SYN-000538 Probriac 1% Cream [0.60]",
+        "SYN-007573 Propris 200 mg Tablet [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.055
+    },
+    {
+      "id": "syn-02418",
+      "query": "Stuchofona",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009437 Stafofon 40 mg Tablet [0.73]",
+        "SYN-009557 Steespona 5 mg Tablet [0.73]",
+        "SYN-009558 Steespona 20 mg Tablet [0.73]",
+        "SYN-007495 Stachina 100 IU/ml Injection [0.68]",
+        "SYN-002624 Staifon 200 mg Tablet [0.68]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.055
+    },
+    {
+      "id": "syn-02421",
+      "query": "Fleefophit",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003830 Flephit 500 mg/100 ml Infusion [0.77]",
+        "SYN-003831 Flephit 200 mg/5 ml Suspension [0.77]",
+        "SYN-003832 Flephit 400 mg Tablet [0.77]",
+        "SYN-002758 Flofit 1% Cream [0.77]",
+        "SYN-002759 Flofit 100 mg Vaginal Tablet [0.77]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.018
+    },
+    {
+      "id": "syn-02422",
+      "query": "Pougiix syrup",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015690 Poukix 2 mg/5 ml Syrup [0.90]",
+        "SYN-005238 Poucoix 10 mg/5 ml Syrup [0.84]",
+        "SYN-004626 Pougiix 500 mg Tablet [0.80]",
+        "SYN-004627 Pougiix 250 mg Tablet [0.80]",
+        "SYN-004628 Pougiix 750 mg Injection [0.80]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.083
+    },
+    {
+      "id": "syn-02423",
+      "query": "Kebroslas",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010947 Taibroslak 400 mg Tablet [0.64]",
+        "SYN-010948 Taibroslak 200 mg/5 ml Suspension [0.64]",
+        "SYN-018655 Mobrosais 2 mg Tablet [0.63]",
+        "SYN-019827 Brilas 5 mg Chewable Tablet [0.62]",
+        "SYN-019828 Brilas 10 mg Tablet [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.141
+    },
+    {
+      "id": "syn-02427",
+      "query": "Plabaiol 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015945 Plareeol 250 mg Capsule [0.69]",
+        "SYN-000717 Plivainaor 250 mg Tablet [0.68]",
+        "SYN-009729 Flavaim 250 mg Capsule [0.66]",
+        "SYN-014604 Pleefluol 250 mg Tablet [0.65]",
+        "SYN-011475 Glabail 500 mg + 200 IU Tablet [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.297
+    },
+    {
+      "id": "syn-02429",
+      "query": "Glistopluil 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015961 Glispaipliil 500 mg Tablet [0.75]",
+        "SYN-006782 Glisticluix 500 mg + 125 mg Tablet [0.71]",
+        "SYN-011535 Slasteepluil 5 mg Tablet [0.68]",
+        "SYN-011536 Slasteepluil 20 mg Tablet [0.68]",
+        "SYN-006721 Glislail 500 mg/100 ml Infusion [0.68]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.545
+    },
+    {
+      "id": "syn-02430",
+      "query": "Rahibraum injection",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014158 Radibraum 8 mg/4 ml Injection [0.87]",
+        "SYN-009177 Rahibraum 120 mg Tablet [0.80]",
+        "SYN-009178 Rahibraum 180 mg Tablet [0.80]",
+        "SYN-009179 Rahibraum 30 mg/5 ml Suspension [0.80]",
+        "SYN-014159 Radibraum 4 mg Tablet [0.70]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.239
+    },
+    {
+      "id": "syn-02431",
+      "query": "Neetrouflian",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003049 Nouflien 15 mg/5 ml Syrup [0.66]",
+        "SYN-003050 Nouflien 30 mg Tablet [0.66]",
+        "SYN-013842 Trouphion 2 mg/5 ml Syrup [0.66]",
+        "SYN-013843 Trouphion 4 mg Tablet [0.66]",
+        "SYN-013844 Trouphion 100 mcg/puff Inhaler [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.344
+    },
+    {
+      "id": "syn-02439",
+      "query": "Proclaslak",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003621 Brocliplaax 0.5% + 500 IU Powder [0.69]",
+        "SYN-006737 Trovaslak 25 mg Tablet [0.69]",
+        "SYN-009119 Pracleac 400 mg Chewable Tablet [0.67]",
+        "SYN-008063 Praclaiil 10.25 g Powder (Sachet) [0.66]",
+        "SYN-004661 Preeslaac 10 mg/5 ml Syrup [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.323
+    },
+    {
+      "id": "syn-02441",
+      "query": "Toutraen 40",
+      "kind": [
+        "neg-strength-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000947 Toutruan 40 mg Tablet [0.88]",
+        "SYN-009460 Toutraen 25 mg Tablet [0.85]",
+        "SYN-009461 Toutraen 50 mg Tablet [0.85]",
+        "SYN-000946 Toutruan 20 mg Tablet [0.74]",
+        "SYN-001336 Toutroon 0.1% Cream [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.151
+    },
+    {
+      "id": "syn-02454",
+      "query": "Flaiprefiil",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009409 Flaipliil 250 mg Tablet [0.75]",
+        "SYN-009410 Flaipliil 500 mg Tablet [0.75]",
+        "SYN-012537 Fleeprail 100 mg + 200 mg + 200 mcg Tablet [0.72]",
+        "SYN-008654 Flabrophu 30 mg/ml Injection [0.66]",
+        "SYN-006618 Flipraor 3.35 g/5 ml Syrup [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.28
+    },
+    {
+      "id": "syn-02461",
+      "query": "Kifara cream",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-017521 Caipara 2% Cream [0.80]",
+        "SYN-008151 Kifara 250 mg Capsule [0.80]",
+        "SYN-011396 Kifar 3.35 g/5 ml Syrup [0.72]",
+        "SYN-012628 Kipharal 0.5 mg Tablet [0.65]",
+        "SYN-012629 Kipharal 0.25 mg Tablet [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.971
+    },
+    {
+      "id": "syn-02467",
+      "query": "Sleevoex 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011127 Slufeeex 250 mg Capsule [0.80]",
+        "SYN-007874 Slojoex 250 mg Tablet [0.78]",
+        "SYN-011794 Slefiax 400 mg Capsule [0.69]",
+        "SYN-011128 Slufeeex 500 mg Capsule [0.68]",
+        "SYN-007875 Slojoex 500 mg Tablet [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.431
+    },
+    {
+      "id": "syn-02468",
+      "query": "Glaitouc 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-019530 Glaivoac 500 mg Tablet [0.76]",
+        "SYN-000016 Glaistouex 500 mg Tablet [0.70]",
+        "SYN-005716 Glaitee 500 mg + 200 IU Tablet [0.69]",
+        "SYN-015804 Gleehouc 500 mg Tablet [0.69]",
+        "SYN-015088 Glatac 10 mg Tablet [0.68]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.271
+    },
+    {
+      "id": "syn-02470",
+      "query": "Natrom",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005274 Natruon 40 mg Tablet [0.83]",
+        "SYN-005275 Natruon 20 mg Tablet [0.83]",
+        "SYN-005276 Natruon 10 mg Tablet [0.83]",
+        "SYN-005648 Gatroum 5 mg Tablet [0.73]",
+        "SYN-007151 Datrok 10.25 g Powder (Sachet) [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.089
+    },
+    {
+      "id": "syn-02471",
+      "query": "Maprouprid",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004988 Prouprim 2% Cream [0.69]",
+        "SYN-012330 Mapraid 20 mg/2 ml Injection [0.64]",
+        "SYN-012331 Mapraid 40 mg Tablet [0.64]",
+        "SYN-019096 Prouprou 4 mg Tablet [0.64]",
+        "SYN-019097 Prouprou 100 mcg/puff Inhaler [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.436
+    },
+    {
+      "id": "syn-02472",
+      "query": "Slaibraitus 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004356 Flaibrastot 500 mg Tablet [0.62]",
+        "SYN-014660 Slebrait 20 mg Tablet [0.62]",
+        "SYN-014661 Slebrait 10 mg/5 ml Syrup [0.62]",
+        "SYN-010884 Slaiplees 500 mg Tablet [0.61]",
+        "SYN-000927 Slibruex 50 mg Tablet [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.704
+    },
+    {
+      "id": "syn-02476",
+      "query": "Plispifoc",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013108 Glaispipoc 0.1% Cream [0.75]",
+        "SYN-002643 Plaispeac 500 mg/100 ml Infusion [0.71]",
+        "SYN-013372 Clispavoac 500 mg Tablet [0.70]",
+        "SYN-018325 Glispic 10 mg Tablet [0.67]",
+        "SYN-015259 Prispiol 0.3% Eye Drops [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.161
+    },
+    {
+      "id": "syn-02483",
+      "query": "Tripheel cream",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001772 Treful 1% Cream [0.85]",
+        "SYN-007013 Tripheel 20 mg Tablet [0.80]",
+        "SYN-011180 Triphiil 500 mg Tablet [0.74]",
+        "SYN-011181 Triphiil 250 mg Tablet [0.74]",
+        "SYN-014842 Rifeer 1% Cream [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.989
+    },
+    {
+      "id": "syn-02494",
+      "query": "Viglibouin 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012266 Bigluil 250 mg Capsule [0.60]",
+        "SYN-009663 Gliboan 10 mg Tablet [0.59]",
+        "SYN-009664 Gliboan 30 mg/ml Injection [0.59]",
+        "SYN-008576 Clikouin 250 mg Capsule [0.59]",
+        "SYN-019778 Baiglion 8 mg Tablet [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.774
+    },
+    {
+      "id": "syn-02495",
+      "query": "Jochax capsule",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012991 Jokeax 200 mg Capsule [0.83]",
+        "SYN-012992 Jokeax 400 mg Capsule [0.83]",
+        "SYN-006170 Zosaix 50 mg Capsule [0.83]",
+        "SYN-008456 Jochax 5 mg Tablet [0.80]",
+        "SYN-008457 Jochax 10 mg Tablet [0.80]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.066
+    },
+    {
+      "id": "syn-02498",
+      "query": "Truchi cream",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Confident",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": true,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015378 Truchi 2% Ointment [0.97]",
+        "SYN-006555 Truzu 80 mg Tablet [0.62]",
+        "SYN-006556 Truzu 40 mg Tablet [0.62]",
+        "SYN-000914 Trucheeex 1% Cream [0.59]",
+        "SYN-001510 Troukoil 1% Cream [0.59]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.848
+    },
+    {
+      "id": "syn-02503",
+      "query": "Hiphaspo",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015709 Faspo 10 mg Tablet [0.73]",
+        "SYN-015710 Faspo 5 mg Tablet [0.73]",
+        "SYN-018768 Faspee 2 mg Tablet [0.66]",
+        "SYN-018769 Faspee 1 mg Tablet [0.66]",
+        "SYN-005441 Hiphaira 80 mg Tablet [0.61]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.124
+    },
+    {
+      "id": "syn-02505",
+      "query": "Bredaex 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-018802 Brereix 500 mg Tablet [0.81]",
+        "SYN-013798 Broudaiax 500 mg + 200 IU Tablet [0.79]",
+        "SYN-011526 Bricaex 500 mg + 125 mg Tablet [0.78]",
+        "SYN-000433 Brecix 500 mg Capsule [0.72]",
+        "SYN-006734 Bridiax 40 mg Tablet [0.71]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.365
+    },
+    {
+      "id": "syn-02507",
+      "query": "Nechil 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-019553 Nepil 250 mg Capsule [0.74]",
+        "SYN-005638 Trechil 250 mg Chewable Tablet [0.70]",
+        "SYN-019554 Nepil 500 mg Capsule [0.63]",
+        "SYN-009262 Neeshuol 75 mg Tablet [0.60]",
+        "SYN-009263 Neeshuol 300 mg Tablet [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.129
+    },
+    {
+      "id": "syn-02509",
+      "query": "Stabrail",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011818 Staboulail 80 mg Tablet [0.81]",
+        "SYN-008705 Staprul 0.5% + 500 IU Powder [0.80]",
+        "SYN-008706 Staprul 0.5% + 500 IU Ointment [0.80]",
+        "SYN-017395 Stairoil 250 mg Chewable Tablet [0.78]",
+        "SYN-017396 Stairoil 500 mg Tablet [0.78]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.094
+    },
+    {
+      "id": "syn-02511",
+      "query": "Luspom 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005808 Mouspoin 20 mg/2 ml Injection [0.59]",
+        "SYN-015528 Gluspicom 500 mg Tablet [0.57]",
+        "SYN-001257 Lupod 4 mg Tablet [0.56]",
+        "SYN-015988 Lusloc 0.9% Infusion [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.911
+    },
+    {
+      "id": "syn-02516",
+      "query": "Maiclora",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010827 Paiclera 100 mg Tablet [0.76]",
+        "SYN-017361 Ticlora 100 mg Tablet [0.75]",
+        "SYN-004697 Maiclebri 100 mg Tablet [0.74]",
+        "SYN-001232 Faislora 400 mg Tablet [0.74]",
+        "SYN-012579 Maichor 1% Gel [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.111
+    },
+    {
+      "id": "syn-02520",
+      "query": "Noslireix",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000565 Miliraiix 250 mg Tablet [0.71]",
+        "SYN-000566 Miliraiix 500 mg Tablet [0.71]",
+        "SYN-017125 Notreeix 10 mg Tablet [0.68]",
+        "SYN-011096 Nosliflis 150 mg Tablet [0.65]",
+        "SYN-011097 Nosliflis 75 mg/5 ml Syrup [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.183
+    },
+    {
+      "id": "syn-02531",
+      "query": "Nispoen",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012097 Nispouna 250 mg Tablet [0.87]",
+        "SYN-012098 Nispouna 500 mg Tablet [0.87]",
+        "SYN-005002 Bispoan 50 mg Capsule [0.74]",
+        "SYN-018819 Nispoid 120 mg/5 ml Suspension [0.74]",
+        "SYN-018820 Nispoid 665 mg Extended Release Tablet [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.907
+    },
+    {
+      "id": "syn-02536",
+      "query": "Nojaspara 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004940 Zopara 500 mg Tablet [0.58]",
+        "SYN-012997 Jaspana 250 mg Tablet [0.56]",
+        "SYN-014741 Nospana 2% Ointment [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.506
+    },
+    {
+      "id": "syn-02539",
+      "query": "Chuguphuin 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007521 Cigluin 500 mg Tablet [0.60]",
+        "SYN-004607 Chaguin 50 mg Capsule [0.58]",
+        "SYN-013632 Guduin 500 mg Tablet [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.159
+    },
+    {
+      "id": "syn-02541",
+      "query": "Pochopraen",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016616 Sochopaien 10 mg Tablet [0.69]",
+        "SYN-018691 Vapraen 120 mg/5 ml Suspension [0.66]",
+        "SYN-018692 Vapraen 80 mg/ml Pediatric Drops [0.66]",
+        "SYN-018693 Vapraen 1 g Tablet [0.66]",
+        "SYN-005747 Hupraen 500 mg + 200 IU Tablet [0.59]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.183
+    },
+    {
+      "id": "syn-02551",
+      "query": "Pospotroax 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005612 Pospora 500 mg Tablet [0.69]",
+        "SYN-013742 Pospeepruex 400 mg Chewable Tablet [0.65]",
+        "SYN-013743 Pospeepruex 200 ml Suspension [0.65]",
+        "SYN-010707 Seeproax 500 mg + 125 mg Tablet [0.63]",
+        "SYN-009369 Spozoax 500 mg + 200 IU Tablet [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.019
+    },
+    {
+      "id": "syn-02555",
+      "query": "Fleegelira",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-002727 Flaglara 400 mg Tablet [0.83]",
+        "SYN-002728 Flaglara 200 mg/5 ml Suspension [0.83]",
+        "SYN-013162 Flaiglora 4 mg Chewable Tablet [0.77]",
+        "SYN-015082 Flegleil 2.5 mg/5 ml Syrup [0.77]",
+        "SYN-006542 Flalira 250 mg Chewable Tablet [0.73]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.094
+    },
+    {
+      "id": "syn-02560",
+      "query": "Flikata 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-018120 Rakata 10 mg Tablet [0.64]",
+        "SYN-004074 Flourita 10 mg/5 ml Syrup [0.63]",
+        "SYN-004302 Faicata 200 mg/5 ml Suspension [0.61]",
+        "SYN-002667 Pheeclikata 80 mg Tablet [0.59]",
+        "SYN-002668 Pheeclikata 30 mg Modified Release Tablet [0.59]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.229
+    },
+    {
+      "id": "syn-02564",
+      "query": "Glujusian 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003376 Gleeshean 20 mg Tablet [0.68]",
+        "SYN-015812 Glugeesaion 75 mg Tablet [0.66]",
+        "SYN-007062 Glachireean 20 mg/ml Injection [0.61]",
+        "SYN-019007 Clupeecian 1% Cream [0.61]",
+        "SYN-019008 Clupeecian 100 mg Vaginal Tablet [0.61]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.537
+    },
+    {
+      "id": "syn-02569",
+      "query": "Taileeor",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003314 Taiveor 5 mg Tablet [0.78]",
+        "SYN-003315 Taiveor 2.5 mg Tablet [0.78]",
+        "SYN-000792 Staideeor 15 mg/5 ml Syrup [0.76]",
+        "SYN-011706 Taibuor 50 mg Tablet [0.71]",
+        "SYN-011102 Stafleor 400 mg Capsule [0.68]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.89
+    },
+    {
+      "id": "syn-02574",
+      "query": "Spafeex 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014339 Spoflix 10 mg Tablet [0.75]",
+        "SYN-007122 Spitix 10 mg Tablet [0.71]",
+        "SYN-014932 Spusaax 10 mg Tablet [0.71]",
+        "SYN-006548 Spapheen 10 mg Tablet [0.66]",
+        "SYN-009101 Spubroux 10 mg Tablet [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.316
+    },
+    {
+      "id": "syn-02576",
+      "query": "Haitaex 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011961 Haidiix 250 mg Tablet [0.78]",
+        "SYN-000055 Haibaax 250 mg Tablet [0.75]",
+        "SYN-015784 Halaiix 250 mg Capsule [0.69]",
+        "SYN-000054 Haibaax 500 mg Tablet [0.64]",
+        "SYN-001791 Haileex 600 mg + 400 IU Tablet [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.303
+    },
+    {
+      "id": "syn-02577",
+      "query": "Zohera",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001720 Chahera 400 mg Tablet [0.80]",
+        "SYN-001721 Chahera 500 mg/100 ml Infusion [0.80]",
+        "SYN-001722 Chahera 200 mg/5 ml Suspension [0.80]",
+        "SYN-006386 Jopeera 0.5 mg Tablet [0.76]",
+        "SYN-006387 Jopeera 0.1% Cream [0.76]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 6.197
+    },
+    {
+      "id": "syn-02578",
+      "query": "Phuchaiin 50",
+      "kind": [
+        "neg-strength-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003880 Phucaiin 50 mg Tablet [0.88]",
+        "SYN-003113 Phuchaiin 40 mg Tablet [0.85]",
+        "SYN-003114 Phuchaiin 80 mg Tablet [0.85]",
+        "SYN-012110 Fuchon 50 mg Tablet [0.82]",
+        "SYN-003952 Phuchaiiz 5 mg Tablet [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.345
+    },
+    {
+      "id": "syn-02580",
+      "query": "Phelojait 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016155 Plojit 10 mg/5 ml Syrup [0.77]",
+        "SYN-011584 Pheejait 10 mg Tablet [0.76]",
+        "SYN-011585 Pheejait 5 mg/5 ml Syrup [0.57]",
+        "SYN-007831 Plochait 1% Cream [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.353
+    },
+    {
+      "id": "syn-02582",
+      "query": "Stafecliac",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004569 Staicluac 0.5 mg Tablet [0.78]",
+        "SYN-004570 Staicluac 0.1% Cream [0.78]",
+        "SYN-012772 Stavoslak 8 mg Tablet [0.70]",
+        "SYN-012773 Stavoslak 4 mg Tablet [0.70]",
+        "SYN-010542 Stuplaiac 0.4 mg Modified Release Capsule [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.643
+    },
+    {
+      "id": "syn-02583",
+      "query": "Laclat",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011014 Glaclata 10.25 g Powder (Sachet) [0.77]",
+        "SYN-008661 Heeclat 250 mg Capsule [0.72]",
+        "SYN-008662 Heeclat 500 mg Capsule [0.72]",
+        "SYN-002246 Laclik 1 mg Tablet [0.72]",
+        "SYN-002247 Laclik 2 mg Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.057
+    },
+    {
+      "id": "syn-02585",
+      "query": "Kaijaon",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-008986 Caijin 20 mg Tablet [0.84]",
+        "SYN-017749 Gaijoon 100 mg Capsule [0.80]",
+        "SYN-010974 Kaigaan 100 mg/5 ml Powder for Suspension [0.80]",
+        "SYN-010975 Kaigaan 200 mg Capsule [0.80]",
+        "SYN-010976 Kaigaan 400 mg Capsule [0.80]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.155
+    },
+    {
+      "id": "syn-02590",
+      "query": "Toclaiac 10 mg",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000998 Takohaiac 10 mg Tablet [0.71]",
+        "SYN-018864 Goclak 10 mg Tablet [0.68]",
+        "SYN-008801 Stoclaiid 10 mg Tablet [0.65]",
+        "SYN-002724 Trokaiac 10 mg Tablet [0.64]",
+        "SYN-004000 Spoclaic 10 mg Tablet [0.61]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.381
+    },
+    {
+      "id": "syn-02593",
+      "query": "Leesheec 10",
+      "kind": [
+        "neg-strength-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014767 Lesic 10 mg Tablet [0.91]",
+        "SYN-006630 Leesheec 8 mg/4 ml Injection [0.85]",
+        "SYN-006631 Leesheec 4 mg Tablet [0.85]",
+        "SYN-006632 Leesheec 8 mg Tablet [0.85]",
+        "SYN-017290 Leesheeex 10 mg Tablet [0.79]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.863
+    },
+    {
+      "id": "syn-02598",
+      "query": "Cegluin cream",
+      "kind": [
+        "neg-form-mismatch"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010772 Ceegleen 0.5% + 500 IU Ointment [0.83]",
+        "SYN-004803 Cegluin 100 mcg/puff Inhaler [0.80]",
+        "SYN-004804 Cegluin 4 mg Tablet [0.80]",
+        "SYN-007521 Cigluin 500 mg Tablet [0.75]",
+        "SYN-008895 Segoin 1% Cream [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.763
+    }
+  ]
+}

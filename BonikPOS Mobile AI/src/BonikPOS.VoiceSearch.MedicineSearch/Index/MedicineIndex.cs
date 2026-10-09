@@ -9,18 +9,22 @@ public enum NameVariantKind
     LocalName,
     Alias,
     Generic,
+    /// <summary>One molecule of a combination product ("Caffeine" of "Paracetamol + Caffeine").</summary>
+    GenericComponent,
 }
 
 /// <summary>One searchable name of a product, with its precomputed match keys.</summary>
 public sealed record NameVariant(int ProductIndex, NameVariantKind Kind, string Text, string Compact, string Key, int TokenCount);
 
 /// <summary>A catalog product plus the parsed attributes used for matching. The product itself is kept verbatim.</summary>
+/// <param name="FormMentions">Every form the catalog form text mentions ("Powder for Suspension" -> Suspension, Powder).</param>
 public sealed record IndexedProduct(
     int Index,
     MedicineProduct Product,
     string BrandCompact,
     IReadOnlyList<StrengthValue> Strengths,
-    DosageFormCategory Form);
+    DosageFormCategory Form,
+    IReadOnlyList<DosageFormCategory> FormMentions);
 
 /// <summary>
 /// Immutable search index over the catalog: exact maps on normalised text and on phonetic keys, and a trigram inverted
@@ -30,8 +34,10 @@ public sealed record IndexedProduct(
 public sealed class MedicineIndex
 {
     private const int Alphabet = 40;
+    private const int MinSkeletonLength = 3;
     private readonly Dictionary<string, List<int>> _byCompact = new(StringComparer.Ordinal);
     private readonly Dictionary<string, List<int>> _byKey = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, List<int>> _bySkeleton = new(StringComparer.Ordinal);
     private readonly Dictionary<int, List<int>> _trigrams = [];
     private readonly Dictionary<string, IndexedProduct> _byId = new(StringComparer.Ordinal);
 
@@ -45,6 +51,11 @@ public sealed class MedicineIndex
             var variant = variants[v];
             Add(_byCompact, variant.Compact, v);
             Add(_byKey, variant.Key, v);
+            if (Skeleton(variant.Key) is { Length: >= MinSkeletonLength } skeleton)
+            {
+                Add(_bySkeleton, skeleton, v);
+            }
+
             foreach (int t in Trigrams(variant.Key))
             {
                 if (!_trigrams.TryGetValue(t, out var list))
@@ -96,7 +107,8 @@ public sealed class MedicineIndex
             string brand = TextNormalizer.Normalize(product.BrandName);
             indexed.Add(new IndexedProduct(
                 index, product, TextNormalizer.Compact(brand),
-                StrengthParser.Parse(product.Strength), MedicineVocabulary.ParseCatalogForm(product.DosageForm)));
+                StrengthParser.Parse(product.Strength), MedicineVocabulary.ParseCatalogForm(product.DosageForm),
+                MedicineVocabulary.CatalogFormMentions(product.DosageForm)));
             AddVariant(variants, index, NameVariantKind.Brand, product.BrandName);
             if (!string.IsNullOrWhiteSpace(product.LocalName))
             {
@@ -110,7 +122,7 @@ public sealed class MedicineIndex
 
             if (!string.IsNullOrWhiteSpace(product.GenericName))
             {
-                AddVariant(variants, index, NameVariantKind.Generic, product.GenericName.Replace('+', ' '));
+                AddGenericVariants(variants, index, product.GenericName);
             }
         }
 
@@ -122,6 +134,28 @@ public sealed class MedicineIndex
     public IReadOnlyList<int> ExactByCompact(string compact) => _byCompact.TryGetValue(compact, out var l) ? l : [];
 
     public IReadOnlyList<int> ExactByKey(string key) => _byKey.TryGetValue(key, out var l) ? l : [];
+
+    /// <summary>
+    /// Variants whose phonetic key has the same consonant skeleton. Retrieves spellings that differ only in vowels (for
+    /// example Bangla spellings that omit or change vowels), which share few trigrams with the catalog spelling.
+    /// </summary>
+    public IReadOnlyList<int> ExactBySkeleton(string key) =>
+        Skeleton(key) is { Length: >= MinSkeletonLength } s && _bySkeleton.TryGetValue(s, out var l) ? l : [];
+
+    /// <summary>Consonant skeleton of a phonetic key: vowels removed.</summary>
+    public static string Skeleton(string key)
+    {
+        var sb = new System.Text.StringBuilder(key.Length);
+        foreach (char c in key)
+        {
+            if (!PhoneticKey.IsVowel(c))
+            {
+                sb.Append(c);
+            }
+        }
+
+        return sb.ToString();
+    }
 
     /// <summary>Adds trigram hit counts of <paramref name="key"/> to <paramref name="counts"/> (indexed by variant).</summary>
     public void CountTrigramHits(string key, int[] counts, List<int> touched)
@@ -166,6 +200,35 @@ public sealed class MedicineIndex
         '$' => 38,
         _ => 39,
     };
+
+    /// <summary>
+    /// The full generic name, parenthesised synonyms on their own ("Vitamin C (Ascorbic Acid)" -> also "Vitamin C" and
+    /// "Ascorbic Acid"), and each molecule of a combination as a <see cref="NameVariantKind.GenericComponent"/>.
+    /// </summary>
+    private static void AddGenericVariants(List<NameVariant> variants, int index, string generic)
+    {
+        AddVariant(variants, index, NameVariantKind.Generic, generic.Replace('+', ' '));
+        int open = generic.IndexOf('(', StringComparison.Ordinal);
+        int close = generic.IndexOf(')', StringComparison.Ordinal);
+        if (open >= 0 && close > open)
+        {
+            string inside = generic[(open + 1)..close];
+            string outside = generic[..open] + generic[(close + 1)..];
+            AddVariant(variants, index, NameVariantKind.Generic, inside.Replace('+', ' '));
+            AddVariant(variants, index, NameVariantKind.Generic, outside.Replace('+', ' '));
+        }
+
+        if (generic.Contains('+', StringComparison.Ordinal))
+        {
+            foreach (var part in generic.Split('+', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (part.Length >= 4)
+                {
+                    AddVariant(variants, index, NameVariantKind.GenericComponent, part);
+                }
+            }
+        }
+    }
 
     private static void AddVariant(List<NameVariant> variants, int index, NameVariantKind kind, string name)
     {

@@ -485,7 +485,10 @@ public sealed class VoiceSearchPipeline : IVoiceSearchPipeline
 
         long t2 = Ticks.Now();
         var search = await _search.SearchAsync(
-            new MedicineQuery(recognition.Text, QuerySource.Voice, recognition.Confidence, verification.Decision), token)
+            new MedicineQuery(recognition.Text, QuerySource.Voice, recognition.Confidence, verification.Decision)
+            {
+                Alternatives = [.. recognition.Alternatives.Select(a => a.Text)],
+            }, token)
             .ConfigureAwait(false);
         double searchMs = Ticks.ElapsedMilliseconds(t2);
         double endToResult = Ticks.ElapsedMilliseconds(utterance.EndDetectedTimestamp);

@@ -1,0 +1,246 @@
+{"id": "demo-001", "query": "Napa", "kind": ["ambiguous"], "lang": "en", "expect": {"products": ["DEMO-0001", "DEMO-0002", "DEMO-0003"], "decisions": ["Ambiguous"]}}
+{"id": "demo-002", "query": "Napa 500", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0001"]}}
+{"id": "demo-003", "query": "Napa syrup", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0002"]}}
+{"id": "demo-004", "query": "Napa drops", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0003"]}}
+{"id": "demo-005", "query": "Napa Extra", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0004"]}}
+{"id": "demo-006", "query": "Napa Extend", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0005"]}}
+{"id": "demo-007", "query": "Napa Extend 665", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0005"]}}
+{"id": "demo-008", "query": "Ace", "kind": ["ambiguous"], "lang": "en", "expect": {"products": ["DEMO-0006", "DEMO-0007"], "decisions": ["Ambiguous"]}}
+{"id": "demo-009", "query": "Ace 500 tablet", "kind": ["en-strength-form"], "lang": "en", "expect": {"products": ["DEMO-0006"]}}
+{"id": "demo-010", "query": "Ace syrup", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0007"]}}
+{"id": "demo-011", "query": "Ace Plus", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0008"]}}
+{"id": "demo-012", "query": "Fast 500", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0009"]}}
+{"id": "demo-013", "query": "Seclo", "kind": ["ambiguous"], "lang": "en", "expect": {"products": ["DEMO-0010", "DEMO-0011"], "decisions": ["Ambiguous"]}}
+{"id": "demo-014", "query": "Seclo 20", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0010"]}}
+{"id": "demo-015", "query": "Seclo 40 capsule", "kind": ["en-strength-form"], "lang": "en", "expect": {"products": ["DEMO-0011"]}}
+{"id": "demo-016", "query": "Losectil 20", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0012"]}}
+{"id": "demo-017", "query": "Sergel", "kind": ["ambiguous"], "lang": "en", "expect": {"products": ["DEMO-0013", "DEMO-0014"], "decisions": ["Ambiguous"]}}
+{"id": "demo-018", "query": "Sergel 20", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0013"]}}
+{"id": "demo-019", "query": "Maxpro 20", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0015"]}}
+{"id": "demo-020", "query": "Maxpro 40 tablet", "kind": ["en-strength-form"], "lang": "en", "expect": {"products": ["DEMO-0016"]}}
+{"id": "demo-021", "query": "Nexum 20", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0017"]}}
+{"id": "demo-022", "query": "Pantonix 40", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0019"]}}
+{"id": "demo-023", "query": "Fexo 120", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0020"]}}
+{"id": "demo-024", "query": "Fexo 180", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0021"]}}
+{"id": "demo-025", "query": "Alatrol syrup", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0023"]}}
+{"id": "demo-026", "query": "Alatrol tablet", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0022"]}}
+{"id": "demo-027", "query": "Monas", "kind": ["ambiguous"], "lang": "en", "expect": {"products": ["DEMO-0024", "DEMO-0025", "DEMO-0026"], "decisions": ["Ambiguous"]}}
+{"id": "demo-028", "query": "Monas 10", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0024"]}}
+{"id": "demo-029", "query": "Monas 4", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0026"]}}
+{"id": "demo-030", "query": "Montair 10", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0027"]}}
+{"id": "demo-031", "query": "Zimax 500", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0028"]}}
+{"id": "demo-032", "query": "Zimax suspension", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0029"]}}
+{"id": "demo-033", "query": "Zimax powder", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0029"]}, "note": "catalog form is 'Powder for Suspension'"}
+{"id": "demo-034", "query": "Azithrocin", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0030"]}}
+{"id": "demo-035", "query": "Ciprocin 250", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0032"]}}
+{"id": "demo-036", "query": "Moxacil 500", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0033"]}}
+{"id": "demo-037", "query": "Moxacil syrup", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0035"]}}
+{"id": "demo-038", "query": "Cef-3", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0036"]}}
+{"id": "demo-039", "query": "cef 3", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0036"]}}
+{"id": "demo-040", "query": "Filmet 400", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0037"]}}
+{"id": "demo-041", "query": "Amodis", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0038"]}}
+{"id": "demo-042", "query": "Flagyl", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0039"]}}
+{"id": "demo-043", "query": "Tufnil", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0040"]}}
+{"id": "demo-044", "query": "Clofenac 50", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0041"]}}
+{"id": "demo-045", "query": "Rolac", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0042"]}}
+{"id": "demo-046", "query": "Comet 850", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0044"]}}
+{"id": "demo-047", "query": "Osartil 50", "kind": ["en-strength"], "lang": "en", "expect": {"products": ["DEMO-0045"]}}
+{"id": "demo-048", "query": "Amdocal", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0046"]}}
+{"id": "demo-049", "query": "Camlodin", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0047"]}}
+{"id": "demo-050", "query": "Ceevit", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0048"]}}
+{"id": "demo-051", "query": "Calbo D", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0049"]}}
+{"id": "demo-052", "query": "Neuro B", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0050"]}}
+{"id": "demo-053", "query": "Entacyd Plus", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0051"]}}
+{"id": "demo-054", "query": "Azmasol inhaler", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0052"]}}
+{"id": "demo-055", "query": "Orsaline", "kind": ["en-exact"], "lang": "en", "expect": {"products": ["DEMO-0053"]}}
+{"id": "demo-056", "query": "Nebanol powder", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0054"]}}
+{"id": "demo-057", "query": "Betnovate N cream", "kind": ["en-form"], "lang": "en", "expect": {"products": ["DEMO-0055"]}}
+{"id": "demo-058", "query": "napa five hundred", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0001"]}}
+{"id": "demo-059", "query": "seclo twenty milligram", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0010"]}}
+{"id": "demo-060", "query": "sergel forty", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0014"]}}
+{"id": "demo-061", "query": "monas four", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0026"]}}
+{"id": "demo-062", "query": "montair ten milligram tablet", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0027"]}}
+{"id": "demo-063", "query": "moxacil two hundred fifty", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0034"]}}
+{"id": "demo-064", "query": "fexo one twenty", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0020"]}, "note": "'one twenty' = 120 as commonly said in Bangladesh"}
+{"id": "demo-065", "query": "fexo one eighty", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0021"]}}
+{"id": "demo-066", "query": "comet eight fifty", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0044"]}}
+{"id": "demo-067", "query": "ciprocin two fifty", "kind": ["en-number-words"], "lang": "en", "expect": {"products": ["DEMO-0032"]}}
+{"id": "demo-068", "query": "নাপা এক্সট্রা", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0004"]}}
+{"id": "demo-069", "query": "নাপা ৫০০", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0001"]}}
+{"id": "demo-070", "query": "নাপা পাঁচশো মিলিগ্রাম", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0001"]}}
+{"id": "demo-071", "query": "নাপা সিরাপ", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0002"]}}
+{"id": "demo-072", "query": "সেকলো ২০", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0010"]}}
+{"id": "demo-073", "query": "সেকলো বিশ মিলিগ্রাম ক্যাপসুল", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0010"]}}
+{"id": "demo-074", "query": "সেকলো চল্লিশ", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0011"]}}
+{"id": "demo-075", "query": "এইস প্লাস", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0008"]}}
+{"id": "demo-076", "query": "ফেক্সো ১২০", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0020"]}}
+{"id": "demo-077", "query": "ফেক্সো একশো আশি", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0021"]}}
+{"id": "demo-078", "query": "মোনাস দশ", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0024"]}}
+{"id": "demo-079", "query": "মোনাস চার", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0026"]}}
+{"id": "demo-080", "query": "জিম্যাক্স ৫০০", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0028"]}}
+{"id": "demo-081", "query": "সিপ্রোসিন পাঁচশো", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0031"]}}
+{"id": "demo-082", "query": "মোক্সাসিল আড়াইশো", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0034"]}, "note": "আড়াইশো = 250"}
+{"id": "demo-083", "query": "কমেট আটশো পঞ্চাশ", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0044"]}}
+{"id": "demo-084", "query": "ওসারটিল ৫০", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0045"]}}
+{"id": "demo-085", "query": "সিভিট", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0048"]}}
+{"id": "demo-086", "query": "ক্যালবো ডি", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0049"]}}
+{"id": "demo-087", "query": "নিউরো বি", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0050"]}}
+{"id": "demo-088", "query": "অ্যাজমাসল ইনহেলার", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0052"]}}
+{"id": "demo-089", "query": "অরস্যালাইন", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0053"]}}
+{"id": "demo-090", "query": "ফিলমেট ৪০০", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0037"]}}
+{"id": "demo-091", "query": "ফ্ল্যাজিল", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0039"]}}
+{"id": "demo-092", "query": "অ্যামোডিস", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0038"]}}
+{"id": "demo-093", "query": "প্যান্টোনিক্স চল্লিশ", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0019"]}}
+{"id": "demo-094", "query": "ম্যাক্সপ্রো বিশ", "kind": ["bn-script", "bn-number-words"], "lang": "bn", "expect": {"products": ["DEMO-0015"]}}
+{"id": "demo-095", "query": "সার্জেল ৪০", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0014"]}}
+{"id": "demo-096", "query": "লোসেকটিল", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0012"]}}
+{"id": "demo-097", "query": "অ্যালাট্রল সিরাপ", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0023"]}}
+{"id": "demo-098", "query": "এন্টাসিড প্লাস", "kind": ["bn-script"], "lang": "bn", "expect": {"products": ["DEMO-0051"]}}
+{"id": "demo-099", "query": "নেক্সাম ২০", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0017"]}}
+{"id": "demo-100", "query": "মন্টেয়ার ১০", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0027"]}}
+{"id": "demo-101", "query": "অ্যাজিথ্রোসিন", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0030"]}}
+{"id": "demo-102", "query": "সেফ থ্রি", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0036"]}}
+{"id": "demo-103", "query": "টাফনিল", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0040"]}}
+{"id": "demo-104", "query": "ক্লোফেনাক ৫০", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0041"]}}
+{"id": "demo-105", "query": "রোলাক", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0042"]}}
+{"id": "demo-106", "query": "অ্যামডোকাল", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0046"]}}
+{"id": "demo-107", "query": "ক্যামলোডিন", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0047"]}}
+{"id": "demo-108", "query": "নেবানল", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0054"]}}
+{"id": "demo-109", "query": "বেটনোভেট এন ক্রিম", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0055"]}}
+{"id": "demo-110", "query": "ফাস্ট ৫০০", "kind": ["bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0009"]}}
+{"id": "demo-111", "query": "napa extra dao", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0004"]}}
+{"id": "demo-112", "query": "ek pata seclo 20 den", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0010"]}}
+{"id": "demo-113", "query": "dui pata napa 500 lagbe", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0001"]}}
+{"id": "demo-114", "query": "ace plus ache", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0008"]}}
+{"id": "demo-115", "query": "fexo 120 ekta dao", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0020"]}}
+{"id": "demo-116", "query": "seklo bish", "kind": ["banglish", "bn-number-words"], "lang": "banglish", "expect": {"products": ["DEMO-0010"]}}
+{"id": "demo-117", "query": "napa pachsho", "kind": ["banglish", "bn-number-words"], "lang": "banglish", "expect": {"products": ["DEMO-0001"]}}
+{"id": "demo-118", "query": "sergel chollish", "kind": ["banglish", "bn-number-words"], "lang": "banglish", "expect": {"products": ["DEMO-0014"]}}
+{"id": "demo-119", "query": "monas dosh", "kind": ["banglish", "bn-number-words"], "lang": "banglish", "expect": {"products": ["DEMO-0024"]}}
+{"id": "demo-120", "query": "alatrol syrap", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0023"]}}
+{"id": "demo-121", "query": "napa sirap dao", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0002"]}}
+{"id": "demo-122", "query": "zimax 500 er ekta pata", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0028"]}}
+{"id": "demo-123", "query": "bhai ceevit ache", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0048"]}}
+{"id": "demo-124", "query": "orsaline er packet", "kind": ["banglish"], "lang": "banglish", "expect": {"products": ["DEMO-0053"]}}
+{"id": "demo-125", "query": "Nappa Extra", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0004"]}, "source": "Typed"}
+{"id": "demo-126", "query": "Napa Extand", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0005"]}, "source": "Typed"}
+{"id": "demo-127", "query": "seclow 20", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0010"]}, "source": "Typed"}
+{"id": "demo-128", "query": "Sargel 40", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0014"]}, "source": "Typed"}
+{"id": "demo-129", "query": "Maxpo 20", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0015"]}, "source": "Typed"}
+{"id": "demo-130", "query": "Pantonics 40", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0019"]}, "source": "Typed"}
+{"id": "demo-131", "query": "Fexxo 120", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0020"]}, "source": "Typed"}
+{"id": "demo-132", "query": "Monaas 10", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0024"]}, "source": "Typed"}
+{"id": "demo-133", "query": "Montaire 10", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0027"]}, "source": "Typed"}
+{"id": "demo-134", "query": "Zymax 500", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0028"]}, "source": "Typed"}
+{"id": "demo-135", "query": "Azitrocin", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0030"]}, "source": "Typed"}
+{"id": "demo-136", "query": "Ciprosin 500", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0031"]}, "source": "Typed"}
+{"id": "demo-137", "query": "Moxasil 500", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0033"]}, "source": "Typed"}
+{"id": "demo-138", "query": "Filmat", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0037"]}, "source": "Typed"}
+{"id": "demo-139", "query": "Flagile", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0039"]}, "source": "Typed"}
+{"id": "demo-140", "query": "Tufnill", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0040"]}, "source": "Typed"}
+{"id": "demo-141", "query": "Clofenak 50", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0041"]}, "source": "Typed"}
+{"id": "demo-142", "query": "Rollac", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0042"]}, "source": "Typed"}
+{"id": "demo-143", "query": "Komet 850", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0044"]}, "source": "Typed"}
+{"id": "demo-144", "query": "Osartel 50", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0045"]}, "source": "Typed"}
+{"id": "demo-145", "query": "Amdokal", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0046"]}, "source": "Typed"}
+{"id": "demo-146", "query": "Camlodine", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0047"]}, "source": "Typed"}
+{"id": "demo-147", "query": "Ceevitt", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0048"]}, "source": "Typed"}
+{"id": "demo-148", "query": "Nuero B", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0050"]}, "source": "Typed"}
+{"id": "demo-149", "query": "Entasid plus", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0051"]}, "source": "Typed"}
+{"id": "demo-150", "query": "Asmasol", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0052"]}, "source": "Typed"}
+{"id": "demo-151", "query": "Orsalin", "kind": ["typo"], "lang": "en", "expect": {"products": ["DEMO-0053"]}, "source": "Typed"}
+{"id": "demo-152", "query": "sec low twenty", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0010"]}}
+{"id": "demo-153", "query": "max pro forty", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0016"]}}
+{"id": "demo-154", "query": "zee max five hundred", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0028"]}}
+{"id": "demo-155", "query": "film it four hundred", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0037"]}}
+{"id": "demo-156", "query": "flag ill", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0039"]}}
+{"id": "demo-157", "query": "see vit", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0048"]}}
+{"id": "demo-158", "query": "mon us ten", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0024"]}}
+{"id": "demo-159", "query": "pan tonics forty", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0019"]}}
+{"id": "demo-160", "query": "osar till fifty", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0045"]}}
+{"id": "demo-161", "query": "row lack", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0042"]}}
+{"id": "demo-162", "query": "tough nil", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0040"]}}
+{"id": "demo-163", "query": "cal bo d", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0049"]}}
+{"id": "demo-164", "query": "neuro bee", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0050"]}}
+{"id": "demo-165", "query": "nap a extra", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0004"]}}
+{"id": "demo-166", "query": "sir gel twenty", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0013"]}}
+{"id": "demo-167", "query": "loss ectil", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0012"]}}
+{"id": "demo-168", "query": "next um twenty", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0017"]}}
+{"id": "demo-169", "query": "mont air ten", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0027"]}}
+{"id": "demo-170", "query": "amo dis", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0038"]}}
+{"id": "demo-171", "query": "cam lo din", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0047"]}}
+{"id": "demo-172", "query": "fax oh one eighty", "kind": ["asr-split"], "lang": "en", "expect": {"products": ["DEMO-0021"]}}
+{"id": "demo-173", "query": "make sure pro forty", "kind": ["asr-nbest"], "lang": "en", "expect": {"products": ["DEMO-0016"]}, "alternatives": ["maxpro forty"]}
+{"id": "demo-174", "query": "next to twenty", "kind": ["asr-nbest"], "lang": "en", "expect": {"products": ["DEMO-0017"]}, "alternatives": ["nexum twenty"]}
+{"id": "demo-175", "query": "set low twenty", "kind": ["asr-nbest"], "lang": "en", "expect": {"products": ["DEMO-0010"]}, "alternatives": ["সেকলো বিশ"]}
+{"id": "demo-176", "query": "নাপা এক্সটা", "kind": ["asr-nbest"], "lang": "bn", "expect": {"products": ["DEMO-0004"]}, "alternatives": ["napa extra"]}
+{"id": "demo-177", "query": "the mass ten", "kind": ["asr-nbest"], "lang": "en", "expect": {"products": ["DEMO-0024"]}, "alternatives": ["monas ten"]}
+{"id": "demo-178", "query": "fix oh one twenty", "kind": ["asr-nbest"], "lang": "en", "expect": {"products": ["DEMO-0020"]}, "alternatives": ["fexo one twenty"]}
+{"id": "demo-179", "query": "omeprazole 20", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0010", "DEMO-0012"]}}
+{"id": "demo-180", "query": "esomeprazole 40", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0014", "DEMO-0016"]}}
+{"id": "demo-181", "query": "paracetamol syrup", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0002", "DEMO-0007"]}}
+{"id": "demo-182", "query": "paracetamol 500 tablet", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0001", "DEMO-0006", "DEMO-0009"]}}
+{"id": "demo-183", "query": "montelukast 10", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0024", "DEMO-0027"]}}
+{"id": "demo-184", "query": "azithromycin 500", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0028", "DEMO-0030"]}}
+{"id": "demo-185", "query": "metronidazole 400", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0037", "DEMO-0038", "DEMO-0039"]}}
+{"id": "demo-186", "query": "amlodipine 5", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0046", "DEMO-0047"]}}
+{"id": "demo-187", "query": "cefixime", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0036"]}}
+{"id": "demo-188", "query": "cetirizine syrup", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0023"]}}
+{"id": "demo-189", "query": "salbutamol inhaler", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0052"]}}
+{"id": "demo-190", "query": "fexofenadine 120", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0020"]}}
+{"id": "demo-191", "query": "ciprofloxacin 250", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0032"]}}
+{"id": "demo-192", "query": "losartan", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0045"]}}
+{"id": "demo-193", "query": "metformin 850", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0044"]}}
+{"id": "demo-194", "query": "diclofenac", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0041"]}}
+{"id": "demo-195", "query": "ketorolac", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0042"]}}
+{"id": "demo-196", "query": "tolfenamic acid", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0040"]}}
+{"id": "demo-197", "query": "pantoprazole 40", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0019"]}}
+{"id": "demo-198", "query": "amoxicillin 250 capsule", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0034"]}}
+{"id": "demo-199", "query": "ascorbic acid", "kind": ["generic"], "lang": "en", "expect": {"products": ["DEMO-0048"]}}
+{"id": "demo-200", "query": "প্যারাসিটামল সিরাপ", "kind": ["generic", "bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0002", "DEMO-0007"]}}
+{"id": "demo-201", "query": "ওমিপ্রাজল ২০", "kind": ["generic", "bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0010", "DEMO-0012"]}}
+{"id": "demo-202", "query": "মন্টিলুকাস্ট ১০", "kind": ["generic", "bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0024", "DEMO-0027"]}}
+{"id": "demo-203", "query": "মেট্রোনিডাজল ৪০০", "kind": ["generic", "bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0037", "DEMO-0038", "DEMO-0039"]}}
+{"id": "demo-204", "query": "সিপ্রোফ্লক্সাসিন ৫০০", "kind": ["generic", "bn-transliteration"], "lang": "bn", "expect": {"products": ["DEMO-0031"]}}
+{"id": "demo-205", "query": "two strips napa extra", "kind": ["quantity"], "lang": "en", "expect": {"products": ["DEMO-0004"]}}
+{"id": "demo-206", "query": "দুই পাতা নাপা ৫০০", "kind": ["quantity"], "lang": "bn", "expect": {"products": ["DEMO-0001"]}}
+{"id": "demo-207", "query": "এক বক্স সেকলো ২০", "kind": ["quantity"], "lang": "bn", "expect": {"products": ["DEMO-0010"]}}
+{"id": "demo-208", "query": "3 pata ace plus", "kind": ["quantity"], "lang": "banglish", "expect": {"products": ["DEMO-0008"]}}
+{"id": "demo-209", "query": "ten pieces fexo 120", "kind": ["quantity"], "lang": "en", "expect": {"products": ["DEMO-0020"]}}
+{"id": "demo-210", "query": "one bottle napa syrup", "kind": ["quantity"], "lang": "en", "expect": {"products": ["DEMO-0002"]}}
+{"id": "demo-211", "query": "napa extra", "kind": ["cap-low-asr-confidence"], "lang": "en", "expect": {"products": ["DEMO-0004"], "decisions": ["LowConfidence"]}, "recognition_confidence": 0.3}
+{"id": "demo-212", "query": "seclo 20", "kind": ["cap-speaker-uncertain"], "lang": "en", "expect": {"products": ["DEMO-0010"], "decisions": ["NeedsConfirmation"]}, "speaker_decision": "Uncertain"}
+{"id": "demo-213", "query": "fexo 120", "kind": ["cap-speaker-uncertain"], "lang": "en", "expect": {"products": ["DEMO-0020"], "decisions": ["NeedsConfirmation"]}, "speaker_decision": "NoProfile"}
+{"id": "demo-214", "query": "napa 250", "kind": ["neg-strength-mismatch"], "lang": "en", "expect": {"products": []}, "note": "Napa exists, not 250 mg"}
+{"id": "demo-215", "query": "seclo 10", "kind": ["neg-strength-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-216", "query": "fexo 60", "kind": ["neg-strength-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-217", "query": "monas 20", "kind": ["neg-strength-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-218", "query": "zimax 250", "kind": ["neg-strength-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-219", "query": "comet 1000", "kind": ["neg-strength-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-220", "query": "maxpro 10", "kind": ["neg-strength-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-221", "query": "seclo syrup", "kind": ["neg-form-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-222", "query": "fexo syrup", "kind": ["neg-form-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-223", "query": "azmasol tablet", "kind": ["neg-form-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-224", "query": "comet injection", "kind": ["neg-form-mismatch"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-225", "query": "panadol", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-226", "query": "tylenol", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-227", "query": "brufen 400", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-228", "query": "omidon", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-229", "query": "nexium 20", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}, "note": "close to Nexum 20, but a different brand"}
+{"id": "demo-230", "query": "esoral 20", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-231", "query": "rupa 10", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-232", "query": "tusca syrup", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-233", "query": "histacin", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-234", "query": "deslor", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-235", "query": "ventolin inhaler", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-236", "query": "augmentin 625", "kind": ["neg-unknown-brand"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-237", "query": "hello", "kind": ["neg-not-medicine"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-238", "query": "thank you", "kind": ["neg-not-medicine"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-239", "query": "how much is it", "kind": ["neg-not-medicine"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-240", "query": "ki khobor bhai", "kind": ["neg-not-medicine"], "lang": "banglish", "expect": {"products": []}}
+{"id": "demo-241", "query": "আজকে বৃষ্টি হবে", "kind": ["neg-not-medicine"], "lang": "bn", "expect": {"products": []}}
+{"id": "demo-242", "query": "দাম কত", "kind": ["neg-not-medicine"], "lang": "bn", "expect": {"products": []}}
+{"id": "demo-243", "query": "ধন্যবাদ", "kind": ["neg-not-medicine"], "lang": "bn", "expect": {"products": []}}
+{"id": "demo-244", "query": "wait a minute", "kind": ["neg-not-medicine"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-245", "query": "xyzzy", "kind": ["neg-gibberish"], "lang": "en", "expect": {"products": []}}
+{"id": "demo-246", "query": "blorptan 500", "kind": ["neg-gibberish"], "lang": "en", "expect": {"products": []}}

@@ -14,6 +14,7 @@ public static class QueryParser
         var tokens = TextNormalizer.Tokenize(normalized);
         var name = new List<string>();
         var nameWithNumbers = new List<string>();
+        var nameWithForms = new List<string>();
         var strengths = new List<StrengthValue>();
         var bare = new List<decimal>();
         var forms = new List<DosageFormCategory>();
@@ -72,6 +73,7 @@ public static class QueryParser
                     forms.Add(form);
                 }
 
+                nameWithForms.Add(t); // kept for names split into a form word by the recogniser ("sir gel")
                 i++;
                 continue;
             }
@@ -84,13 +86,14 @@ public static class QueryParser
 
             name.Add(t);
             nameWithNumbers.Add(t);
+            nameWithForms.Add(t);
             i++;
         }
 
         string nameText = string.Join(' ', name);
         return new ParsedMedicineQuery(
             text, normalized, nameText, PhoneticKey.For(nameText), strengths, bare, forms, TextNormalizer.ContainsBengali(normalized),
-            string.Join(' ', nameWithNumbers));
+            string.Join(' ', nameWithNumbers), name.Count > 0 && forms.Count > 0 ? string.Join(' ', nameWithForms) : string.Empty);
     }
 
     /// <summary>Grams are converted to milligrams so that "1 g" equals "1000 mg".</summary>

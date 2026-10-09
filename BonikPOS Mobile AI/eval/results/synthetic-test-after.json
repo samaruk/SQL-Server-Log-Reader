@@ -1,0 +1,2077 @@
+{
+  "format": "bonikpos-search-eval-report/1",
+  "run": {
+    "Label": "FINAL held-out: after changes, synthetic-20k TEST (seed 11, phrase set C; thresholds chosen on DEV)",
+    "DatasetPath": "eval/search/synthetic-20k-test.cases.jsonl",
+    "DatasetSha256": "f51299e722c329d37dc6c05fa2dd06c62526f622b6a6aeb59892e1f3c46828eb",
+    "CatalogDescription": "Local product index (synthetic-catalog-20k.json)",
+    "CatalogProducts": 20000,
+    "CatalogSha256": "539870d42230de346e65767a4088c581a1d815216bc63179aa9cba02dc0703d4",
+    "CatalogIsDemo": false,
+    "IndexBuildMs": 1576.3098,
+    "StartedUtc": "2026-10-09T07:53:21.5095748+00:00",
+    "Thresholds": {
+      "MinCandidateScore": 0.55,
+      "ConfidentScore": 0.9,
+      "AmbiguityMargin": 0.06,
+      "MinRecognitionConfidence": 0.45,
+      "MinConfirmScore": 0.75,
+      "MinFuzzyConfirmNameScore": 0.84,
+      "SuggestionMinNameScore": 0.45,
+      "MaxCandidates": 10
+    },
+    "Machine": "Ubuntu 24.04.5 LTS; X64; 4 logical CPUs; .NET 10.0.12"
+  },
+  "metrics": {
+    "Cases": 2600,
+    "Positives": 2000,
+    "Negatives": 600,
+    "Top1": {
+      "Count": 1978,
+      "Total": 2000,
+      "Rate": 0.989
+    },
+    "Top5": {
+      "Count": 1993,
+      "Total": 2000,
+      "Rate": 0.9965
+    },
+    "FalseMatchAll": {
+      "Count": 10,
+      "Total": 2600,
+      "Rate": 0.0038461538461538464
+    },
+    "FalseMatchPositives": {
+      "Count": 4,
+      "Total": 2000,
+      "Rate": 0.002
+    },
+    "FalseMatchNegatives": {
+      "Count": 6,
+      "Total": 600,
+      "Rate": 0.01
+    },
+    "FalseConfident": {
+      "Count": 0,
+      "Total": 2600,
+      "Rate": 0
+    },
+    "WrongOfferedAll": {
+      "Count": 22,
+      "Total": 2600,
+      "Rate": 0.008461538461538461
+    },
+    "WrongOfferedNegatives": {
+      "Count": 18,
+      "Total": 600,
+      "Rate": 0.03
+    },
+    "CorrectButLowConfidence": {
+      "Count": 56,
+      "Total": 2000,
+      "Rate": 0.028
+    },
+    "MissedPositives": {
+      "Count": 0,
+      "Total": 2000,
+      "Rate": 0
+    },
+    "NegativesRejected": {
+      "Count": 7,
+      "Total": 600,
+      "Rate": 0.011666666666666667
+    },
+    "NegativesSafe": {
+      "Count": 582,
+      "Total": 600,
+      "Rate": 0.97
+    },
+    "DecisionAgreement": {
+      "Count": 101,
+      "Total": 101,
+      "Rate": 1
+    },
+    "DecisionCounts": {
+      "Confident": 1131,
+      "NeedsConfirmation": 411,
+      "Ambiguous": 407,
+      "LowConfidence": 644,
+      "NoMatch": 7
+    },
+    "MatcherP50Ms": 2.2082,
+    "MatcherP95Ms": 4.570529999999996,
+    "MatcherMaxMs": 58.7071
+  },
+  "by_kind": {
+    "brand-strength": {
+      "Cases": 507,
+      "Positives": 507,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 507,
+        "Total": 507,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 507,
+        "Total": 507,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 507,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 507,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 507,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 507,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 2,
+        "Total": 507,
+        "Rate": 0.0039447731755424065
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 507,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 477,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 28,
+        "LowConfidence": 2,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.04,
+      "MatcherP95Ms": 3.83699,
+      "MatcherMaxMs": 58.7071
+    },
+    "asr-split": {
+      "Cases": 191,
+      "Positives": 191,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 186,
+        "Total": 191,
+        "Rate": 0.9738219895287958
+      },
+      "Top5": {
+        "Count": 189,
+        "Total": 191,
+        "Rate": 0.9895287958115183
+      },
+      "FalseMatchAll": {
+        "Count": 1,
+        "Total": 191,
+        "Rate": 0.005235602094240838
+      },
+      "FalseMatchPositives": {
+        "Count": 1,
+        "Total": 191,
+        "Rate": 0.005235602094240838
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 191,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 1,
+        "Total": 191,
+        "Rate": 0.005235602094240838
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 1,
+        "Total": 191,
+        "Rate": 0.005235602094240838
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 191,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 164,
+        "NeedsConfirmation": 1,
+        "Ambiguous": 21,
+        "LowConfidence": 5,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.5743,
+      "MatcherP95Ms": 4.9131,
+      "MatcherMaxMs": 36.8868
+    },
+    "typo": {
+      "Cases": 221,
+      "Positives": 221,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 209,
+        "Total": 221,
+        "Rate": 0.9457013574660633
+      },
+      "Top5": {
+        "Count": 218,
+        "Total": 221,
+        "Rate": 0.9864253393665159
+      },
+      "FalseMatchAll": {
+        "Count": 1,
+        "Total": 221,
+        "Rate": 0.004524886877828055
+      },
+      "FalseMatchPositives": {
+        "Count": 1,
+        "Total": 221,
+        "Rate": 0.004524886877828055
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 221,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 1,
+        "Total": 221,
+        "Rate": 0.004524886877828055
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 22,
+        "Total": 221,
+        "Rate": 0.09954751131221719
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 221,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 7,
+        "NeedsConfirmation": 166,
+        "Ambiguous": 20,
+        "LowConfidence": 28,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.002,
+      "MatcherP95Ms": 4.6339,
+      "MatcherMaxMs": 7.0273
+    },
+    "bangla-script": {
+      "Cases": 303,
+      "Positives": 303,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 301,
+        "Total": 303,
+        "Rate": 0.9933993399339934
+      },
+      "Top5": {
+        "Count": 302,
+        "Total": 303,
+        "Rate": 0.9966996699669967
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 303,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 303,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 303,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 303,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 7,
+        "Total": 303,
+        "Rate": 0.0231023102310231
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 303,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 177,
+        "NeedsConfirmation": 105,
+        "Ambiguous": 12,
+        "LowConfidence": 9,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.8237,
+      "MatcherP95Ms": 5.20444,
+      "MatcherMaxMs": 14.9423
+    },
+    "brand-form": {
+      "Cases": 240,
+      "Positives": 240,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 240,
+        "Total": 240,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 240,
+        "Total": 240,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 240,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 240,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 240,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 240,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 240,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 240,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 142,
+        "NeedsConfirmation": 9,
+        "Ambiguous": 89,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.43925,
+      "MatcherP95Ms": 4.893884999999997,
+      "MatcherMaxMs": 10.0823
+    },
+    "brand-only": {
+      "Cases": 183,
+      "Positives": 183,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 183,
+        "Total": 183,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 183,
+        "Total": 183,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 183,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 183,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 183,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 183,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 183,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 183,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 101,
+        "Total": 101,
+        "Rate": 1
+      },
+      "DecisionCounts": {
+        "Confident": 82,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 101,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 1.228,
+      "MatcherP95Ms": 2.0737900000000002,
+      "MatcherMaxMs": 3.5828
+    },
+    "banglish-respelling": {
+      "Cases": 243,
+      "Positives": 243,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 240,
+        "Total": 243,
+        "Rate": 0.9876543209876543
+      },
+      "Top5": {
+        "Count": 242,
+        "Total": 243,
+        "Rate": 0.9958847736625515
+      },
+      "FalseMatchAll": {
+        "Count": 2,
+        "Total": 243,
+        "Rate": 0.00823045267489712
+      },
+      "FalseMatchPositives": {
+        "Count": 2,
+        "Total": 243,
+        "Rate": 0.00823045267489712
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 243,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 2,
+        "Total": 243,
+        "Rate": 0.00823045267489712
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 24,
+        "Total": 243,
+        "Rate": 0.09876543209876543
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 243,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 82,
+        "NeedsConfirmation": 124,
+        "Ambiguous": 12,
+        "LowConfidence": 25,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.0852,
+      "MatcherP95Ms": 3.6404499999999995,
+      "MatcherMaxMs": 6.8859
+    },
+    "generic-strength": {
+      "Cases": 112,
+      "Positives": 112,
+      "Negatives": 0,
+      "Top1": {
+        "Count": 112,
+        "Total": 112,
+        "Rate": 1
+      },
+      "Top5": {
+        "Count": 112,
+        "Total": 112,
+        "Rate": 1
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 112,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 112,
+        "Rate": 0
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 112,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 112,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 112,
+        "Rate": 0
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 112,
+        "Rate": 0
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesSafe": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 112,
+        "LowConfidence": 0,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 3.3531,
+      "MatcherP95Ms": 7.812194999999997,
+      "MatcherMaxMs": 11.9368
+    },
+    "neg-form-mismatch": {
+      "Cases": 145,
+      "Positives": 0,
+      "Negatives": 145,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 145,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 145,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 145,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 145,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 145,
+        "Rate": 0
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 0,
+        "Total": 145,
+        "Rate": 0
+      },
+      "NegativesSafe": {
+        "Count": 145,
+        "Total": 145,
+        "Rate": 1
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 145,
+        "NoMatch": 0
+      },
+      "MatcherP50Ms": 2.1339,
+      "MatcherP95Ms": 3.922499999999993,
+      "MatcherMaxMs": 5.7518
+    },
+    "neg-unknown-brand": {
+      "Cases": 189,
+      "Positives": 0,
+      "Negatives": 189,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 6,
+        "Total": 189,
+        "Rate": 0.031746031746031744
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 6,
+        "Total": 189,
+        "Rate": 0.031746031746031744
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 189,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 12,
+        "Total": 189,
+        "Rate": 0.06349206349206349
+      },
+      "WrongOfferedNegatives": {
+        "Count": 12,
+        "Total": 189,
+        "Rate": 0.06349206349206349
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 4,
+        "Total": 189,
+        "Rate": 0.021164021164021163
+      },
+      "NegativesSafe": {
+        "Count": 177,
+        "Total": 189,
+        "Rate": 0.9365079365079365
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 6,
+        "Ambiguous": 6,
+        "LowConfidence": 173,
+        "NoMatch": 4
+      },
+      "MatcherP50Ms": 1.8867,
+      "MatcherP95Ms": 2.88546,
+      "MatcherMaxMs": 5.9697
+    },
+    "neg-not-medicine": {
+      "Cases": 30,
+      "Positives": 0,
+      "Negatives": 30,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 30,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 30,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 30,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 6,
+        "Total": 30,
+        "Rate": 0.2
+      },
+      "WrongOfferedNegatives": {
+        "Count": 6,
+        "Total": 30,
+        "Rate": 0.2
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 2,
+        "Total": 30,
+        "Rate": 0.06666666666666667
+      },
+      "NegativesSafe": {
+        "Count": 24,
+        "Total": 30,
+        "Rate": 0.8
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 6,
+        "LowConfidence": 22,
+        "NoMatch": 2
+      },
+      "MatcherP50Ms": 3.1004,
+      "MatcherP95Ms": 6.430264999999998,
+      "MatcherMaxMs": 11.5367
+    },
+    "neg-strength-mismatch": {
+      "Cases": 236,
+      "Positives": 0,
+      "Negatives": 236,
+      "Top1": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "Top5": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchAll": {
+        "Count": 0,
+        "Total": 236,
+        "Rate": 0
+      },
+      "FalseMatchPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "FalseMatchNegatives": {
+        "Count": 0,
+        "Total": 236,
+        "Rate": 0
+      },
+      "FalseConfident": {
+        "Count": 0,
+        "Total": 236,
+        "Rate": 0
+      },
+      "WrongOfferedAll": {
+        "Count": 0,
+        "Total": 236,
+        "Rate": 0
+      },
+      "WrongOfferedNegatives": {
+        "Count": 0,
+        "Total": 236,
+        "Rate": 0
+      },
+      "CorrectButLowConfidence": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "MissedPositives": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "NegativesRejected": {
+        "Count": 1,
+        "Total": 236,
+        "Rate": 0.00423728813559322
+      },
+      "NegativesSafe": {
+        "Count": 236,
+        "Total": 236,
+        "Rate": 1
+      },
+      "DecisionAgreement": {
+        "Count": 0,
+        "Total": 0,
+        "Rate": null
+      },
+      "DecisionCounts": {
+        "Confident": 0,
+        "NeedsConfirmation": 0,
+        "Ambiguous": 0,
+        "LowConfidence": 235,
+        "NoMatch": 1
+      },
+      "MatcherP50Ms": 2.1845,
+      "MatcherP95Ms": 4.197925,
+      "MatcherMaxMs": 6.3153
+    }
+  },
+  "definitions": [
+    "- Positive case: at least one catalog product satisfies the request; any listed product id counts as correct.",
+    "- Negative case: nothing in the catalog satisfies the request (unknown brand, non-existent strength/form, not a medicine).",
+    "- Top-1 / Top-5 accuracy: share of positive cases whose first / any of the first five ranked products is correct.",
+    "- False match: the system presented a wrong product as the match (decision Confident or NeedsConfirmation with a wrong first result); counted on all cases, so every Confident/NeedsConfirmation answer to a negative case is a false match.",
+    "- False confident: the subset of false matches with decision Confident.",
+    "- Wrong product offered: a false match, or an Ambiguous choice in which none of the offered options is correct.",
+    "- Correct but low confidence: positive cases whose first result is correct but which were answered LowConfidence/NoMatch (shown only as a weak suggestion).",
+    "- Negatives safely handled: decision NoMatch or LowConfidence (candidates shown only with a warning).",
+    "- Missed positives: decision NoMatch although a correct product exists.",
+    "- Decision agreement: share of cases with an expected decision whose decision was one of the expected ones.",
+    "- Matcher latency: time inside the matcher per query on the machine named in the report (not a phone)."
+  ],
+  "cases_listed": "failures only (wrong or missing top-1, false match, wrong product offered, unexpected decision)",
+  "cases": [
+    {
+      "id": "syn-00004",
+      "query": "phicliat 5",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-018002"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006531 Ficlit 5 mg Tablet [0.92]",
+        "SYN-018002 Phiclita 5 mg Tablet [0.88]",
+        "SYN-018001 Phiclita 10 mg Tablet [0.75]",
+        "SYN-004491 Liclit 20 mg Tablet [0.62]",
+        "SYN-012141 Plicliil 125 mg/5 ml Powder for Suspension [0.61]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.078
+    },
+    {
+      "id": "syn-00050",
+      "query": "ডীকি ১৮০",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-017537"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-002166 Dico 100 mg + 200 mg + 200 mcg Tablet [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.466
+    },
+    {
+      "id": "syn-00187",
+      "query": "clhoc five hundred mg",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-018250"
+      ],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-014614 Cloko 500 mg + 200 IU Tablet [0.89]",
+        "SYN-014615 Cloko 600 mg + 400 IU Tablet [0.67]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.48
+    },
+    {
+      "id": "syn-00312",
+      "query": "nakhin 20",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-013779"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013333 Nacaon 5 mg Tablet [0.70]",
+        "SYN-006231 Nasien 20 mg Tablet [0.67]",
+        "SYN-007442 Naclaina 500 mg Tablet [0.58]",
+        "SYN-007443 Naclaina 250 mg Tablet [0.58]",
+        "SYN-014223 Narein 0.3% Eye Drops [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.787
+    },
+    {
+      "id": "syn-00335",
+      "query": "vubaita 100 mcg",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-002522"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007007 Bubaina 100 mcg/puff Inhaler [0.78]",
+        "SYN-002522 Vibaita 100 mg + 200 mg + 200 mcg Tablet [0.69]",
+        "SYN-009354 Bibita 250 mg Capsule [0.63]",
+        "SYN-007006 Bubaina 4 mg Tablet [0.59]",
+        "SYN-016688 Viveeta 5 mg Chewable Tablet [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.846
+    },
+    {
+      "id": "syn-00700",
+      "query": "fagel 5",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-000897"
+      ],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": 2,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011886 Phagil 10 mg/5 ml Syrup [0.91]",
+        "SYN-000897 Phagail 5% Infusion [0.82]",
+        "SYN-012058 Figool 10 mg/5 ml Syrup [0.82]",
+        "SYN-004012 Fage 2 mg/5 ml Syrup [0.78]",
+        "SYN-003039 Phagal 500 mg Tablet [0.77]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.71
+    },
+    {
+      "id": "syn-00721",
+      "query": "zazvora fifty",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-000286"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006220 Zozabora 50 mg Tablet [0.87]",
+        "SYN-000286 Zavora 50 mg Tablet [0.84]",
+        "SYN-015964 Javeera 10 mg Tablet [0.63]",
+        "SYN-004542 Zahanora 50 mg Tablet [0.61]",
+        "SYN-012695 Jagora 4 mg Tablet [0.60]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.885
+    },
+    {
+      "id": "syn-00773",
+      "query": "boguhuor 0.9",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-019269"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-012182 Bogahouor 0.9% Infusion [0.88]",
+        "SYN-019269 Bouhuor 0.9% Infusion [0.86]",
+        "SYN-006762 Bouhaor 5 mg/5 ml Syrup [0.65]",
+        "SYN-004655 Bogeeor 250 mg Capsule [0.58]",
+        "SYN-003441 Vogor 180 mg Tablet [0.58]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.922
+    },
+    {
+      "id": "syn-00798",
+      "query": "me hom 0.9",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-012440"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 9,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-003687 Homal 1% Cream [0.73]",
+        "SYN-004406 Homaix 200 mg Capsule [0.72]",
+        "SYN-004407 Homaix 100 mg/5 ml Powder for Suspension [0.72]",
+        "SYN-014153 Homeix 300 mg Tablet [0.72]",
+        "SYN-011061 Homiin 500 mg + 200 IU Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.837
+    },
+    {
+      "id": "syn-00895",
+      "query": "ki soon twenty",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-004985"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 4,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009636 Shona 200 mg/5 ml Powder for Suspension [0.73]",
+        "SYN-009637 Shona 500 mg Tablet [0.73]",
+        "SYN-009638 Shona 250 mg Capsule [0.73]",
+        "SYN-004985 Kisoon 20 mg Tablet [0.65]",
+        "SYN-017663 Sorion 20 mg/ml Injection [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.623
+    },
+    {
+      "id": "syn-00931",
+      "query": "do pre eighty",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-015950"
+      ],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010720 Prebeeix 80 mg Tablet [0.83]",
+        "SYN-010870 Preha 5 mg Tablet [0.73]",
+        "SYN-004430 Prezo 10 mg Tablet [0.73]",
+        "SYN-004431 Prezo 20 mg Tablet [0.73]",
+        "SYN-010154 Prebir 500 mg Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.218
+    },
+    {
+      "id": "syn-01049",
+      "query": "ki clouan five hundred mg",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-006930"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005895 Clouvaan 500 mg Tablet [0.81]",
+        "SYN-006930 Kiclouan 500 mg Tablet [0.75]",
+        "SYN-000060 Closaen 500 mg Tablet [0.73]",
+        "SYN-008504 Cloupaien 500 mg Tablet [0.70]",
+        "SYN-006327 Cloubrian 500 mg + 65 mg Tablet [0.65]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.234
+    },
+    {
+      "id": "syn-01101",
+      "query": "torhox 20",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-019232",
+        "SYN-019234"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009968 Storeex 20 mg Capsule [0.77]",
+        "SYN-018704 Touroax 1 mg Tablet [0.73]",
+        "SYN-018705 Touroax 2 mg Tablet [0.73]",
+        "SYN-009969 Storeex 40 mg Injection [0.65]",
+        "SYN-016057 Toubeix 20 mg Capsule [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.575
+    },
+    {
+      "id": "syn-01131",
+      "query": "ফাইশোএন সাড়ে সাতশো",
+      "kind": [
+        "bangla-script"
+      ],
+      "expected": [
+        "SYN-011974"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-011973 Phaishoen 500 mg Tablet [0.75]",
+        "SYN-011974 Phaishoen 750 mg Injection [0.75]",
+        "SYN-011975 Phaishoen 250 mg Tablet [0.75]",
+        "SYN-016181 Faison 250 mg Tablet [0.72]",
+        "SYN-016182 Faison 500 mg Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 3.837
+    },
+    {
+      "id": "syn-01154",
+      "query": "phepeee 400 milligram",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-008964"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-006584 Pheepe 40 mg Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.9
+    },
+    {
+      "id": "syn-01288",
+      "query": "ficte forty",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-001038"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 3,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004302 Faicata 200 mg/5 ml Suspension [0.64]",
+        "SYN-012750 Fokuta 100 mg Tablet [0.63]",
+        "SYN-001038 Ficet 40 mg Tablet [0.59]",
+        "SYN-018001 Phiclita 10 mg Tablet [0.56]",
+        "SYN-018002 Phiclita 5 mg Tablet [0.56]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.646
+    },
+    {
+      "id": "syn-01455",
+      "query": "do nira fifty",
+      "kind": [
+        "asr-split"
+      ],
+      "expected": [
+        "SYN-009116"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005597 Nile 50 mg Tablet [0.70]",
+        "SYN-009116 Donira 50 mg Capsule [0.67]",
+        "SYN-018235 Niphira 50 mg Tablet [0.67]",
+        "SYN-005596 Nile 100 mg Tablet [0.59]",
+        "SYN-015007 Nista 50 mcg Tablet [0.59]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.388
+    },
+    {
+      "id": "syn-01490",
+      "query": "zifoux 500",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-003602"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010048 Jofoex 500 mg Tablet [0.87]",
+        "SYN-003602 Zifloux 500 mg Tablet [0.84]",
+        "SYN-005843 Jufeax 500 mg Tablet [0.80]",
+        "SYN-010961 Jeefouk 500 mg Capsule [0.74]",
+        "SYN-010047 Jofoex 250 mg Chewable Tablet [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.771
+    },
+    {
+      "id": "syn-01515",
+      "query": "shaiiflak 50",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-004634"
+      ],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010098 Ciflac 50 mcg Tablet [0.92]",
+        "SYN-004634 Shaiziflak 50 mg Tablet [0.88]",
+        "SYN-018465 Shaifloac 500 mg Tablet [0.79]",
+        "SYN-018466 Shaifloac 750 mg Injection [0.79]",
+        "SYN-010099 Ciflac 100 mcg Tablet [0.78]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.118
+    },
+    {
+      "id": "syn-01594",
+      "query": "plebira 50",
+      "kind": [
+        "banglish-respelling"
+      ],
+      "expected": [
+        "SYN-018035"
+      ],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": 2,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007820 Flevira 50 mg Tablet [0.90]",
+        "SYN-018035 Plaibeera 50 mg Tablet [0.80]",
+        "SYN-007821 Flevira 1% Gel [0.77]",
+        "SYN-007822 Flevira 100 mg Sustained Release Tablet [0.77]",
+        "SYN-017724 Plimira 50 mg Tablet [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.089
+    },
+    {
+      "id": "syn-01665",
+      "query": "braod 20",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-009499"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 2,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007336 Varaid 20 mg/ml Injection [0.82]",
+        "SYN-009499 Brasod 20 mg Tablet [0.82]",
+        "SYN-003533 Brajiid 20 mg Tablet [0.72]",
+        "SYN-009500 Brasod 10 mg/5 ml Syrup [0.69]",
+        "SYN-019720 Bragud 2% Cream [0.61]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.746
+    },
+    {
+      "id": "syn-01987",
+      "query": "socelen 10",
+      "kind": [
+        "typo"
+      ],
+      "expected": [
+        "SYN-009684"
+      ],
+      "expected_decisions": [],
+      "decision": "LowConfidence",
+      "correct_rank": 3,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": false,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001522 Shisloon 10 mg Tablet [0.79]",
+        "SYN-012897 Chesleen 10 mg Tablet [0.76]",
+        "SYN-009684 Socleen 10 mg Tablet [0.73]",
+        "SYN-006363 Ceslian 10 mg Tablet [0.71]",
+        "SYN-015927 Shagleen 10 mg Tablet [0.66]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.089
+    },
+    {
+      "id": "syn-02008",
+      "query": "tomar nam ki",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015099 Namiil 0.5 mg Tablet [0.79]",
+        "SYN-014959 Namion 2.5 mg/5 ml Syrup [0.79]",
+        "SYN-014960 Namion 5 mg Tablet [0.79]",
+        "SYN-015439 Namouc 10 mg Tablet [0.79]",
+        "SYN-015440 Namouc 5 mg Tablet [0.79]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.401
+    },
+    {
+      "id": "syn-02025",
+      "query": "put it in my account",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-015226 Putira 1% Cream [0.77]",
+        "SYN-004554 Cutit 400 mg Tablet [0.74]",
+        "SYN-004555 Cutit 200 mg/5 ml Suspension [0.74]",
+        "SYN-001287 Conot 20 mg Capsule [0.64]",
+        "SYN-001288 Conot 40 mg Injection [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.567
+    },
+    {
+      "id": "syn-02029",
+      "query": "Phaibrona",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016604 Phaibraon 500 mg Tablet [0.86]",
+        "SYN-016605 Phaibraon 200 mg/5 ml Powder for Suspension [0.86]",
+        "SYN-004529 Faiflona 10.25 g Powder (Sachet) [0.82]",
+        "SYN-016136 Faiplona 40 mg Injection [0.82]",
+        "SYN-016137 Faiplona 40 mg Capsule [0.82]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.175
+    },
+    {
+      "id": "syn-02077",
+      "query": "Babraol",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-013884 Bobrool 25 mg Tablet [0.86]",
+        "SYN-018980 Vebreil 2.5 mg/5 ml Syrup [0.80]",
+        "SYN-018981 Vebreil 5 mg Tablet [0.80]",
+        "SYN-006241 Prabraol 10 mg Tablet [0.76]",
+        "SYN-003856 Babiol 100 mcg/puff Inhaler [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.01
+    },
+    {
+      "id": "syn-02087",
+      "query": "Preespa",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007998 Prespi 40 mg Tablet [0.93]",
+        "SYN-007999 Prespi 20 mg Tablet [0.93]",
+        "SYN-010899 Praispo 750 mg Injection [0.79]",
+        "SYN-001882 Prespais 25 mg Tablet [0.77]",
+        "SYN-001883 Prespais 50 mg Tablet [0.77]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.924
+    },
+    {
+      "id": "syn-02134",
+      "query": "did the delivery come",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-010058 Didaga 50 mg Capsule [0.77]",
+        "SYN-013791 Didaid 50 mg Tablet [0.77]",
+        "SYN-005252 Didota 500 mg Tablet [0.77]",
+        "SYN-004844 Deeliid 50 mg Tablet [0.57]",
+        "SYN-004845 Deeliid 25 mg Tablet [0.57]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 4.166
+    },
+    {
+      "id": "syn-02159",
+      "query": "write it on the slip",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005610 Slipir 25 mg Tablet [0.78]",
+        "SYN-005611 Slipir 50 mg Tablet [0.78]",
+        "SYN-011266 Slipliin 100 mg Tablet [0.75]",
+        "SYN-019428 Sliploor 2.5 mg/5 ml Syrup [0.75]",
+        "SYN-006546 Sliprana 250 mg Tablet [0.75]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 6.019
+    },
+    {
+      "id": "syn-02173",
+      "query": "Flukoac 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-016794 Flokouc 250 mg Tablet [0.87]",
+        "SYN-004224 Flokaic 250 mg Tablet [0.80]",
+        "SYN-003134 Flokoc 0.9% Infusion [0.73]",
+        "SYN-004225 Flokaic 500 mg Tablet [0.68]",
+        "SYN-004672 Flikik 40 mg Tablet [0.67]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.204
+    },
+    {
+      "id": "syn-02177",
+      "query": "ma ke phone dao",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004214 Makex 150 mg Capsule [0.85]",
+        "SYN-000579 Makeesho 40 mg Injection [0.81]",
+        "SYN-000580 Makeesho 20 mg Tablet [0.81]",
+        "SYN-007039 Makone 500 mg + 65 mg Tablet [0.75]",
+        "SYN-007739 Momifone 0.3% Eye Drops [0.70]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.408
+    },
+    {
+      "id": "syn-02180",
+      "query": "Plasluin 500",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-007690 Pluslin 500 mg Tablet [0.88]",
+        "SYN-007689 Pluslin 250 mg Tablet [0.75]",
+        "SYN-012810 Ploslaian 0.5 mg Tablet [0.71]",
+        "SYN-006792 Ploslouan 10.25 g Powder (Sachet) [0.71]",
+        "SYN-008579 Plasheeuum 500 mg Tablet [0.69]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.254
+    },
+    {
+      "id": "syn-02189",
+      "query": "Pouspeeen",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-005384 Fouspeen 500 mg Tablet [0.90]",
+        "SYN-005385 Fouspeen 250 mg Tablet [0.90]",
+        "SYN-012814 Peespen 2% Cream [0.86]",
+        "SYN-011250 Pospeein 40 mg Injection [0.85]",
+        "SYN-011251 Pospeein 20 mg Tablet [0.85]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.035
+    },
+    {
+      "id": "syn-02215",
+      "query": "Dibrem 20",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-004995 Daibreum 20 mg Tablet [0.86]",
+        "SYN-004996 Daibreum 40 mg Tablet [0.73]",
+        "SYN-006662 Diprim 200 mg Tablet [0.70]",
+        "SYN-007906 Naibreen 20 mg Tablet [0.63]",
+        "SYN-004675 Dipreean 150 mg Tablet [0.62]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.014
+    },
+    {
+      "id": "syn-02232",
+      "query": "Shoflel",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-019613 Sifliil 600 mg + 400 IU Tablet [0.85]",
+        "SYN-007708 Shofliid 50 mg Tablet [0.72]",
+        "SYN-005737 Shoflot 80 mg Tablet [0.72]",
+        "SYN-007026 Soflo 500 mg + 200 IU Tablet [0.72]",
+        "SYN-016322 Cesoflol 750 mg Tablet [0.72]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.883
+    },
+    {
+      "id": "syn-02293",
+      "query": "Trotrais 250",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000756 Tritras 250 mg Capsule [0.88]",
+        "SYN-000755 Tritras 125 mg/5 ml Powder for Suspension [0.75]",
+        "SYN-000757 Tritras 500 mg Capsule [0.75]",
+        "SYN-009937 Tratraiil 10.25 g Powder (Sachet) [0.66]",
+        "SYN-002819 Tratroax 10 mg/5 ml Syrup [0.64]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.381
+    },
+    {
+      "id": "syn-02309",
+      "query": "how far is the hospital",
+      "kind": [
+        "neg-not-medicine"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-000253 Faror 100 mg + 200 mg + 200 mcg Tablet [0.78]",
+        "SYN-000254 Faror SR 100 mg + 200 mg + 200 mcg Tablet [0.76]",
+        "SYN-005441 Hiphaira 80 mg Tablet [0.71]",
+        "SYN-005442 Hiphaira 30 mg Modified Release Tablet [0.71]",
+        "SYN-011817 Hipheeor 2% Ointment [0.70]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 2.807
+    },
+    {
+      "id": "syn-02361",
+      "query": "Zestuon",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-001856 Jeesteen 40 mg Tablet [0.86]",
+        "SYN-010245 Jastian 100 mg Tablet [0.80]",
+        "SYN-000931 Zistona 40 mg Injection [0.78]",
+        "SYN-016141 Jaistain 10 mg Tablet [0.74]",
+        "SYN-016142 Jaistain 5 mg Chewable Tablet [0.74]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.863
+    },
+    {
+      "id": "syn-02439",
+      "query": "Feeflaex",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "NeedsConfirmation",
+      "correct_rank": null,
+      "false_match": true,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-009339 Feepluex 100 mg + 200 mg + 200 mcg Tablet [0.86]",
+        "SYN-014957 Fefohaex 200 mg Tablet [0.79]",
+        "SYN-000175 Fuslaex 100 mg + 200 mg + 200 mcg Tablet [0.78]",
+        "SYN-001069 Leeflaix 50 mg Tablet [0.78]",
+        "SYN-001070 Leeflaix 25 mg Tablet [0.78]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 1.157
+    },
+    {
+      "id": "syn-02545",
+      "query": "Vaclid",
+      "kind": [
+        "neg-unknown-brand"
+      ],
+      "expected": [],
+      "expected_decisions": [],
+      "decision": "Ambiguous",
+      "correct_rank": null,
+      "false_match": false,
+      "false_confident": false,
+      "wrong_offered": true,
+      "decision_as_expected": null,
+      "top": [
+        "SYN-018390 Veclaid 5 mg Tablet [0.86]",
+        "SYN-018391 Veclaid 2.5 mg/5 ml Syrup [0.86]",
+        "SYN-014546 Vaiglid 100 mg Vaginal Tablet [0.83]",
+        "SYN-005233 Baclian 300 mg Tablet [0.73]",
+        "SYN-006845 Chaclaiid 150 mg Capsule [0.73]"
+      ],
+      "suggestions": 0,
+      "matcher_ms": 0.936
+    }
+  ]
+}

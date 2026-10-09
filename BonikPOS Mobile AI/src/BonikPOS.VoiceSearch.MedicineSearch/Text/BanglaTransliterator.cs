@@ -4,9 +4,11 @@ namespace BonikPOS.VoiceSearch.MedicineSearch.Text;
 
 /// <summary>
 /// Bengali script -> Latin transliteration tuned for how medicine brand names (mostly English loanwords) are written in
-/// Bangla. The inherent vowel is NOT emitted (loanword spellings rarely pronounce it: "সেকলো" -> "seklo"); the
-/// phonetic similarity treats missing vowels as cheap edits. Ya-phala + aa ("ক্যা") becomes "a" as in English "cat".
-/// Input must be NFC-normalised (NFC decomposes ড়/ঢ়/য় into base + nukta, which is handled here).
+/// Bangla. The inherent vowel is normally NOT emitted (loanword spellings rarely pronounce it: "সেকলো" -> "seklo"), with
+/// two exceptions where Bangla pronunciation keeps it: a word-initial consonant directly followed by another consonant
+/// ("মন্টেয়ার" -> "monteyar", "কমেট" -> "komet") and the consonant before a bare word-final consonant ("নেবানল" ->
+/// "nebanol"). The phonetic similarity treats vowel differences as cheap edits. Ya-phala + aa ("ক্যা") becomes "a" as in
+/// English "cat". Input must be NFC-normalised (NFC decomposes ড়/ঢ়/য় into base + nukta, which is handled here).
 /// </summary>
 public static class BanglaTransliterator
 {
@@ -76,6 +78,11 @@ public static class BanglaTransliterator
                 }
 
                 sb.Append(consonant);
+                if (KeepsInherentVowel(text, i))
+                {
+                    sb.Append('o');
+                }
+
                 continue;
             }
 
@@ -120,4 +127,31 @@ public static class BanglaTransliterator
 
         return sb.ToString();
     }
+
+    /// <summary>
+    /// True when the bare consonant at <paramref name="i"/> (no vowel sign, no virama, no nukta after it) is pronounced
+    /// with its inherent vowel: word-initial and followed by a consonant, or followed by a bare word-final consonant.
+    /// </summary>
+    private static bool KeepsInherentVowel(string text, int i)
+    {
+        int next = i + 1;
+        if (next >= text.Length || !IsConsonant(text[next]))
+        {
+            return false; // vowel sign, virama, nukta, end of word or non-Bengali text follows
+        }
+
+        bool wordInitial = i == 0 || !IsBengaliLetterOrMark(text[i - 1]);
+        if (wordInitial)
+        {
+            return true;
+        }
+
+        // Next consonant is the last letter of the word and carries no vowel sign / virama / nukta.
+        int after = next + 1;
+        return after >= text.Length || !IsBengaliLetterOrMark(text[after]);
+    }
+
+    private static bool IsConsonant(char c) => Consonants.ContainsKey(c);
+
+    private static bool IsBengaliLetterOrMark(char c) => c is >= 'ঀ' and <= '৿' && c is not (>= '০' and <= '৯');
 }

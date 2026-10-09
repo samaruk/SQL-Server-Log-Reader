@@ -22,11 +22,33 @@ public static class SearchDecisionPolicy
 
         var top = ranked[0];
         var close = ranked.Where(c => c.Score >= top.Score - thresholds.AmbiguityMargin).ToList();
+        // An approximate name match below the configured similarity is shown only as a weak suggestion.
+        bool weakFuzzy = top.NameMatch == MatchKind.Fuzzy && thresholds.MinFuzzyConfirmNameScore > 0 && top.NameScore < thresholds.MinFuzzyConfirmNameScore;
         string topBrand = TextNormalizer.Compact(TextNormalizer.Normalize(top.Product.BrandName));
+        // The spoken name exists exactly in the catalog, but the best result is a different, similar-sounding name
+        // (typically because the exact brand lacks the requested strength or form): never offer the other name.
+        // Exact spelling outranks a sound-alike: if the spoken name is a catalog name (by spelling, or by sound when the top
+        // result is only similar), a different name must not be offered in its place.
+        var exactName = ranked
+            .Where(c => c.NameMatch >= MatchKind.ExactPhonetic && IsNameField(c) && BrandKey(c) != topBrand)
+            .OrderByDescending(c => c.NameMatch)
+            .FirstOrDefault();
+        bool otherNameOverExact = exactName is not null && top.NameMatch < exactName.NameMatch;
+        // The spoken name has more words than the top match explains and those words form another catalog name exactly
+        // ("Napa Extend 500" when only "Napa 500" and "Napa Extend 665" exist): the shorter name is a different product.
+        var fullerName = ranked.FirstOrDefault(c => c.NameMatch >= MatchKind.ExactPhonetic && IsNameField(c) &&
+                                                    c.NameCoverage > top.NameCoverage + 1e-9 && BrandKey(c) != topBrand);
+        bool partialOverFuller = top.NameCoverage < 0.999 && fullerName is not null;
 
         SearchDecision decision;
         string explanation;
-        if (top.StrengthMatch == AttributeMatch.Mismatch || top.FormMatch == AttributeMatch.Mismatch)
+        if (otherNameOverExact || partialOverFuller)
+        {
+            var asked = (otherNameOverExact ? exactName : fullerName)!;
+            decision = SearchDecision.LowConfidence;
+            explanation = $"{asked.Product.BrandName} is in the catalog but not as requested; other products are shown only for you to check.";
+        }
+        else if (top.StrengthMatch == AttributeMatch.Mismatch || top.FormMatch == AttributeMatch.Mismatch)
         {
             // Checked first: a different strength/form must never be offered as the product that was asked for.
             decision = SearchDecision.LowConfidence;
@@ -34,7 +56,7 @@ public static class SearchDecisionPolicy
                 ? $"No {top.Product.BrandName} with the requested strength was found. Other strengths are shown for you to check."
                 : $"No {top.Product.BrandName} in the requested form was found. Other forms are shown for you to check.";
         }
-        else if (close.Count > 1)
+        else if (close.Count > 1 && top.Score >= thresholds.MinConfirmScore && !weakFuzzy)
         {
             bool sameBrand = close.All(c => TextNormalizer.Compact(TextNormalizer.Normalize(c.Product.BrandName)) == topBrand);
             decision = SearchDecision.Ambiguous;
@@ -44,15 +66,20 @@ public static class SearchDecisionPolicy
                     ? $"{close.Count} products contain {top.Product.GenericName}. Please choose the brand."
                     : $"{close.Count} products sound similar. Please choose the right one.";
         }
-        else if (top.Score >= thresholds.ConfidentScore && top.NameMatch >= MatchKind.ExactPhonetic)
+        else if (top.Score >= thresholds.ConfidentScore && top.NameMatch >= MatchKind.ExactPhonetic && top.MatchedReading is null
+                 && top.FormMatch != AttributeMatch.Compatible)
         {
             decision = SearchDecision.Confident;
             explanation = $"Matched {Label(top.Product)}.";
         }
-        else if (top.Score >= 0.75)
+        else if (top.Score >= thresholds.MinConfirmScore && !weakFuzzy)
         {
             decision = SearchDecision.NeedsConfirmation;
-            explanation = $"Closest match: {Label(top.Product)}. Please confirm.";
+            explanation = top.MatchedReading is not null
+                ? $"Closest match for another reading of your words (\"{top.MatchedReading}\"): {Label(top.Product)}. Please confirm."
+                : top.NameMatch == MatchKind.Fuzzy
+                    ? $"Similar name: {Label(top.Product)}. Please confirm it is the medicine you meant."
+                    : $"Closest match: {Label(top.Product)}. Please confirm.";
         }
         else
         {
@@ -79,6 +106,10 @@ public static class SearchDecisionPolicy
             : (IReadOnlyList<ClarificationOption>)[];
         return (decision, options, explanation);
     }
+
+    private static bool IsNameField(MedicineCandidate c) => c.MatchedField is "brand" or "local name" or "alias";
+
+    private static string BrandKey(MedicineCandidate c) => TextNormalizer.Compact(TextNormalizer.Normalize(c.Product.BrandName));
 
     public static string Label(MedicineProduct p)
     {

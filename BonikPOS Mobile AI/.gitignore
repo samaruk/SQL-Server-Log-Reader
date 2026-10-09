@@ -11,3 +11,6 @@ models/speaker-extra/
 # Python virtual environments used by tools/models
 .venv/
 __pycache__/
+
+# Generated evaluation data (deterministic; regenerate with tools/BonikPOS.VoiceSearch.Evaluation make-catalog)
+eval/data/

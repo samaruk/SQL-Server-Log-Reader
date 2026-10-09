@@ -67,6 +67,36 @@ public static class MedicineVocabulary
         "খুজুন", "দেখুন", "দেখো", "দেখেন", "স্টকে", "প্লিজ", "ভাই", "আপা", "তো", "হবে", "একটু", "একটা", "একটি", "জন্য",
         "দরকার", "রোগীর", "কোনটা", "কোন", "আছেন");
 
+    /// <summary>
+    /// Everyday conversational words (greetings, thanks, questions, prices, pronouns, time words) in English, Banglish and
+    /// Bangla. A query window made only of these words may match a brand exactly but never approximately, so that
+    /// counter-side conversation ("thank you very much", "ki khobor") is not turned into similar-sounding brands.
+    /// </summary>
+    private static readonly HashSet<string> ConversationalWords = BuildSet(
+        // English
+        "hello", "hi", "hey", "thanks", "thank", "very", "much", "many", "how", "what", "where", "when", "why", "who", "which",
+        "price", "cost", "money", "change", "bill", "receipt", "minute", "minutes", "wait", "sorry", "yes", "no", "ok", "okay",
+        "fine", "good", "morning", "evening", "night", "tomorrow", "today", "yesterday", "welcome", "bye", "goodbye", "sir",
+        "madam", "brother", "sister", "customer", "door", "phone", "call", "manager", "problem", "sure", "right", "wrong",
+        "great", "nice", "again", "later", "now", "here", "this", "that", "close", "open", "it", "was", "were", "be", "been", "will", "would",
+        "can", "could", "should", "your", "his", "her", "our", "their", "they", "he", "she", "mine", "yours", "all", "more",
+        "less", "too", "also", "just", "only", "really", "well", "lot", "little", "time", "day", "week", "month", "year",
+        "come", "go", "going", "see", "you", "tell", "say", "said", "know", "think", "take", "pay", "cash", "card",
+        // Banglish
+        "khobor", "kemon", "acho", "achen", "achhen", "bhalo", "valo", "dhonnobad", "thik", "accha", "achha", "acha", "haa", "ha",
+        "na", "nai", "nei", "taka", "dam", "koto", "kobe", "kothay", "keno", "ke", "kar", "tomar", "apnar", "apni", "tumi", "ami",
+        "ashben", "ashbo", "jabo", "jan", "jao", "aso", "ashen", "dekhi", "shob", "sob", "kichu", "onek", "aro", "abar", "pore",
+        "age", "kal", "aj", "ajke", "kalke", "shokal", "bikal", "raat", "mama", "chacha", "khala", "ji", "jee", "daran",
+        "dibo", "nibo", "korbo", "holo", "hoyeche", "bkash", "nagad",
+        // Bangla
+        "খবর", "কেমন", "আছো", "ভালো", "ধন্যবাদ", "ঠিক", "আচ্ছা", "হ্যাঁ", "না", "নাই", "নেই", "টাকা", "দাম", "কত", "কবে",
+        "কোথায়", "কেন", "কে", "আমি", "তুমি", "আপনি", "তোমার", "আপনার", "আসবেন", "আসেন", "যাবো", "দেখি", "সব", "কিছু", "অনেক",
+        "আরো", "আবার", "পরে", "আগে", "কাল", "আজ", "আজকে", "কালকে", "সকাল", "বিকাল", "রাত", "মামা", "চাচা", "খালা", "জি",
+        "দাঁড়ান", "দিবো", "নিবো", "করবো", "হলো", "হয়েছে", "তারিখ", "বৃষ্টি", "আবহাওয়া", "পানি", "চা", "খাবেন");
+
+    /// <summary>True for everyday conversational words that must not be matched approximately to brand names.</summary>
+    public static bool IsConversational(string token) => ConversationalWords.Contains(token);
+
     public static bool TryUnit(IReadOnlyList<string> tokens, int index, out StrengthUnit unit, out int consumed)
     {
         consumed = 0;
@@ -161,7 +191,29 @@ public static class MedicineVocabulary
         return DosageFormCategory.Other;
     }
 
-    /// <summary>Forms the owner may use interchangeably for the same product (e.g. "syrup" for an oral suspension).</summary>
+    /// <summary>
+    /// Every form category a catalog dosage-form string mentions, e.g. "Powder for Suspension" -> Suspension and Powder,
+    /// "Chewable Tablet" -> Tablet. Used so that the owner may name either part.
+    /// </summary>
+    public static IReadOnlyList<DosageFormCategory> CatalogFormMentions(string? dosageForm)
+    {
+        var result = new List<DosageFormCategory>();
+        foreach (var token in TextNormalizer.Tokenize(TextNormalizer.Normalize(dosageForm)))
+        {
+            if (TryForm(token, out var f) && !result.Contains(f))
+            {
+                result.Add(f);
+            }
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Forms an owner commonly names interchangeably for the same product: only oral liquids ("syrup" for an oral
+    /// suspension or solution). Topical forms (cream/ointment/gel/lotion) and injection/infusion are different products
+    /// and are reported as a form mismatch. A compatible-but-different form is never a "Confident" match.
+    /// </summary>
     public static bool AreCompatible(DosageFormCategory a, DosageFormCategory b)
     {
         if (a == b)
@@ -169,16 +221,8 @@ public static class MedicineVocabulary
             return true;
         }
 
-        static int Group(DosageFormCategory c) => c switch
-        {
-            DosageFormCategory.Syrup or DosageFormCategory.Suspension or DosageFormCategory.Solution => 1,
-            DosageFormCategory.Cream or DosageFormCategory.Ointment or DosageFormCategory.Gel or DosageFormCategory.Lotion => 2,
-            DosageFormCategory.Injection or DosageFormCategory.Infusion => 3,
-            _ => 0,
-        };
-
-        int g = Group(a);
-        return g != 0 && g == Group(b);
+        static bool OralLiquid(DosageFormCategory c) => c is DosageFormCategory.Syrup or DosageFormCategory.Suspension or DosageFormCategory.Solution;
+        return OralLiquid(a) && OralLiquid(b);
     }
 
     private static Dictionary<string, T> Build<T>(Dictionary<string, T> source)

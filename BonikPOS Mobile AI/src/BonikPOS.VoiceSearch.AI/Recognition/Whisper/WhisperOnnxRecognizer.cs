@@ -120,11 +120,22 @@ public sealed class WhisperOnnxRecognizer : ISpeechRecognitionService
 
     private SpeechRecognitionResult Recognize(ReadOnlyMemory<float> audio, SpeechRecognitionOptions options, CancellationToken token)
     {
-        var d = Decode(audio.Span, options.LanguageMode, options.MaxTokens, repetitionGuard: true, token);
+        var d = Decode(audio.Span, options.LanguageMode, options.MaxTokens, repetitionGuard: true, token, options.AlternativeLanguageBelow);
         string text = _vocabulary.Decode(d.Tokens, _config.Eot).Trim();
-        if (d.NoSpeechProbability > NoSpeechThreshold && d.AverageLogProbability < LogProbThreshold)
+        bool silence = d.NoSpeechProbability > NoSpeechThreshold && d.AverageLogProbability < LogProbThreshold;
+        if (silence)
         {
             text = string.Empty; // Whisper's silence rule: likely no speech, do not trust the hypothesis.
+        }
+
+        var alternatives = new List<RecognitionAlternative>();
+        if (!silence && d.Alternative is { Tokens.Count: > 0 } alt)
+        {
+            string altText = _vocabulary.Decode(alt.Tokens, _config.Eot).Trim();
+            if (altText.Length > 0 && !string.Equals(altText, text, StringComparison.Ordinal))
+            {
+                alternatives.Add(new RecognitionAlternative(altText, alt.Language, Math.Clamp(Math.Exp(alt.AverageLogProbability), 0, 1)));
+            }
         }
 
         double confidence = d.Tokens.Count > 0 ? Math.Clamp(Math.Exp(d.AverageLogProbability), 0, 1) : 0;
@@ -134,12 +145,20 @@ public sealed class WhisperOnnxRecognizer : ISpeechRecognitionService
         return new SpeechRecognitionResult(
             text, d.Language, confidence, d.AverageLogProbability, d.NoSpeechProbability, d.Tokens.Count,
             TimeSpan.FromSeconds((double)audio.Length / 16000), d.FeatureTime, d.EncoderTime, d.DecoderTime,
-            _config.ModelId, d.Truncated);
+            _config.ModelId, d.Truncated)
+        {
+            Alternatives = alternatives,
+        };
     }
 
-    /// <summary>Token-level greedy decoding (exposed for parity tests against the PyTorch reference).</summary>
+    /// <summary>
+    /// Token-level greedy decoding (exposed for parity tests against the PyTorch reference). In automatic Bangla/English
+    /// mode, when the chosen language's probability is below <paramref name="alternativeLanguageBelow"/>, the other
+    /// language is decoded too from the same encoder output and start-of-transcript cache.
+    /// </summary>
     internal WhisperDecodeResult Decode(
-        ReadOnlySpan<float> audio, RecognitionLanguageMode mode, int maxTokens, bool repetitionGuard, CancellationToken token)
+        ReadOnlySpan<float> audio, RecognitionLanguageMode mode, int maxTokens, bool repetitionGuard, CancellationToken token,
+        double alternativeLanguageBelow = 0)
     {
         var total = Stopwatch.StartNew();
         int maxSamples = _config.Frames * WhisperLogMel.HopLength;
@@ -154,31 +173,53 @@ public sealed class WhisperOnnxRecognizer : ISpeechRecognitionService
         var crossK = encoded[0];
         var crossV = encoded[1];
 
+        using var empty = OrtValue.CreateAllocatedTensorValue(
+            OrtAllocator.DefaultInstance, TensorElementType.Float, [_config.TextLayers, 1, 0, _config.TextState]);
+
+        // 1) <|startoftranscript|> alone: language logits and the no-speech probability (as whisper.decode does).
+        //    Its cache is kept for a possible second-language decode.
+        using var sot = Step([_config.Sot], empty, empty, crossK, crossV);
+        ReadLogits(sot);
+        string language = ChooseLanguage(mode);
+        double noSpeech = Softmax(_logits, _config.NoSpeech);
+        var languageLogits = _config.Languages.Where(p => p.Key is "bn" or "en").ToDictionary(p => p.Key, p => (double)_logits[p.Value]);
+
+        // 2) language, task and no-timestamps tokens, then greedy decoding one token per step.
+        var primary = Greedy(sot, language, crossK, crossV, maxTokens, repetitionGuard, token);
+        WhisperHypothesis? alternative = null;
+        if (mode == RecognitionLanguageMode.AutoBanglaEnglish && alternativeLanguageBelow > 0 && languageLogits.Count == 2
+            && PairProbability(languageLogits, language) < alternativeLanguageBelow)
+        {
+            alternative = Greedy(sot, language == "bn" ? "en" : "bn", crossK, crossV, maxTokens, repetitionGuard, token);
+        }
+
+        var decoderTime = total.Elapsed - featureTime - encoderTime;
+        return new WhisperDecodeResult(primary.Tokens, primary.LogProbabilities, language, languageLogits, noSpeech, primary.AverageLogProbability,
+            truncated || primary.HitLimit, featureTime, encoderTime, decoderTime)
+        {
+            Alternative = alternative,
+        };
+    }
+
+    /// <summary>Greedy decoding for one language from the start-of-transcript cache (which is not disposed here).</summary>
+    private WhisperHypothesis Greedy(
+        IDisposableReadOnlyCollection<OrtValue> sot, string language, OrtValue crossK, OrtValue crossV, int maxTokens, bool repetitionGuard, CancellationToken token)
+    {
+        int[] next = [_config.Languages[language], _config.Transcribe, _config.NoTimestamps];
+        var tokens = new List<int>(maxTokens);
+        var logProbs = new List<double>(maxTokens);
+        int maxSteps = Math.Min(maxTokens, _config.TextContext / 2);
+        bool ended = false;
         IDisposableReadOnlyCollection<OrtValue>? state = null;
         try
         {
-            using var empty = OrtValue.CreateAllocatedTensorValue(
-                OrtAllocator.DefaultInstance, TensorElementType.Float, [_config.TextLayers, 1, 0, _config.TextState]);
-
-            // 1) <|startoftranscript|> alone: language logits and the no-speech probability (as whisper.decode does).
-            state = Step([_config.Sot], empty, empty, crossK, crossV);
-            ReadLogits(state);
-            string language = ChooseLanguage(mode);
-            double noSpeech = Softmax(_logits, _config.NoSpeech);
-            var languageLogits = _config.Languages.Where(p => p.Key is "bn" or "en").ToDictionary(p => p.Key, p => (double)_logits[p.Value]);
-
-            // 2) language, task and no-timestamps tokens, then greedy decoding one token per step.
-            int[] next = [_config.Languages[language], _config.Transcribe, _config.NoTimestamps];
-            var tokens = new List<int>(maxTokens);
-            var logProbs = new List<double>(maxTokens);
-            int maxSteps = Math.Min(maxTokens, _config.TextContext / 2);
-            bool ended = false;
             for (int step = 0; step < maxSteps; step++)
             {
                 token.ThrowIfCancellationRequested();
-                var previous = state;
-                state = Step(next, previous[1], previous[2], crossK, crossV);
-                previous.Dispose();
+                var source = state ?? sot;
+                var current = Step(next, source[1], source[2], crossK, crossV);
+                state?.Dispose(); // the previous step's cache (never the start-of-transcript cache)
+                state = current;
                 ReadLogits(state);
                 (int best, double logProb) = Pick(step == 0);
                 if (best == _config.Eot)
@@ -196,16 +237,22 @@ public sealed class WhisperOnnxRecognizer : ISpeechRecognitionService
 
                 next = [best];
             }
-
-            double avg = logProbs.Count > 0 ? logProbs.Average() : double.NegativeInfinity;
-            var decoderTime = total.Elapsed - featureTime - encoderTime;
-            return new WhisperDecodeResult(tokens, logProbs, language, languageLogits, noSpeech, avg,
-                truncated || (!ended && tokens.Count >= maxSteps), featureTime, encoderTime, decoderTime);
         }
         finally
         {
             state?.Dispose();
         }
+
+        double avg = logProbs.Count > 0 ? logProbs.Average() : double.NegativeInfinity;
+        return new WhisperHypothesis(tokens, logProbs, language, avg, !ended && tokens.Count >= maxSteps);
+    }
+
+    /// <summary>Probability of <paramref name="language"/> between the two candidate languages (softmax of two logits).</summary>
+    private static double PairProbability(IReadOnlyDictionary<string, double> logits, string language)
+    {
+        double max = logits.Values.Max();
+        double sum = logits.Values.Sum(l => Math.Exp(l - max));
+        return Math.Exp(logits[language] - max) / sum;
     }
 
     /// <summary>
@@ -396,4 +443,11 @@ internal sealed record WhisperDecodeResult(
     bool Truncated,
     TimeSpan FeatureTime,
     TimeSpan EncoderTime,
-    TimeSpan DecoderTime);
+    TimeSpan DecoderTime)
+{
+    /// <summary>Second-language hypothesis when language detection was uncertain.</summary>
+    public WhisperHypothesis? Alternative { get; init; }
+}
+
+internal sealed record WhisperHypothesis(
+    IReadOnlyList<int> Tokens, IReadOnlyList<double> LogProbabilities, string Language, double AverageLogProbability, bool HitLimit);
