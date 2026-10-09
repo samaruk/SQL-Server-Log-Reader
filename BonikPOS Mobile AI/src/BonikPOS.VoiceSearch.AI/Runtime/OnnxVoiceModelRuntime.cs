@@ -219,8 +219,10 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
 
             return status;
         }
-        catch (Exception ex) when (ex is ModelContractException or Microsoft.ML.OnnxRuntime.OnnxRuntimeException or IOException or FormatException)
+        catch (Exception ex) when (ex is not OperationCanceledException)
         {
+            // A broken model package (bad config JSON, a manifest without an expected file entry, an unsupported tensor
+            // layout, unreadable files, ...) leaves only this component unavailable; it must not fail the other models.
             var state = ex is ModelContractException ? ModelState.IncompatibleContract : ModelState.LoadFailed;
             _models.ReportFailure(role, state, ex.Message);
             _logger.LogError(ex, "Loading {Role} model {Id} failed", role, model.Descriptor.Id);
