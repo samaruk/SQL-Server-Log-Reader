@@ -187,10 +187,23 @@ public sealed class VoiceSearchPipeline : IVoiceSearchPipeline
             _sessionCts = cts;
             var activeExtractor = extractor;
             var token = cts.Token;
-            var captureLoop = Task.Run(() => CaptureLoopAsync(segmenter, activeExtractor, queue.Writer, settings, token), CancellationToken.None);
+            string listening = DescribeExtraction(extractor.Status);
+
+            // The capture worker starts only once the session is registered (task stored, state Listening). Otherwise a
+            // stream that ends at once could finish the session first, leaving a stale session task behind and the
+            // pipeline stuck in Listening/Stopping. The recognition worker cannot finish before the capture worker.
+            var registered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            var captureLoop = Task.Run(
+                async () =>
+                {
+                    await registered.Task.ConfigureAwait(false);
+                    await CaptureLoopAsync(segmenter, activeExtractor, queue.Writer, settings, token).ConfigureAwait(false);
+                },
+                CancellationToken.None);
             var recognitionLoop = Task.Run(() => RecognitionLoopAsync(queue.Reader, options, token), CancellationToken.None);
             _sessionTask = FinishSessionAsync(captureLoop, recognitionLoop, detector, extractor, cts);
-            SetState(PipelineState.Listening, DescribeExtraction(extractor.Status));
+            SetState(PipelineState.Listening, listening);
+            registered.SetResult();
         }
         catch (Exception ex)
         {
@@ -529,7 +542,8 @@ public sealed class VoiceSearchPipeline : IVoiceSearchPipeline
     {
         lock (_gate)
         {
-            if (_state == state)
+            // A stop requested just as the session ended on its own must not move the finished pipeline back to Stopping.
+            if (_state == state || (state == PipelineState.Stopping && _state is PipelineState.Idle or PipelineState.Faulted))
             {
                 return;
             }
