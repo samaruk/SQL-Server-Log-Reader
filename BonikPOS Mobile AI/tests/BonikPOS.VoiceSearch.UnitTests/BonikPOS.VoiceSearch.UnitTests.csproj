@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Fast, deterministic unit tests (xunit v3 on Microsoft.Testing.Platform). No real ONNX model or audio fixture is
+    needed: tiny ONNX graphs are generated in code (TestSupport/OnnxGraphBuilder.cs) and audio is synthesised.
+    Run: dotnet test (MTP mode via global.json) or dotnet run - - the project is an executable.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>BonikPOS.VoiceSearch.UnitTests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Core\BonikPOS.VoiceSearch.Core.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Audio\BonikPOS.VoiceSearch.Audio.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.AI\BonikPOS.VoiceSearch.AI.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.MedicineSearch\BonikPOS.VoiceSearch.MedicineSearch.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Infrastructure\BonikPOS.VoiceSearch.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\BonikPOS.VoiceSearch.Presentation\BonikPOS.VoiceSearch.Presentation.csproj" />
+  </ItemGroup>
+</Project>
