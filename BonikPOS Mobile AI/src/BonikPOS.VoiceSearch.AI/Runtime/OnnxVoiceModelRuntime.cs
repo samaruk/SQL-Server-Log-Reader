@@ -206,6 +206,14 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
                 throw new ModelContractException(msg);
             }
 
+            if (!_allowTestFixtures && UntrainedWeights(tse.Loaded.Session) is { } weights)
+            {
+                // Exports from tools/models/tse record how their weights were made; random or smoke-test graphs must
+                // never be presented as working extraction, whatever the manifest says.
+                tse.Dispose();
+                throw new ModelContractException($"TSE model {model.Descriptor.Id} declares untrained weights ({weights}); it is a test model and is not used.");
+            }
+
             _tse = tse;
             return new ComponentStatus(true, model.Descriptor.Id, tse.Description, tse.Loaded.ExecutionProvider, tse.Loaded.InitMilliseconds);
         }, messages, token);
@@ -225,6 +233,12 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
             }
 
             var whisper = WhisperOnnxRecognizer.Load(model, preferences, _telemetry, _logger);
+            if (!_allowTestFixtures && whisper.IsRandomTestModel)
+            {
+                whisper.Dispose();
+                throw new ModelContractException($"Speech-recognition model {model.Descriptor.Id} is a random-weight test export (config source); it is not used.");
+            }
+
             _recognizer = whisper;
             return new ComponentStatus(true, whisper.Info.ModelId, whisper.Info.Description, whisper.EncoderExecutionProvider, whisper.InitMilliseconds);
         }, messages, token);
@@ -235,6 +249,13 @@ public sealed class OnnxVoiceModelRuntime : IVoiceModelRuntime
 
         Status = new VoiceModelRuntimeStatus(true, vadStatus, encoderStatus, tseStatus, asrStatus, messages);
     }
+
+    /// <summary>The "bonik.weights" metadata of exports from tools/models/tse when it is anything but "trained:…"; otherwise null.</summary>
+    internal static string? UntrainedWeights(Microsoft.ML.OnnxRuntime.InferenceSession session) =>
+        session.ModelMetadata.CustomMetadataMap.TryGetValue("bonik.weights", out var weights)
+        && !weights.StartsWith("trained:", StringComparison.Ordinal)
+            ? weights
+            : null;
 
     private ComponentStatus Load(ModelRole role, Func<ResolvedModel, ComponentStatus> load, List<string> messages, CancellationToken token)
     {

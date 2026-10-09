@@ -91,7 +91,7 @@ public static class MauiProgram
             ct => sp.GetRequiredService<SettingsService>().LoadAsync(ct), sp.GetRequiredService<ILogger<PipelineBenchmark>>())
         {
             DeviceDescription = () => $"{DeviceInfo.Current.Manufacturer} {DeviceInfo.Current.Model} ({DeviceInfo.Current.Platform} {DeviceInfo.Current.VersionString}); " +
-                                      PipelineBenchmarkReport.DescribeRuntime(),
+                                      PipelineBenchmarkReport.DescribeRuntime() + BuildKind,
         });
 
         // UI services.
@@ -105,6 +105,13 @@ public static class MauiProgram
         services.AddSingleton<IAppInfoService, MauiAppInfoService>();
         services.AddSingleton<IDeviceStatusService, MauiDeviceStatusService>();
     }
+
+#if DEBUG
+    // Debug builds run managed code in the Mono interpreter (Hot Reload): C# signal processing and search are slower.
+    private const string BuildKind = "; DEBUG build - managed code interpreted, use a Release build for reported numbers";
+#else
+    private const string BuildKind = "; Release build";
+#endif
 
     private static void RegisterViews(IServiceCollection services)
     {

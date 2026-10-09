@@ -19,7 +19,7 @@ silently substitutes a different medicine. All audio is processed on the phone.
 | BonikPOS backend | Configurable API adapter (URL, auth, field names); a clearly labelled demo catalog is the default | [BACKEND_INTEGRATION.md](docs/BACKEND_INTEGRATION.md) |
 | Privacy | Consent, local processing, no raw recordings kept, encrypted profile/history, deletion, ONNX Runtime telemetry disabled | [PRIVACY.md](docs/PRIVACY.md) |
 | Performance | Measured on the development host only; in-app benchmark ready for phones | [BENCHMARKS.md](docs/BENCHMARKS.md) |
-| Tests | 410 unit + 39 integration tests passing | [TEST_RESULTS.md](docs/TEST_RESULTS.md) |
+| Tests | 414 unit + 41 integration tests passing | [TEST_RESULTS.md](docs/TEST_RESULTS.md) |
 
 ## Quick start
 
@@ -59,8 +59,8 @@ src/
   BonikPOS.VoiceSearch.Presentation/    view models (MVVM), UI services
   BonikPOS.VoiceSearch.App/             MAUI app: pages, DI composition, platform services
 tests/
-  BonikPOS.VoiceSearch.UnitTests/       410 tests
-  BonikPOS.VoiceSearch.IntegrationTests/ 39 tests (real models, parity with Python references)
+  BonikPOS.VoiceSearch.UnitTests/       414 tests
+  BonikPOS.VoiceSearch.IntegrationTests/ 41 tests (real models, parity with Python references)
   fixtures/                             synthetic audio, reference values, random-weight test models
 tools/
   BonikPOS.VoiceSearch.Evaluation/      search evaluation, synthetic catalog, pipeline/ASR/TSE benchmarks

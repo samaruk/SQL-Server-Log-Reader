@@ -24,7 +24,7 @@ public sealed class PgtcrnStftAdapterTests(ITestOutputHelper output) : IDisposab
 
     private static string Fixture(string name) => Path.Combine(SolutionPaths.Fixtures, "tse", name);
 
-    private async Task<OnnxVoiceModelRuntime> RuntimeAsync()
+    private async Task<OnnxVoiceModelRuntime> RuntimeAsync(bool flaggedAsTestFixture = true, bool allowTestFixtures = true)
     {
         Directory.CreateDirectory(_dir.File("tse"));
         File.Copy(Fixture(ModelFile), _dir.File($"tse/{ModelFile}"), overwrite: true);
@@ -32,13 +32,13 @@ public sealed class PgtcrnStftAdapterTests(ITestOutputHelper output) : IDisposab
         string sha = readme.RootElement.GetProperty("model").GetProperty("sha256").GetString()!;
         File.WriteAllText(_dir.File("models.json"), $$$"""
             {"format": "bonikpos-models/1", "models": [{"id": "pgtcrn-random-fixture", "version": "1", "role": "TargetSpeakerExtraction",
-              "format": "streaming-tse-stft-onnx/1", "files": {"model": "tse/{{{ModelFile}}}"}, "isTestFixture": true,
+              "format": "streaming-tse-stft-onnx/1", "files": {"model": "tse/{{{ModelFile}}}"}, "isTestFixture": {{{(flaggedAsTestFixture ? "true" : "false")}}},
               "sha256": {"tse/{{{ModelFile}}}": "{{{sha}}}"},
               "options": {"embedding_dim": 256, "required_encoder_id": "ge2e-resemblyzer"}}]}
             """);
         // The fixture first, then the bundled models (the GE2E encoder the fixture is declared for).
         var provider = new FileSystemModelProvider([_dir.Path, SolutionPaths.Models], checksumCachePath: null);
-        var runtime = new OnnxVoiceModelRuntime(provider, new PerformanceTelemetry(), allowTestFixtures: true);
+        var runtime = new OnnxVoiceModelRuntime(provider, new PerformanceTelemetry(), allowTestFixtures: allowTestFixtures);
         await runtime.InitializeAsync(new VoiceSearchSettings(), CancellationToken.None);
         return runtime;
     }
@@ -135,6 +135,21 @@ public sealed class PgtcrnStftAdapterTests(ITestOutputHelper output) : IDisposab
 
         Assert.False(extractor.Status.IsActive);
         Assert.Equal(input, passThrough); // never presented as "extracted"
+    }
+
+    [Fact]
+    public async Task UntrainedGraph_IsRefusedByTheApp_EvenWhenTheManifestDoesNotFlagIt()
+    {
+        // The export records "bonik.weights" = "RANDOM-UNTRAINED ..." in the ONNX metadata; the app must not show it as
+        // working extraction just because a manifest forgot "isTestFixture".
+        using var runtime = await RuntimeAsync(flaggedAsTestFixture: false, allowTestFixtures: false);
+
+        Assert.False(runtime.Status.TargetSpeakerExtraction.Available);
+        Assert.Contains("untrained weights", runtime.Status.TargetSpeakerExtraction.Description, StringComparison.Ordinal);
+        Assert.True(runtime.Status.SpeakerEncoder.Available); // the other models still load
+        using var extractor = runtime.CreateTargetSpeakerExtractor();
+        extractor.SetTarget(new SpeakerEmbedding("ge2e-resemblyzer", "0.1.4", SolutionPaths.ReadF32(Fixture("pgtcrn-fixture-embedding.f32"))));
+        Assert.False(extractor.Status.IsActive);
     }
 
     [Fact]

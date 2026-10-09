@@ -72,6 +72,32 @@ public sealed class BonikPosApiCatalogSourceTests : IDisposable
     }
 
     [Fact]
+    public async Task ServerThatIgnoresThePageParameter_StopsAtTheFirstRepeatedPage_WithAWarning()
+    {
+        // Every request returns the same full page: without the check this would request 2000 pages.
+        _handler.Fallback = (_, _) => Task.FromResult(StubHttpMessageHandler.Json($$"""{"items": [{{Item("P1", "Napa")}}, {{Item("P2", "Ace")}}]}"""));
+
+        var snapshot = await Source().LoadAsync(Ct);
+
+        Assert.Equal(["P1", "P2"], snapshot.Products.Select(p => p.ProductId));
+        Assert.Equal(2, _handler.Requests.Count);
+        Assert.Contains(snapshot.Warnings, w => w.Contains("repeated products already received", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task ShortFirstPageWithoutHasMore_IsLoaded_WithAWarningThatTheServerMayLimitThePageSize()
+    {
+        _handler.RespondJson($$"""{"items": [{{Item("P1", "Napa")}}]}""");
+
+        var snapshot = await Source(Settings(pageSize: 500)).LoadAsync(Ct);
+
+        Assert.Single(snapshot.Products);
+        Assert.Single(_handler.Requests);
+        var warning = Assert.Single(snapshot.Warnings);
+        Assert.Contains("1 product in one page (500 requested)", warning, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public async Task AnEmptyPage_EndsPaging_EvenIfTheServerClaimsMore()
     {
         _handler.RespondJson($$"""{"items": [{{Item("P1", "Napa")}}, {{Item("P2", "Ace")}}], "hasMore": true}""")
@@ -317,6 +343,37 @@ public sealed class BonikPosApiCatalogSourceTests : IDisposable
     }
 
     [Fact]
+    public async Task BodyThatStopsArriving_IsRetried_ThenReportedAsAnApiError_SoTheCacheCanBeUsed()
+    {
+        // HttpClient's timeout cancels the body read with an exception the caller did not request.
+        _handler.Fallback = (_, _) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StreamContent(new BrokenStream(new TaskCanceledException("body timed out"))),
+        });
+
+        var ex = await Assert.ThrowsAsync<CatalogUnavailableException>(() => Source(Settings(retries: 1)).FetchAllAsync(Ct));
+
+        Assert.Contains("did not finish sending the catalog within 30 s", ex.Message);
+        Assert.Equal(2, _handler.Requests.Count);
+        Assert.Single(_delays);
+    }
+
+    [Fact]
+    public async Task ConnectionDroppedWhileReadingTheBody_IsRetried_AndTheRetryCanSucceed()
+    {
+        _handler.Respond((_, _) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StreamContent(new BrokenStream(new IOException("Connection reset by peer"))),
+            }))
+            .RespondJson($$"""{"items": [{{Item("P1", "Napa")}}]}""");
+
+        var products = await Source().FetchAllAsync(Ct);
+
+        Assert.Equal(["P1"], products.Select(p => p.ProductId));
+        Assert.Equal(2, _handler.Requests.Count);
+    }
+
+    [Fact]
     public async Task FailedSyncWithoutACache_Throws()
     {
         _handler.Fallback = (_, _) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.InternalServerError));
@@ -324,6 +381,40 @@ public sealed class BonikPosApiCatalogSourceTests : IDisposable
         await Assert.ThrowsAsync<CatalogUnavailableException>(() => Source(cache: new FileCatalogCache(_dir.AppPaths())).LoadAsync(Ct));
         await Assert.ThrowsAsync<CatalogUnavailableException>(() => Source(cache: null).LoadAsync(Ct));
     }
+}
+
+/// <summary>A response body whose every read fails with the given exception.</summary>
+internal sealed class BrokenStream(Exception error) : Stream
+{
+    public override bool CanRead => true;
+
+    public override bool CanSeek => false;
+
+    public override bool CanWrite => false;
+
+    public override long Length => throw new NotSupportedException();
+
+    public override long Position
+    {
+        get => throw new NotSupportedException();
+        set => throw new NotSupportedException();
+    }
+
+    public override int Read(byte[] buffer, int offset, int count) => throw error;
+
+    public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => Task.FromException<int>(error);
+
+    public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default) => ValueTask.FromException<int>(error);
+
+    public override void Flush()
+    {
+    }
+
+    public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+
+    public override void SetLength(long value) => throw new NotSupportedException();
+
+    public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
 }
 
 internal static class StubHttpMessageHandlerExtensions

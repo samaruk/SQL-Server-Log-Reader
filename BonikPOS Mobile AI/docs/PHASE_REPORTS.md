@@ -8,9 +8,9 @@ Common build/test commands (verified in the development container; details in [T
 
 ```bash
 dotnet build tests/BonikPOS.VoiceSearch.UnitTests/BonikPOS.VoiceSearch.UnitTests.csproj -c Release
-tests/BonikPOS.VoiceSearch.UnitTests/bin/Release/net10.0/BonikPOS.VoiceSearch.UnitTests             # 410 passed
+tests/BonikPOS.VoiceSearch.UnitTests/bin/Release/net10.0/BonikPOS.VoiceSearch.UnitTests             # 414 passed
 dotnet build tests/BonikPOS.VoiceSearch.IntegrationTests/BonikPOS.VoiceSearch.IntegrationTests.csproj -c Release
-tests/BonikPOS.VoiceSearch.IntegrationTests/bin/Release/net10.0/BonikPOS.VoiceSearch.IntegrationTests # 39 passed
+tests/BonikPOS.VoiceSearch.IntegrationTests/bin/Release/net10.0/BonikPOS.VoiceSearch.IntegrationTests # 41 passed
 dotnet build src/BonikPOS.VoiceSearch.App/BonikPOS.VoiceSearch.App.csproj -f net10.0-android -c Debug   # 0 warnings, 0 errors
 tools/ios-compile-check/ios-compile-check.sh                                                          # iOS C# compile check only
 ```
@@ -21,9 +21,11 @@ tools/ios-compile-check/ios-compile-check.sh                                    
   virtualisation (no Android emulator possible), no macOS. .NET SDK 10.0.401 (`global.json` requires 10.0.100 or a later feature band and selects the
   Microsoft.Testing.Platform test runner), MAUI
   workload 10.0.110 for Android only (the iOS workload cannot be installed on Linux), Android SDK + JDK 21, Python 3
-  for the model tools. Outbound network through a proxy; several hosts were blocked (huggingface.co, GitHub release
-  assets, dl.google.com, openaipublic.azureedge.net, among others), which decided what could be downloaded and
-  verified.
+  for the model tools. Outbound network goes through a proxy. Checked on 2026-10-09 with `curl` and the proxy's
+  relay-failure log: connections to huggingface.co, openaipublic.azureedge.net (official Whisper checkpoints),
+  dl.google.com (Android emulator images) and www.openslr.org (speech corpora) were refused (CONNECT 403), and
+  github.com release pages answered HTTP 403; nuget.org and pypi.org worked. This decided what could be downloaded
+  and verified.
 - **Technology choice:** .NET MAUI (one C# code base for Android and iOS, native audio APIs through the platform
   bindings, the ONNX Runtime C# API with the official Android AAR and iOS xcframework), CommunityToolkit.Mvvm,
   Microsoft.Extensions.DependencyInjection, System.Text.Json source generation, central package management,
@@ -144,7 +146,7 @@ tools/ios-compile-check/ios-compile-check.sh                                    
 
 ## Phase 8 — Automated tests and performance benchmarks
 
-- **Tests:** 410 unit and 39 integration tests, all passing; seven source defects found and fixed while writing them
+- **Tests:** 414 unit and 41 integration tests, all passing; the defects found and fixed while writing them and the docs
   ([TEST_RESULTS.md](TEST_RESULTS.md)).
 - **Benchmarks:** in-app full pipeline benchmark (Diagnostics), `pipeline-bench`, `asr-bench`, `tse-bench`; host
   results and the device procedure in [BENCHMARKS.md](BENCHMARKS.md). Scheduling changes measured on the host:

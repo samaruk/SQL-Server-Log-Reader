@@ -85,7 +85,7 @@ public sealed class MauiSecretStore : ISecretStore
     }
 }
 
-public sealed class MauiFilePickerService : IFilePickerService
+public sealed class MauiFilePickerService(IAppPaths paths) : IFilePickerService
 {
     public async Task<string?> PickCatalogFileAsync()
     {
@@ -100,7 +100,8 @@ public sealed class MauiFilePickerService : IFilePickerService
             return null;
         }
 
-        string target = Path.Combine(FileSystem.AppDataDirectory, PrivacyService.ImportedCatalogFileName);
+        // The private data folder: excluded from backups and removed by "Delete all data" (PrivacyService).
+        string target = Path.Combine(paths.DataDirectory, PrivacyService.ImportedCatalogFileName);
         await using var source = await file.OpenReadAsync();
         await using var dest = File.Create(target);
         await source.CopyToAsync(dest);

@@ -159,8 +159,9 @@ public static class TseBenchmark
             IsTestFixture = true,
             Options = optionsDoc.RootElement.Clone(),
         };
+        // StreamingThreads too: the adapter loads streaming models with ForStreaming(), which otherwise forces one thread.
         using var model = StftStreamingTseModel.Load(new ResolvedModel(descriptor, new Dictionary<string, string> { ["model"] = path }),
-            new OnnxSessionPreferences(AcceleratorPreference.CpuOnly, threads));
+            new OnnxSessionPreferences(AcceleratorPreference.CpuOnly, threads, StreamingThreads: threads));
         using var extractor = (StftStreamingTargetSpeakerExtractor)model.CreateExtractor(null);
         var rng = new Random(9);
         var vector = new float[dim];

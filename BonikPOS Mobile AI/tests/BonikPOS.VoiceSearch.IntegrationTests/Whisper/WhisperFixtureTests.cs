@@ -87,6 +87,31 @@ public sealed class WhisperFixtureTests(WhisperFixtureInstall whisper, ITestOutp
     }
 
     [Fact]
+    public async Task RandomWeightExport_IsRefused_EvenWhenTheManifestDoesNotFlagIt()
+    {
+        // Same files, but a manifest without "isTestFixture": the export's config still says RANDOM WEIGHTS.
+        using var dir = new TempDirectory();
+        Directory.CreateDirectory(dir.File("asr"));
+        foreach (var suffix in new[] { "config.json", "encoder.onnx", "decoder.onnx", "tokens.txt" })
+        {
+            File.Copy(SolutionPaths.WhisperFixture($"{WhisperFixtureInstall.Prefix}-{suffix}"), dir.File($"asr/{WhisperFixtureInstall.Prefix}-{suffix}"));
+        }
+
+        string p = WhisperFixtureInstall.Prefix;
+        File.WriteAllText(dir.File("models.json"), $$$"""
+            {"format": "bonikpos-models/1", "models": [{"id": "whisper-unflagged", "version": "1", "role": "SpeechRecognition",
+              "format": "bonikpos-whisper-onnx/1", "license": "n/a",
+              "files": {"config": "asr/{{{p}}}-config.json", "encoder": "asr/{{{p}}}-encoder.onnx",
+                        "decoder": "asr/{{{p}}}-decoder.onnx", "tokens": "asr/{{{p}}}-tokens.txt"}}]}
+            """);
+        using var runtime = new OnnxVoiceModelRuntime(new FileSystemModelProvider([dir.Path], checksumCachePath: null), new PerformanceTelemetry());
+        await runtime.InitializeAsync(new VoiceSearchSettings(), CancellationToken.None);
+
+        Assert.False(runtime.Recognizer.Info.IsAvailable);
+        Assert.Contains("random-weight test export", runtime.Status.SpeechRecognition.Description, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void LoadedFixture_IsLabelledAsARandomWeightTestModel()
     {
         var info = whisper.Runtime.Recognizer.Info;

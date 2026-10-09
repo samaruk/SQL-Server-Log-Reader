@@ -27,8 +27,8 @@ The integration tests locate `models/` and `tests/fixtures/` by walking up from 
 
 | Suite / build | Result |
 |---|---|
-| Unit tests (`BonikPOS.VoiceSearch.UnitTests`) | **410 passed, 0 failed, 0 skipped** (≈2.6 s) |
-| Integration tests (`BonikPOS.VoiceSearch.IntegrationTests`) | **39 passed, 0 failed, 0 skipped** (≈2–3 s) |
+| Unit tests (`BonikPOS.VoiceSearch.UnitTests`) | **414 passed, 0 failed, 0 skipped** (≈2.6 s) |
+| Integration tests (`BonikPOS.VoiceSearch.IntegrationTests`) | **41 passed, 0 failed, 0 skipped** (≈3 s) |
 | Repeated runs (flakiness check) | Unit suite 16 consecutive green runs and integration suite 8 (by the test author); integration suite 3 more after the latest additions |
 | Android Debug build (`net10.0-android`) | **Succeeded, 0 warnings, 0 errors** (warnings are errors); APK ≈51 MB with arm64-v8a and x86_64 ONNX Runtime libraries; merged manifest without the ONNX Runtime telemetry provider |
 | iOS | **Not built** (needs macOS + Xcode). `tools/ios-compile-check/ios-compile-check.sh` compiled the iOS-only C# (audio capture, platform services) against the Microsoft.iOS 27 reference assembly and the MAUI 10.0.110 iOS libraries: **passed** |
@@ -86,6 +86,11 @@ rejected (0.577 and 0.583). This checks the plumbing only (synthetic voices, thr
 | Parallel verification transcribed other speakers, contradicting the documented `RequireOwnerMatch` contract | made opt-in, off by default, with a disclosure |
 | STFT adapter used a larger-than-needed delay and left a gap when the block size changed | minimal constant delay, delay grows without a gap |
 | Benchmark tool resolved INT8 Whisper exports to their float files | reads the files named by the export config |
+| TSE benchmark's adapter rows labelled "2 threads" ran on one thread | thread count passed to the streaming policy; table re-measured |
+| A random-weight TSE or Whisper export without the manifest's test-fixture flag would have loaded (and extraction would have looked active) | the runtime also reads the export's own marker (`bonik.weights` metadata / Whisper config source) and refuses untrained models |
+| A timeout or dropped connection while reading the API response body escaped as a silent cancellation (no retry, no cache fallback) | retried, then reported as a catalog error so the cache is used |
+| A server that ignores the page parameter caused 2000 requests | paging stops at the first page that only repeats products, with a warning; a short first page without `hasMore` now warns |
+| "Delete all app data" missed an imported product index (copied outside the private data folder) | imported into the private, backup-excluded data folder that is deleted |
 | Matcher defects found on labelled data (conversation matched to brands, sound-alike over exact name, partial name over fuller name, …) | see [SEARCH_EVALUATION.md](SEARCH_EVALUATION.md); covered by `MatcherRegressionTests` |
 
 ## 6. Evaluations and benchmarks (not unit tests)

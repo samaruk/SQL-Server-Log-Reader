@@ -49,8 +49,8 @@ public sealed class BonikPosApiCatalogSource : IMedicineCatalogSource
     {
         try
         {
-            var products = await FetchAllAsync(cancellationToken).ConfigureAwait(false);
-            var snapshot = new CatalogSnapshot(products, DateTimeOffset.UtcNow, Description, false, []);
+            var (products, warnings) = await FetchAllWithWarningsAsync(cancellationToken).ConfigureAwait(false);
+            var snapshot = new CatalogSnapshot(products, DateTimeOffset.UtcNow, Description, false, warnings);
             if (_cache is not null)
             {
                 await _cache.SaveAsync(snapshot, cancellationToken).ConfigureAwait(false);
@@ -74,11 +74,17 @@ public sealed class BonikPosApiCatalogSource : IMedicineCatalogSource
         }
     }
 
-    public async Task<IReadOnlyList<MedicineProduct>> FetchAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<MedicineProduct>> FetchAllAsync(CancellationToken cancellationToken) =>
+        (await FetchAllWithWarningsAsync(cancellationToken).ConfigureAwait(false)).Products;
+
+    /// <summary>All pages, plus warnings about paging that may have left the catalog incomplete.</summary>
+    internal async Task<(IReadOnlyList<MedicineProduct> Products, IReadOnlyList<string> Warnings)> FetchAllWithWarningsAsync(
+        CancellationToken cancellationToken)
     {
         var baseUri = ValidateBaseUrl(_settings.BaseUrl);
         string? token = await _token().ConfigureAwait(false);
         var products = new List<MedicineProduct>();
+        var warnings = new List<string>();
         var seen = new HashSet<string>(StringComparer.Ordinal);
         for (int page = 1; page <= MaxPages; page++)
         {
@@ -86,19 +92,44 @@ public sealed class BonikPosApiCatalogSource : IMedicineCatalogSource
             using var doc = await GetJsonWithRetryAsync(uri, token, cancellationToken).ConfigureAwait(false);
             var (items, hasMore) = ReadPage(doc.RootElement);
             int before = products.Count;
+            int repeated = 0;
             foreach (var item in items)
             {
                 var p = MapProduct(item);
-                if (p is not null && seen.Add(p.ProductId))
+                if (p is null)
+                {
+                    continue;
+                }
+
+                if (seen.Add(p.ProductId))
                 {
                     products.Add(p);
                 }
+                else
+                {
+                    repeated++;
+                }
+            }
+
+            if (items.Count > 0 && repeated > 0 && products.Count == before)
+            {
+                // Only products already received: the server ignores the page parameter (or repeats its last page).
+                warnings.Add($"Page {page} of the API repeated products already received, so paging stopped. If the catalog is " +
+                             $"incomplete, check the paging parameter names ('{_settings.PageParameter}', '{_settings.PageSizeParameter}').");
+                return (products, warnings);
             }
 
             bool shortPage = items.Count < _settings.PageSize;
-            if (hasMore == false || (hasMore is null && shortPage) || products.Count == before && items.Count == 0)
+            if (hasMore == false || (hasMore is null && shortPage) || items.Count == 0)
             {
-                return products;
+                if (page == 1 && hasMore is null && items.Count > 0 && shortPage)
+                {
+                    warnings.Add($"The API sent {items.Count} product{(items.Count == 1 ? string.Empty : "s")} in one page ({_settings.PageSize} requested) without a " +
+                                 $"'{_settings.Fields.HasMoreProperty}' flag, so no further pages were requested. If the catalog has more " +
+                                 "products, the server may limit the page size: set the page size to that limit or configure the has-more property.");
+                }
+
+                return (products, warnings);
             }
         }
 
@@ -213,6 +244,21 @@ public sealed class BonikPosApiCatalogSource : IMedicineCatalogSource
                     catch (JsonException ex)
                     {
                         throw new CatalogUnavailableException("The BonikPOS API returned invalid JSON.", ex);
+                    }
+                    catch (Exception ex) when ((ex is OperationCanceledException or IOException or HttpRequestException)
+                                               && !cancellationToken.IsCancellationRequested)
+                    {
+                        // The body stopped arriving (timeout) or the connection dropped mid-response: retried like a
+                        // failed request, then reported so that LoadAsync can fall back to the cached catalog.
+                        if (attempt < _settings.MaxRetries)
+                        {
+                            await BackoffAsync(attempt, null, cancellationToken).ConfigureAwait(false);
+                            continue;
+                        }
+
+                        throw new CatalogUnavailableException(ex is OperationCanceledException
+                            ? $"The BonikPOS API did not finish sending the catalog within {_settings.TimeoutSeconds} s."
+                            : $"The connection to the BonikPOS API was interrupted: {ex.Message}", ex);
                     }
                 }
 

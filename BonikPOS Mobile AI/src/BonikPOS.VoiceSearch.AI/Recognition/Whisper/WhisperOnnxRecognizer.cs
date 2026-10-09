@@ -73,6 +73,9 @@ public sealed class WhisperOnnxRecognizer : ISpeechRecognitionService
 
     public string EncoderExecutionProvider => _encoder.ExecutionProvider;
 
+    /// <summary>The export's config says its weights are random (compute or test export, not a speech model).</summary>
+    public bool IsRandomTestModel => _config.IsRandomTestModel;
+
     public double InitMilliseconds => _encoder.InitMilliseconds + _decoder.InitMilliseconds;
 
     public static WhisperOnnxRecognizer Load(

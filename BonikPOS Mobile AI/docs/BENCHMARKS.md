@@ -134,22 +134,23 @@ quantisation must pass the ASR evaluation in [EVALUATION_PLAN.md](EVALUATION_PLA
 
 ### 2.3 Target-speaker extraction compute (`eval/results/tse-bench-host.md`)
 
-20 s of synthetic input per row, generated 2026-10-09 09:02 UTC (load average 0.9 at start). One frame = 256 new
-samples = 16 ms.
+20 s of synthetic input per row, generated 2026-10-09 09:32 UTC (`uptime` load average 0.67 just before the run).
+One frame = 256 new samples = 16 ms.
 
 | Model | Size | Mode | 1 thread p50 / p95 ms | 2 threads p50 / p95 ms | Real-time factor (1 thread, mean) |
 |---|---:|---|---|---|---:|
-| GTCRN (upstream streaming ONNX, denoiser) | 523 KB | model only | 1.86 / 3.24 | 3.35 / 4.15 | 0.130 |
-| UL-UNAS (upstream streaming ONNX, denoiser) | 770 KB | model only | 2.33 / 4.30 | 3.39 / 5.35 | 0.167 |
-| pGTCRN c16 (random) | 329 KB | model only | 1.26 / 2.01 | 1.75 / 3.81 | 0.089 |
-| pGTCRN c16 (random) | 329 KB | C# adapter (STFT + model + iSTFT) | 1.35 / 2.56 | 1.39 / 2.38 | 0.096 |
-| pGTCRN c32 (random) | 563 KB | model only | 1.22 / 2.15 | 2.13 / 3.60 | 0.086 |
-| pGTCRN c32 (random) | 563 KB | C# adapter | 1.59 / 2.84 | 1.82 / 2.96 | 0.112 |
-| pGTCRN c48 (random) | 919 KB | model only | 1.74 / 2.96 | 3.03 / 4.88 | 0.124 |
-| pGTCRN c48 (random) | 919 KB | C# adapter | 1.90 / 3.47 | 2.32 / 3.85 | 0.135 |
+| GTCRN (upstream streaming ONNX, denoiser) | 523 KB | model only | 1.76 / 3.18 | 2.25 / 3.79 | 0.126 |
+| UL-UNAS (upstream streaming ONNX, denoiser) | 770 KB | model only | 1.89 / 2.34 | 2.86 / 4.70 | 0.122 |
+| pGTCRN c16 (random) | 329 KB | model only | 1.03 / 1.80 | 1.65 / 2.76 | 0.072 |
+| pGTCRN c16 (random) | 329 KB | C# adapter (STFT + model + iSTFT) | 1.43 / 2.44 | 2.02 / 3.51 | 0.099 |
+| pGTCRN c32 (random) | 563 KB | model only | 1.33 / 2.34 | 2.09 / 3.55 | 0.100 |
+| pGTCRN c32 (random) | 563 KB | C# adapter | 1.52 / 2.66 | 2.24 / 3.74 | 0.107 |
+| pGTCRN c48 (random) | 919 KB | model only | 1.57 / 2.73 | 2.87 / 4.60 | 0.111 |
+| pGTCRN c48 (random) | 919 KB | C# adapter | 1.75 / 3.25 | 2.78 / 4.38 | 0.122 |
 
-These graphs are too small to benefit from a second thread; the app runs them single-threaded. In the full pipeline
-the extractor took 2.9–3.3 ms p50 per 20 ms frame (table 2.1), including adapter overhead.
+These graphs are too small to benefit from a second thread (slower in every row); the app runs them single-threaded.
+In the full pipeline the extractor took 2.9–3.3 ms p50 per 20 ms frame (table 2.1), including adapter overhead and
+contention with the other models.
 
 ### 2.4 Medicine search
 
@@ -194,12 +195,19 @@ Representative device classes to cover (choose concrete models available to the 
 (4 GB RAM, Android 10–12), a mid-range Android, a recent high-end Android, an older supported iPhone and a recent
 iPhone. For each device:
 
-1. Install a **Debug** build (it packages the synthetic clips) or side-load clips: copy `clips.json`
-   (format `bonikpos-benchmark-clips/1`, see `src/BonikPOS.VoiceSearch.Audio/Benchmark/BenchmarkClipManifest.cs`)
-   and 16 kHz WAV files to the `benchmark` folder next to the side-load models folder (Android: the app-specific
-   external files directory; iOS: Documents, visible in the Files app in Debug builds). Use consented recordings for
-   meaningful verification/recognition outcomes.
-2. Install the models to be compared (real ASR export, any TSE model) as described in [MODELS.md](MODELS.md).
+1. Use a **Release** build for numbers you report. Android Debug builds run managed code in the Mono interpreter
+   (`androidaotmode=interpreter` in this build's properties), which slows the C# parts (resampling, STFT adapter,
+   feature extraction, search) but not ONNX Runtime's native inference; iOS Debug builds are expected to behave the
+   same (not checked here). The report states the build kind next to the device. A Debug build is fine for a quick
+   functional check: it packages the synthetic clips.
+2. Models: Release builds load only the models bundled from `models/` (side-loading models is a Debug feature), so put
+   the models to compare (real ASR export, any TSE model) into `models/` before building ([MODELS.md](MODELS.md)).
+   Clips: Release builds package none, so copy `clips.json` (format `bonikpos-benchmark-clips/1`, see
+   `src/BonikPOS.VoiceSearch.Audio/Benchmark/BenchmarkClipManifest.cs`) and 16 kHz WAV files into the `benchmark`
+   folder next to the side-load models folder (Android: the app-specific external files directory; iOS: Documents);
+   the app reads it in every build. On iOS the Files app shows Documents only in Debug builds (file sharing is
+   Debug-only), so for a Release build copy the folder with Xcode (Devices and Simulators → the app's container).
+   Use consented recordings for meaningful verification/recognition outcomes.
 3. Unplug the phone, charge ≥ 50 %, close other apps, note room temperature, let the phone cool to ambient.
 4. Diagnostics → *Full pipeline benchmark* with *Compare CPU and accelerator* on. The screen stays on during the run.
 5. Copy Markdown and JSON; store them as `eval/results/devices/<device>-<date>.md/.json` with the app version and
