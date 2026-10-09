@@ -162,6 +162,12 @@ public sealed partial class DiagnosticsViewModel(
                 return;
             }
 
+            if (!catalog.Info.IsLoaded)
+            {
+                BenchmarkStatus = "Loading the medicine catalog...";
+                await catalog.ReloadAsync(_benchmarkCts.Token); // recognised text is searched like a live query
+            }
+
             var s = await settings.LoadAsync(_benchmarkCts.Token);
             var progress = new Progress<string>(message => BenchmarkStatus = message);
             var report = await benchmark.RunAsync(clips, new PipelineBenchmarkOptions
