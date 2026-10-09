@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Audio capture and buffering. Shared code targets net10.0; the native capture implementations are compiled only
+    for their platform (Platforms/Android: AudioRecord, Platforms/iOS: AVAudioEngine).
+    iOS can only be built on macOS (or Windows paired to a Mac), exactly like the MAUI template.
+  -->
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;net10.0-android</TargetFrameworks>
+    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net10.0-ios</TargetFrameworks>
+    <RootNamespace>BonikPOS.VoiceSearch.Audio</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'android'">
+    <Compile Remove="Platforms\Android\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'ios'">
+    <Compile Remove="Platforms\iOS\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BonikPOS.VoiceSearch.Core\BonikPOS.VoiceSearch.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="BonikPOS.VoiceSearch.UnitTests" />
+  </ItemGroup>
+</Project>

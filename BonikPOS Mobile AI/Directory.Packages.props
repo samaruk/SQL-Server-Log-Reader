@@ -1,0 +1,18 @@
+<Project>
+  <!-- Central package versions. Every version below was resolved from nuget.org on 2026-10-09. -->
+  <ItemGroup>
+    <!-- App / UI -->
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.110" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.12" />
+    <!-- Libraries -->
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.ML.OnnxRuntime" Version="1.31.0" />
+    <!-- Tests and tools -->
+    <PackageVersion Include="xunit.v3" Version="4.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
+    <PackageVersion Include="BenchmarkDotNet" Version="0.15.8" />
+  </ItemGroup>
+</Project>
