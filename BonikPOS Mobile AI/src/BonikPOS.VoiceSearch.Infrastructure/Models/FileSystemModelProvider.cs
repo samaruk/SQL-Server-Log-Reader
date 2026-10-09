@@ -63,6 +63,17 @@ public sealed class FileSystemModelProvider : IModelProvider
         _logger.LogWarning("Model for {Role} reported {State}: {Message}", role, state, message);
     }
 
+    /// <summary>
+    /// The source-generated serializer sets init-only properties that are absent from the JSON to null instead of their
+    /// declared defaults. Checksums, licence and source are optional in a manifest, so their defaults are restored here.
+    /// </summary>
+    internal static ModelDescriptor WithOptionalDefaults(ModelDescriptor d) => d with
+    {
+        Sha256 = d.Sha256 ?? new Dictionary<string, string>(),
+        License = d.License ?? "unknown",
+        Source = d.Source ?? "unknown",
+    };
+
     /// <summary>Reads every manifest entry from all roots.</summary>
     public IReadOnlyList<(ModelDescriptor Descriptor, string Root)> ReadManifests()
     {
@@ -84,7 +95,7 @@ public sealed class FileSystemModelProvider : IModelProvider
                     continue;
                 }
 
-                list.AddRange(file.Models.Select(m => (m, root)));
+                list.AddRange((file.Models ?? []).Select(m => (WithOptionalDefaults(m), root)));
             }
             catch (JsonException ex)
             {
@@ -259,7 +270,7 @@ public static class BundledModelExtractor
         var manifest = JsonSerializer.Deserialize(manifestBytes, InfrastructureJsonContext.Default.ModelManifestFile)
                        ?? throw new InvalidDataException("Bundled model manifest is empty.");
         int copied = 0;
-        foreach (var model in manifest.Models.Where(m => !m.IsTestFixture))
+        foreach (var model in (manifest.Models ?? []).Where(m => !m.IsTestFixture).Select(FileSystemModelProvider.WithOptionalDefaults))
         {
             foreach (var relative in model.Files.Values)
             {
